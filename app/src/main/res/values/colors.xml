@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary -->
+    <color name="primary">#6C63FF</color>
+    <color name="primary_dark">#4F46E5</color>
+    <color name="secondary">#4F8CFF</color>
+
+    <!-- Backgrounds -->
+    <color name="background">#F5F7FB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="dark_background">#0F172A</color>
+    <color name="dark_surface">#1E293B</color>
+
+    <!-- Status Colors -->
+    <color name="green_accent">#2ECC71</color>
+    <color name="yellow_accent">#F4C430</color>
+    <color name="red_accent">#FF2D55</color>
+    <color name="blue_accent">#2D9CDB</color>
+
+    <!-- Text -->
+    <color name="text_primary">#111827</color>
+    <color name="text_secondary">#6B7280</color>
+
+    <!-- Splash -->
+    <color name="splash_background">#6C63FF</color>
+
+    <!-- AdMob compliance -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+</resources>

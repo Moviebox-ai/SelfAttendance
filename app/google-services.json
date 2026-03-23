@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "205096052278",
+    "project_id": "selfattendance-bcfae",
+    "storage_bucket": "selfattendance-bcfae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205096052278:android:ab6b6ba3bc485884825a97",
+        "android_client_info": {
+          "package_name": "com.aaryo.selfattendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205096052278-al9u69c8du1nqkf11gd8hikpvhvu3e9m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aaryo.selfattendance",
+            "certificate_hash": "dfdeefa082ecd96fef832cef0d2ec35a42317b62"
+          }
+        },
+        {
+          "client_id": "205096052278-s51bfcfof1cnc8gg07q6k5qpl70ambht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyrZHXTRlcTXwcT5zlTdG7oijgo8OnhwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205096052278-s51bfcfof1cnc8gg07q6k5qpl70ambht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
