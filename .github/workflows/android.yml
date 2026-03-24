@@ -26,7 +26,11 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
 
-      # 🚀 Build APK + AAB
+      # 🐛 Build Debug APK
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      # 🚀 Build Release APK + AAB
       - name: Build Release (APK + AAB)
         run: ./gradlew assembleRelease bundleRelease --stacktrace
         env:
@@ -34,8 +38,15 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      # 📦 Upload APK
-      - name: Upload APK
+      # 📦 Upload Debug APK
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+
+      # 📦 Upload Release APK
+      - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
