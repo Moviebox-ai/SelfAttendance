@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary — Wallet Gold/Amber -->
+    <color name="primary">#FFB300</color>
+    <color name="primary_dark">#F57F17</color>
+    <color name="secondary">#00C853</color>
+
+    <!-- Backgrounds — Warm cream / dark amber -->
+    <color name="background">#FFFBF0</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="dark_background">#1A0E00</color>
+    <color name="dark_surface">#2D1B00</color>
+
+    <!-- Status Colors — matching WalletScreen exactly -->
+    <color name="green_accent">#00C853</color>
+    <color name="yellow_accent">#FFB300</color>
+    <color name="red_accent">#E53935</color>
+    <color name="blue_accent">#1565C0</color>
+
+    <!-- Text — warm tones -->
+    <color name="text_primary">#1A0E00</color>
+    <color name="text_secondary">#8D6E63</color>
+
+    <!-- Splash — gold gradient -->
+    <color name="splash_background">#F57F17</color>
+
+    <!-- AdMob compliance -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+</resources>

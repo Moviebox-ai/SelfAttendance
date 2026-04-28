@@ -1,0 +1,29 @@
+buildscript {
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+
+    // Android Gradle Plugin
+    classpath 'com.android.tools.build:gradle:8.2.2'
+
+    // Kotlin
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24'
+
+    // Google Services
+    classpath 'com.google.gms:google-services:4.4.1'
+
+    // Firebase Crashlytics plugin
+    classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+}
+
+}
+
+// Repositories handled in settings.gradle
+
+tasks.register("clean", Delete) {
+delete rootProject.buildDir
+}

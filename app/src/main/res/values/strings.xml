@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Self Attendance Pro</string>
+
+    <!-- Google / AdMob — DO NOT TRANSLATE -->
+    <string name="default_web_client_id">611062377939-aqsl27q6mgq5v44q7i2jmcfl0q9f0jhl.apps.googleusercontent.com</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5703232582358249/2282498349</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-5703232582358249/4828770637</string>
+    <string name="reward_ad_unit_id">ca-app-pub-5703232582358249/8545815487</string>
+    <string name="native_ad_unit_id">ca-app-pub-5703232582358249/1044432701</string>
+    <string name="app_open_ad_unit_id">ca-app-pub-5703232582358249/9541869822</string>
+    <string name="privacy_policy_url">https://sites.google.com/view/self-attendance-privacy-policy/home</string>
+    <string name="terms_of_service_url">https://sites.google.com/view/self-terms-and-conditions/home</string>
+
+    <!-- NAVIGATION -->
+    <string name="nav_home">Home</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_wallet">Wallet</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- DASHBOARD -->
+    <string name="dashboard_greeting_morning">Good Morning</string>
+    <string name="dashboard_greeting_afternoon">Good Afternoon</string>
+    <string name="dashboard_greeting_evening">Good Evening</string>
+    <string name="dashboard_estimated_salary">Estimated Salary</string>
+    <string name="dashboard_attendance_progress">Attendance Progress</string>
+    <string name="dashboard_present">Present</string>
+    <string name="dashboard_half_day">Half Day</string>
+    <string name="dashboard_absent">Absent</string>
+    <string name="dashboard_overtime">Overtime</string>
+    <string name="dashboard_sponsored">Sponsored</string>
+
+    <!-- CALENDAR -->
+    <string name="calendar_mark_attendance">Mark Attendance</string>
+    <string name="calendar_edit_attendance">Edit Attendance</string>
+    <string name="calendar_present_btn">Present</string>
+    <string name="calendar_half_day_btn">Half Day</string>
+    <string name="calendar_absent_btn">Absent</string>
+    <string name="calendar_overtime_hours">Overtime Hours (optional)</string>
+    <string name="calendar_save">Save</string>
+    <string name="calendar_cancel">Cancel</string>
+    <string name="calendar_delete_title">Remove Attendance</string>
+    <string name="calendar_delete_confirm">Delete</string>
+    <string name="calendar_monthly_summary">Monthly Summary</string>
+
+    <!-- WALLET -->
+    <string name="wallet_title">My Wallet</string>
+    <string name="wallet_coin_balance">Coin Balance</string>
+    <string name="wallet_coins">Coins</string>
+    <string name="wallet_current_streak">🔥 Current Streak</string>
+    <string name="wallet_best_streak">🏆 Best Streak</string>
+    <string name="wallet_days">days</string>
+    <string name="wallet_todays_earnings">Today\'s Earnings</string>
+    <string name="wallet_coins_remaining">coins remaining today</string>
+    <string name="wallet_daily_limit_reached">Daily limit reached. Come back tomorrow! 🌙</string>
+    <string name="wallet_watch_ad">🎬 Watch Ad &amp; Earn Coins</string>
+    <string name="wallet_watch_ad_desc">Watch a short ad to earn coins</string>
+    <string name="wallet_earn_coins">Earn Coins</string>
+    <string name="wallet_loading_ad">Loading Ad…</string>
+    <string name="wallet_limit_reached_btn">Daily Limit Reached</string>
+    <string name="wallet_watch_complete">⚠️ Watch the complete ad to receive coins</string>
+    <string name="wallet_unlock_features">🔓 Unlock Premium Features</string>
+    <string name="wallet_unlocked">✅ Unlocked</string>
+    <string name="wallet_unlock_btn">Unlock</string>
+    <string name="wallet_coin_history">📋 Coin History</string>
+    <string name="wallet_sponsored">Sponsored</string>
+    <string name="wallet_daily_reward">🌅 Daily Reward!</string>
+    <string name="wallet_streak_bonus">🔥 Streak Bonus!</string>
+    <string name="wallet_coins_earned">Coins Earned</string>
+    <string name="wallet_streak_day">-day streak</string>
+    <string name="wallet_awesome">Awesome! 🎉</string>
+
+    <!-- SETTINGS -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_app_theme">App Theme</string>
+    <string name="settings_language">App Language</string>
+    <string name="settings_preferences">Preferences</string>
+    <string name="settings_daily_reminder">Daily Reminder</string>
+    <string name="settings_biometric">Biometric Login</string>
+    <string name="settings_data_management">Data Management</string>
+    <string name="settings_backup">Backup Data</string>
+    <string name="settings_restore">Restore Data</string>
+    <string name="settings_reset">Reset Attendance Data</string>
+    <string name="settings_general">General</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_terms">Terms &amp; Conditions</string>
+    <string name="settings_about">About App</string>
+    <string name="settings_rate">Rate This App</string>
+    <string name="settings_refer">Refer to Friends</string>
+    <string name="settings_logout">Logout</string>
+    <string name="settings_version">Version 1.0</string>
+    <string name="settings_please_wait">Please wait…</string>
+    <string name="settings_coin_daily_limit">Daily Coin Limit</string>
+    <string name="settings_coin_limit_desc">Max coins user can earn per day via ads</string>
+
+    <!-- AUTH -->
+    <string name="auth_login">Login</string>
+    <string name="auth_register">Create Account</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_google">Continue with Google</string>
+    <string name="auth_switch_register">Don\'t have an account? Create one</string>
+    <string name="auth_switch_login">Already have an account? Login</string>
+
+    <!-- PROFILE -->
+    <string name="profile_setup_title">Setup Your Profile</string>
+    <string name="profile_edit_title">Edit Profile</string>
+    <string name="profile_name">Full Name</string>
+    <string name="profile_salary">Monthly Salary (₹)</string>
+    <string name="profile_working_days">Working Days per Month</string>
+    <string name="profile_hours">Hours Per Day</string>
+    <string name="profile_overtime_rate">Overtime Rate (₹/hour)</string>
+    <string name="profile_save">Save &amp; Continue</string>
+    <string name="profile_update">Update Profile</string>
+
+    <!-- COMMON -->
+    <string name="common_loading">Loading…</string>
+    <string name="common_error">Something went wrong</string>
+    <string name="common_retry">Retry</string>
+    <string name="common_ok">OK</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_save">Save</string>
+    <string name="common_delete">Delete</string>
+
+    <!-- NOTIFICATIONS -->
+    <string name="notification_reminder_title">Attendance Reminder</string>
+    <string name="notification_reminder_body">Don\'t forget to mark today\'s attendance</string>
+
+    <!-- SUMMARY -->
+    <string name="summary_salary">Salary</string>
+    <string name="summary_per_day">Per Day</string>
+    <string name="summary_per_hour">Per Hour</string>
+
+</resources>
