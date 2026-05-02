@@ -1,0 +1,56 @@
+name: Android CI Build
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 📥 Checkout
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      # ☕ Java Setup
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 🔧 Permission
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      # 🔐 Decode Release Keystore
+      - name: Decode Release Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
+
+      # 🔑 Print SHA-1
+      - name: Print SHA-1
+        run: ./gradlew signingReport | grep SHA1 || true
+
+      # 🚀 Build Release APK + AAB
+      - name: Build Release
+        run: ./gradlew assembleRelease bundleRelease --stacktrace
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      # 📦 Upload Release APK
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: app/build/outputs/apk/release/app-release.apk
+
+      # 📦 Upload Release AAB
+      - name: Upload Release AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-aab
+          path: app/build/outputs/bundle/release/app-release.aab
