@@ -157,4 +157,52 @@
     <string name="salary_slip_employee_details">பணியாளர் விவரங்கள்</string>
     <string name="salary_slip_setup_profile">முதலில் சுயவிவரத்தில் உங்கள் சம்பளத்தை அமைக்கவும்</string>
     <string name="salary_slip_generate_btn">சம்பள சீட்டு PDF உருவாக்கி சேமிக்கவும்</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">மாத சம்பளம்</string>
+    <string name="salary_calc_enter_monthly_salary">மாத சம்பளத்தை உள்ளிடவும்</string>
+    <string name="salary_calc_attendance_30">வருகை (30 நாட்களில்)</string>
+    <string name="salary_calc_calculate_salary">சம்பளத்தை கணக்கிடு</string>
+    <string name="salary_calc_salary_summary">சம்பள சுருக்கம்</string>
+    <string name="salary_calc_total_30_days">மொத்தம் 30 நாட்கள்</string>
+    <string name="salary_calc_monthly_div_30">மாத சம்பளம் ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">ஒரு நாள் ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">ஒரு நாள் ÷ 2</string>
+    <string name="salary_calc_total_deduction">மொத்த கழிவு</string>
+    <string name="salary_calc_deduction_formula">(வரவில்லை × ஒரு நாள்) + (அரை நாள் × அரை நாள்)</string>
+    <string name="salary_calc_breakdown">கணக்கீட்டு விவரம்</string>
+    <string name="salary_calc_per_day_div_30">ஒரு நாள் (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">ஒரு மணி (÷ 8 மணி/நாள்)</string>
+    <string name="salary_calc_half_day_div_2">அரை நாள் (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">வரவில்லை (%1$d நாட்கள் × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">அரை நாட்கள் (%1$d நாட்கள் × %2$s)</string>
+    <string name="salary_calc_no_deduction">கழிவு இல்லை</string>
+    <string name="salary_calc_final_payable">இறுதி செலுத்த வேண்டிய சம்பளம்</string>
+    <string name="salary_calc_fixed_formula">30 நாள் நிலையான சூத்திரம்</string>
+    <string name="salary_calc_hours_per_day">8 மணி/நாள்</string>
+    <string name="salary_calc_div_30_days">÷ 30 நாட்கள்</string>
+    <string name="salary_calc_div_8_hours">÷ 8 மணி/நாள்</string>
+    <string name="salary_calc_overtime_per_hour">ஓவர்டைம்/மணி</string>
+    <string name="salary_calc_equal_per_hour">= ஒரு மணி</string>
+    <string name="salary_calc_formula_details">சூத்திர விவரங்கள்</string>
+    <string name="salary_calc_per_day_formula">ஒரு நாள் (மாத சம்பளம் ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">ஒரு மணி (ஒரு நாள் ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">அரை நாள் (ஒரு நாள் ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ஓவர்டைம்/மணி (= ஒரு மணி)</string>
+    <string name="splash_service_unavailable">சேவை கிடைக்கவில்லை</string>
+    <string name="splash_service_unavailable_body">ஆப் தற்காலிகமாக கிடைக்கவில்லை.
+பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="salary_calc_formula_title">சம்பள சூத்திரம்</string>
+    <string name="salary_calc_formula_per_day_label">ஒரு நாள்</string>
+    <string name="salary_calc_formula_per_day">= மாத சம்பளம் ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">ஒரு மணி</string>
+    <string name="salary_calc_formula_per_hour">= ஒரு நாள் சம்பளம் ÷ 8 (8 மணி/நாள்)</string>
+    <string name="salary_calc_formula_half_day_label">அரை நாள்</string>
+    <string name="salary_calc_formula_half_day">= ஒரு நாள் சம்பளம் ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">கழிவு</string>
+    <string name="salary_calc_formula_deduction">= (வரவில்லை × ஒரு நாள்) + (அரை நாள் × அரை நாள்)</string>
+    <string name="salary_calc_formula_final_pay_label">இறுதி தொகை</string>
+    <string name="salary_calc_formula_final_pay">= மாத சம்பளம் − மொத்த கழிவு</string>
+    <string name="salary_calc_formula_example">உதாரணம்: ₹18,000 → ஒரு நாள் ₹600 · ஒரு மணி ₹75</string>
+    <string name="salary_breakdown_auto_title">தானியங்கி சம்பள விவரம்</string>
+
 </resources>

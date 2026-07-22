@@ -157,4 +157,52 @@
     <string name="salary_slip_employee_details">ఉద్యోగి వివరాలు</string>
     <string name="salary_slip_setup_profile">దయచేసి ముందుగా ప్రొఫైల్‌లో మీ జీతాన్ని సెట్ చేయండి</string>
     <string name="salary_slip_generate_btn">జీతం స్లిప్ PDF రూపొందించి సేవ్ చేయండి</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">నెల జీతం</string>
+    <string name="salary_calc_enter_monthly_salary">నెల జీతం నమోదు చేయండి</string>
+    <string name="salary_calc_attendance_30">హాజరు (30 రోజుల్లో)</string>
+    <string name="salary_calc_calculate_salary">జీతం లెక్కించు</string>
+    <string name="salary_calc_salary_summary">జీతం సారాంశం</string>
+    <string name="salary_calc_total_30_days">మొత్తం 30 రోజులు</string>
+    <string name="salary_calc_monthly_div_30">నెల జీతం ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">రోజుకు ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">రోజుకు ÷ 2</string>
+    <string name="salary_calc_total_deduction">మొత్తం కోత</string>
+    <string name="salary_calc_deduction_formula">(గైర్హాజరు × రోజుకు) + (అర రోజు × అర రోజు)</string>
+    <string name="salary_calc_breakdown">లెక్కింపు వివరాలు</string>
+    <string name="salary_calc_per_day_div_30">రోజుకు (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">గంటకు (÷ 8 గంటలు/రోజు)</string>
+    <string name="salary_calc_half_day_div_2">అర రోజు (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">గైర్హాజరు (%1$d రోజులు × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">అర రోజులు (%1$d రోజులు × %2$s)</string>
+    <string name="salary_calc_no_deduction">కోత లేదు</string>
+    <string name="salary_calc_final_payable">చెల్లించాల్సిన తుది జీతం</string>
+    <string name="salary_calc_fixed_formula">30-రోజుల స్థిర సూత్రం</string>
+    <string name="salary_calc_hours_per_day">8 గంటలు/రోజు</string>
+    <string name="salary_calc_div_30_days">÷ 30 రోజులు</string>
+    <string name="salary_calc_div_8_hours">÷ 8 గంటలు/రోజు</string>
+    <string name="salary_calc_overtime_per_hour">ఓవర్‌టైమ్/గంట</string>
+    <string name="salary_calc_equal_per_hour">= గంటకు</string>
+    <string name="salary_calc_formula_details">సూత్ర వివరాలు</string>
+    <string name="salary_calc_per_day_formula">రోజుకు (నెల జీతం ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">గంటకు (రోజుకు ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">అర రోజు (రోజుకు ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ఓవర్‌టైమ్/గంట (= గంటకు)</string>
+    <string name="splash_service_unavailable">సేవ అందుబాటులో లేదు</string>
+    <string name="splash_service_unavailable_body">యాప్ తాత్కాలికంగా అందుబాటులో లేదు.
+దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</string>
+    <string name="salary_calc_formula_title">జీతం సూత్రం</string>
+    <string name="salary_calc_formula_per_day_label">రోజుకు</string>
+    <string name="salary_calc_formula_per_day">= నెల జీతం ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">గంటకు</string>
+    <string name="salary_calc_formula_per_hour">= రోజు జీతం ÷ 8 (8 గంటలు/రోజు)</string>
+    <string name="salary_calc_formula_half_day_label">అర రోజు</string>
+    <string name="salary_calc_formula_half_day">= రోజు జీతం ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">కోత</string>
+    <string name="salary_calc_formula_deduction">= (గైర్హాజరు × రోజుకు) + (అర రోజు × అర రోజు)</string>
+    <string name="salary_calc_formula_final_pay_label">తుది చెల్లింపు</string>
+    <string name="salary_calc_formula_final_pay">= నెల జీతం − మొత్తం కోత</string>
+    <string name="salary_calc_formula_example">ఉదాహరణ: ₹18,000 → రోజుకు ₹600 · గంటకు ₹75</string>
+    <string name="salary_breakdown_auto_title">ఆటో జీతం వివరాలు</string>
+
 </resources>

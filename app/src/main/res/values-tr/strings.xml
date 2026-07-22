@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">Reklamlar %1$s içinde geri dönecek</string>
     <string name="settings_currency">Uygulama para birimi</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">Aylık maaş</string>
+    <string name="salary_calc_enter_monthly_salary">Aylık maaşı girin</string>
+    <string name="salary_calc_attendance_30">Devam (30 gün üzerinden)</string>
+    <string name="salary_calc_calculate_salary">Maaşı hesapla</string>
+    <string name="salary_calc_salary_summary">Maaş özeti</string>
+    <string name="salary_calc_total_30_days">Toplam 30 gün</string>
+    <string name="salary_calc_monthly_div_30">Aylık maaş ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">Günlük ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">Günlük ÷ 2</string>
+    <string name="salary_calc_total_deduction">Toplam kesinti</string>
+    <string name="salary_calc_deduction_formula">(Devamsız × Günlük) + (Yarım gün × Yarım gün)</string>
+    <string name="salary_calc_breakdown">Hesaplama dökümü</string>
+    <string name="salary_calc_per_day_div_30">Günlük (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">Saatlik (÷ 8 saat/gün)</string>
+    <string name="salary_calc_half_day_div_2">Yarım gün (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">Devamsız (%1$d gün × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">Yarım günler (%1$d gün × %2$s)</string>
+    <string name="salary_calc_no_deduction">Kesinti yok</string>
+    <string name="salary_calc_final_payable">Ödenecek net maaş</string>
+    <string name="salary_calc_fixed_formula">30 günlük sabit formül</string>
+    <string name="salary_calc_hours_per_day">8 saat/gün</string>
+    <string name="salary_calc_div_30_days">÷ 30 gün</string>
+    <string name="salary_calc_div_8_hours">÷ 8 saat/gün</string>
+    <string name="salary_calc_overtime_per_hour">Fazla mesai/saat</string>
+    <string name="salary_calc_equal_per_hour">= Saatlik</string>
+    <string name="salary_calc_formula_details">Formül ayrıntıları</string>
+    <string name="salary_calc_per_day_formula">Günlük (Aylık maaş ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">Saatlik (Günlük ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">Yarım gün (Günlük ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">Fazla mesai/saat (= Saatlik)</string>
+    <string name="splash_service_unavailable">Hizmet kullanılamıyor</string>
+    <string name="splash_service_unavailable_body">Uygulama geçici olarak kullanılamıyor.
+Lütfen daha sonra tekrar deneyin.</string>
+    <string name="salary_calc_formula_title">Maaş formülü</string>
+    <string name="salary_calc_formula_per_day_label">Günlük</string>
+    <string name="salary_calc_formula_per_day">= Aylık maaş ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">Saatlik</string>
+    <string name="salary_calc_formula_per_hour">= günlük maaş ÷ 8 (8 saat/gün)</string>
+    <string name="salary_calc_formula_half_day_label">Yarım gün</string>
+    <string name="salary_calc_formula_half_day">= günlük maaş ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">Kesinti</string>
+    <string name="salary_calc_formula_deduction">= (Devamsız × Günlük) + (Yarım gün × Yarım gün)</string>
+    <string name="salary_calc_formula_final_pay_label">Net ödeme</string>
+    <string name="salary_calc_formula_final_pay">= Aylık maaş − Toplam kesinti</string>
+    <string name="salary_calc_formula_example">Örnek: ₹18,000 → Günlük ₹600 · Saatlik ₹75</string>
+    <string name="salary_breakdown_auto_title">Otomatik maaş dökümü</string>
+
 </resources>

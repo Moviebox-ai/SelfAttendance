@@ -158,4 +158,52 @@
     <string name="salary_slip_employee_details">કર્મચારી વિગતો</string>
     <string name="salary_slip_setup_profile">કૃપા કરીને પહેલા પ્રોફાઇલમાં તમારો પગાર સેટ કરો</string>
     <string name="salary_slip_generate_btn">પગાર સ્લિપ PDF બનાવો અને સેવ કરો</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">માસિક પગાર</string>
+    <string name="salary_calc_enter_monthly_salary">માસિક પગાર દાખલ કરો</string>
+    <string name="salary_calc_attendance_30">હાજરી (30 દિવસમાંથી)</string>
+    <string name="salary_calc_calculate_salary">પગાર ગણો</string>
+    <string name="salary_calc_salary_summary">પગાર સારાંશ</string>
+    <string name="salary_calc_total_30_days">કુલ 30 દિવસ</string>
+    <string name="salary_calc_monthly_div_30">માસિક પગાર ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">દિવસદીઠ ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">દિવસદીઠ ÷ 2</string>
+    <string name="salary_calc_total_deduction">કુલ કપાત</string>
+    <string name="salary_calc_deduction_formula">(ગેરહાજર × દિવસદીઠ) + (અડધો દિવસ × અડધો દિવસ)</string>
+    <string name="salary_calc_breakdown">ગણતરી વિગત</string>
+    <string name="salary_calc_per_day_div_30">દિવસદીઠ (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">કલાકદીઠ (÷ 8 કલાક/દિવસ)</string>
+    <string name="salary_calc_half_day_div_2">અડધો દિવસ (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">ગેરહાજર (%1$d દિવસ × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">અડધા દિવસો (%1$d દિવસ × %2$s)</string>
+    <string name="salary_calc_no_deduction">કોઈ કપાત નથી</string>
+    <string name="salary_calc_final_payable">ચુકવવાનો અંતિમ પગાર</string>
+    <string name="salary_calc_fixed_formula">30-દિવસ સ્થિર ફોર્મ્યુલા</string>
+    <string name="salary_calc_hours_per_day">8 કલાક/દિવસ</string>
+    <string name="salary_calc_div_30_days">÷ 30 દિવસ</string>
+    <string name="salary_calc_div_8_hours">÷ 8 કલાક/દિવસ</string>
+    <string name="salary_calc_overtime_per_hour">ઓવરટાઇમ/કલાક</string>
+    <string name="salary_calc_equal_per_hour">= કલાકદીઠ</string>
+    <string name="salary_calc_formula_details">ફોર્મ્યુલા વિગતો</string>
+    <string name="salary_calc_per_day_formula">દિવસદીઠ (માસિક પગાર ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">કલાકદીઠ (દિવસદીઠ ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">અડધો દિવસ (દિવસદીઠ ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ઓવરટાઇમ/કલાક (= કલાકદીઠ)</string>
+    <string name="splash_service_unavailable">સેવા ઉપલબ્ધ નથી</string>
+    <string name="splash_service_unavailable_body">એપ હાલ માટે ઉપલબ્ધ નથી.
+કૃપા કરીને પછી ફરી પ્રયાસ કરો.</string>
+    <string name="salary_calc_formula_title">પગાર ફોર્મ્યુલા</string>
+    <string name="salary_calc_formula_per_day_label">દિવસદીઠ</string>
+    <string name="salary_calc_formula_per_day">= માસિક પગાર ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">કલાકદીઠ</string>
+    <string name="salary_calc_formula_per_hour">= દિવસદીઠ પગાર ÷ 8 (8 કલાક/દિવસ)</string>
+    <string name="salary_calc_formula_half_day_label">અડધો દિવસ</string>
+    <string name="salary_calc_formula_half_day">= દિવસદીઠ પગાર ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">કપાત</string>
+    <string name="salary_calc_formula_deduction">= (ગેરહાજર × દિવસદીઠ) + (અડધો દિવસ × અડધો દિવસ)</string>
+    <string name="salary_calc_formula_final_pay_label">અંતિમ ચૂકવણી</string>
+    <string name="salary_calc_formula_final_pay">= માસિક પગાર − કુલ કપાત</string>
+    <string name="salary_calc_formula_example">ઉદાહરણ: ₹18,000 → દિવસદીઠ ₹600 · કલાકદીઠ ₹75</string>
+    <string name="salary_breakdown_auto_title">ઓટો પગાર વિગત</string>
+
 </resources>

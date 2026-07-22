@@ -157,4 +157,52 @@
     <string name="salary_slip_employee_details">ಉದ್ಯೋಗಿ ವಿವರಗಳು</string>
     <string name="salary_slip_setup_profile">ದಯವಿಟ್ಟು ಮೊದಲು ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ನಿಮ್ಮ ವೇತನವನ್ನು ಸೆಟ್ ಮಾಡಿ</string>
     <string name="salary_slip_generate_btn">ವೇತನ ಚೀಟಿ PDF ರಚಿಸಿ ಮತ್ತು ಉಳಿಸಿ</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">ಮಾಸಿಕ ವೇತನ</string>
+    <string name="salary_calc_enter_monthly_salary">ಮಾಸಿಕ ವೇತನ ನಮೂದಿಸಿ</string>
+    <string name="salary_calc_attendance_30">ಹಾಜರಿ (30 ದಿನಗಳಲ್ಲಿ)</string>
+    <string name="salary_calc_calculate_salary">ವೇತನ ಲೆಕ್ಕಿಸಿ</string>
+    <string name="salary_calc_salary_summary">ವೇತನ ಸಾರಾಂಶ</string>
+    <string name="salary_calc_total_30_days">ಒಟ್ಟು 30 ದಿನಗಳು</string>
+    <string name="salary_calc_monthly_div_30">ಮಾಸಿಕ ವೇತನ ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">ಪ್ರತಿ ದಿನ ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">ಪ್ರತಿ ದಿನ ÷ 2</string>
+    <string name="salary_calc_total_deduction">ಒಟ್ಟು ಕಡಿತ</string>
+    <string name="salary_calc_deduction_formula">(ಗೈರುಹಾಜರು × ಪ್ರತಿ ದಿನ) + (ಅರ್ಧ ದಿನ × ಅರ್ಧ ದಿನ)</string>
+    <string name="salary_calc_breakdown">ಲೆಕ್ಕಾಚಾರ ವಿವರ</string>
+    <string name="salary_calc_per_day_div_30">ಪ್ರತಿ ದಿನ (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">ಪ್ರತಿ ಗಂಟೆ (÷ 8 ಗಂಟೆ/ದಿನ)</string>
+    <string name="salary_calc_half_day_div_2">ಅರ್ಧ ದಿನ (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">ಗೈರುಹಾಜರು (%1$d ದಿನಗಳು × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">ಅರ್ಧ ದಿನಗಳು (%1$d ದಿನಗಳು × %2$s)</string>
+    <string name="salary_calc_no_deduction">ಕಡಿತ ಇಲ್ಲ</string>
+    <string name="salary_calc_final_payable">ಪಾವತಿಸಬೇಕಾದ ಅಂತಿಮ ವೇತನ</string>
+    <string name="salary_calc_fixed_formula">30-ದಿನ ಸ್ಥಿರ ಸೂತ್ರ</string>
+    <string name="salary_calc_hours_per_day">8 ಗಂಟೆ/ದಿನ</string>
+    <string name="salary_calc_div_30_days">÷ 30 ದಿನಗಳು</string>
+    <string name="salary_calc_div_8_hours">÷ 8 ಗಂಟೆ/ದಿನ</string>
+    <string name="salary_calc_overtime_per_hour">ಓವರ್ಟೈಮ್/ಗಂಟೆ</string>
+    <string name="salary_calc_equal_per_hour">= ಪ್ರತಿ ಗಂಟೆ</string>
+    <string name="salary_calc_formula_details">ಸೂತ್ರ ವಿವರಗಳು</string>
+    <string name="salary_calc_per_day_formula">ಪ್ರತಿ ದಿನ (ಮಾಸಿಕ ವೇತನ ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">ಪ್ರತಿ ಗಂಟೆ (ಪ್ರತಿ ದಿನ ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">ಅರ್ಧ ದಿನ (ಪ್ರತಿ ದಿನ ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ಓವರ್ಟೈಮ್/ಗಂಟೆ (= ಪ್ರತಿ ಗಂಟೆ)</string>
+    <string name="splash_service_unavailable">ಸೇವೆ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string name="splash_service_unavailable_body">ಆಪ್ ತಾತ್ಕಾಲಿಕವಾಗಿ ಲಭ್ಯವಿಲ್ಲ.
+ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="salary_calc_formula_title">ವೇತನ ಸೂತ್ರ</string>
+    <string name="salary_calc_formula_per_day_label">ಪ್ರತಿ ದಿನ</string>
+    <string name="salary_calc_formula_per_day">= ಮಾಸಿಕ ವೇತನ ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">ಪ್ರತಿ ಗಂಟೆ</string>
+    <string name="salary_calc_formula_per_hour">= ಪ್ರತಿ ದಿನ ವೇತನ ÷ 8 (8 ಗಂಟೆ/ದಿನ)</string>
+    <string name="salary_calc_formula_half_day_label">ಅರ್ಧ ದಿನ</string>
+    <string name="salary_calc_formula_half_day">= ಪ್ರತಿ ದಿನ ವೇತನ ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">ಕಡಿತ</string>
+    <string name="salary_calc_formula_deduction">= (ಗೈರುಹಾಜರು × ಪ್ರತಿ ದಿನ) + (ಅರ್ಧ ದಿನ × ಅರ್ಧ ದಿನ)</string>
+    <string name="salary_calc_formula_final_pay_label">ಅಂತಿಮ ಪಾವತಿ</string>
+    <string name="salary_calc_formula_final_pay">= ಮಾಸಿಕ ವೇತನ − ಒಟ್ಟು ಕಡಿತ</string>
+    <string name="salary_calc_formula_example">ಉದಾಹರಣೆ: ₹18,000 → ಪ್ರತಿ ದಿನ ₹600 · ಪ್ರತಿ ಗಂಟೆ ₹75</string>
+    <string name="salary_breakdown_auto_title">ಸ್ವಯಂ ವೇತನ ವಿವರ</string>
+
 </resources>

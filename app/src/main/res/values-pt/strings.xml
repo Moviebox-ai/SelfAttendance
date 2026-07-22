@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">Os anúncios voltarão em %1$s</string>
     <string name="settings_currency">Moeda do app</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">Salário mensal</string>
+    <string name="salary_calc_enter_monthly_salary">Informe o salário mensal</string>
+    <string name="salary_calc_attendance_30">Presença (de 30 dias)</string>
+    <string name="salary_calc_calculate_salary">Calcular salário</string>
+    <string name="salary_calc_salary_summary">Resumo salarial</string>
+    <string name="salary_calc_total_30_days">Total de 30 dias</string>
+    <string name="salary_calc_monthly_div_30">Salário mensal ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">Por dia ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">Por dia ÷ 2</string>
+    <string name="salary_calc_total_deduction">Dedução total</string>
+    <string name="salary_calc_deduction_formula">(Ausente × Por dia) + (Meio dia × Meio dia)</string>
+    <string name="salary_calc_breakdown">Detalhamento do cálculo</string>
+    <string name="salary_calc_per_day_div_30">Por dia (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">Por hora (÷ 8 h/dia)</string>
+    <string name="salary_calc_half_day_div_2">Meio dia (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">Ausente (%1$d dias × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">Meios dias (%1$d dias × %2$s)</string>
+    <string name="salary_calc_no_deduction">Sem dedução</string>
+    <string name="salary_calc_final_payable">Salário final a pagar</string>
+    <string name="salary_calc_fixed_formula">Fórmula fixa de 30 dias</string>
+    <string name="salary_calc_hours_per_day">8 h/dia</string>
+    <string name="salary_calc_div_30_days">÷ 30 dias</string>
+    <string name="salary_calc_div_8_hours">÷ 8 h/dia</string>
+    <string name="salary_calc_overtime_per_hour">Hora extra/h</string>
+    <string name="salary_calc_equal_per_hour">= Por hora</string>
+    <string name="salary_calc_formula_details">Detalhes da fórmula</string>
+    <string name="salary_calc_per_day_formula">Por dia (Salário mensal ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">Por hora (Por dia ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">Meio dia (Por dia ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">Hora extra/h (= Por hora)</string>
+    <string name="splash_service_unavailable">Serviço indisponível</string>
+    <string name="splash_service_unavailable_body">O app está temporariamente indisponível.
+Tente novamente mais tarde.</string>
+    <string name="salary_calc_formula_title">Fórmula salarial</string>
+    <string name="salary_calc_formula_per_day_label">Por dia</string>
+    <string name="salary_calc_formula_per_day">= Salário mensal ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">Por hora</string>
+    <string name="salary_calc_formula_per_hour">= salário diário ÷ 8 (8 h/dia)</string>
+    <string name="salary_calc_formula_half_day_label">Meio dia</string>
+    <string name="salary_calc_formula_half_day">= salário diário ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">Dedução</string>
+    <string name="salary_calc_formula_deduction">= (Ausente × Por dia) + (Meio dia × Meio dia)</string>
+    <string name="salary_calc_formula_final_pay_label">Pagamento final</string>
+    <string name="salary_calc_formula_final_pay">= Salário mensal − Dedução total</string>
+    <string name="salary_calc_formula_example">Exemplo: ₹18,000 → Por dia ₹600 · Por hora ₹75</string>
+    <string name="salary_breakdown_auto_title">Detalhamento automático do salário</string>
+
 </resources>

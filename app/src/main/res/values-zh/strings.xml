@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">广告将在 %1$s 后恢复</string>
     <string name="settings_currency">应用货币</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">月薪</string>
+    <string name="salary_calc_enter_monthly_salary">输入月薪</string>
+    <string name="salary_calc_attendance_30">出勤（共30天）</string>
+    <string name="salary_calc_calculate_salary">计算薪资</string>
+    <string name="salary_calc_salary_summary">薪资摘要</string>
+    <string name="salary_calc_total_30_days">共30天</string>
+    <string name="salary_calc_monthly_div_30">月薪 ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">每天 ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">每天 ÷ 2</string>
+    <string name="salary_calc_total_deduction">总扣除</string>
+    <string name="salary_calc_deduction_formula">(缺勤 × 每天) + (半天 × 半天)</string>
+    <string name="salary_calc_breakdown">计算明细</string>
+    <string name="salary_calc_per_day_div_30">每天 (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">每小时 (÷ 8小时/天)</string>
+    <string name="salary_calc_half_day_div_2">半天 (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">缺勤 (%1$d 天 × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">半天 (%1$d 天 × %2$s)</string>
+    <string name="salary_calc_no_deduction">无扣除</string>
+    <string name="salary_calc_final_payable">最终应付薪资</string>
+    <string name="salary_calc_fixed_formula">30天固定公式</string>
+    <string name="salary_calc_hours_per_day">8小时/天</string>
+    <string name="salary_calc_div_30_days">÷ 30 天</string>
+    <string name="salary_calc_div_8_hours">÷ 8小时/天</string>
+    <string name="salary_calc_overtime_per_hour">加班/小时</string>
+    <string name="salary_calc_equal_per_hour">= 每小时</string>
+    <string name="salary_calc_formula_details">公式详情</string>
+    <string name="salary_calc_per_day_formula">每天 (月薪 ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">每小时 (每天 ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">半天 (每天 ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">加班/小时 (= 每小时)</string>
+    <string name="splash_service_unavailable">服务不可用</string>
+    <string name="splash_service_unavailable_body">应用暂时不可用。
+请稍后再试。</string>
+    <string name="salary_calc_formula_title">薪资公式</string>
+    <string name="salary_calc_formula_per_day_label">每天</string>
+    <string name="salary_calc_formula_per_day">= 月薪 ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">每小时</string>
+    <string name="salary_calc_formula_per_hour">= 日薪 ÷ 8 (8小时/天)</string>
+    <string name="salary_calc_formula_half_day_label">半天</string>
+    <string name="salary_calc_formula_half_day">= 日薪 ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">扣除</string>
+    <string name="salary_calc_formula_deduction">= (缺勤 × 每天) + (半天 × 半天)</string>
+    <string name="salary_calc_formula_final_pay_label">最终支付</string>
+    <string name="salary_calc_formula_final_pay">= 月薪 − 总扣除</string>
+    <string name="salary_calc_formula_example">示例：₹18,000 → 每天 ₹600 · 每小时 ₹75</string>
+    <string name="salary_breakdown_auto_title">自动薪资明细</string>
+
 </resources>

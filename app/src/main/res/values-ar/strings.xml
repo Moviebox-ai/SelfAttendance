@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">ستعود الإعلانات خلال %1$s</string>
     <string name="settings_currency">عملة التطبيق</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">الراتب الشهري</string>
+    <string name="salary_calc_enter_monthly_salary">أدخل الراتب الشهري</string>
+    <string name="salary_calc_attendance_30">الحضور (من 30 يومًا)</string>
+    <string name="salary_calc_calculate_salary">احسب الراتب</string>
+    <string name="salary_calc_salary_summary">ملخص الراتب</string>
+    <string name="salary_calc_total_30_days">إجمالي 30 يومًا</string>
+    <string name="salary_calc_monthly_div_30">الراتب الشهري ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">في اليوم ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">في اليوم ÷ 2</string>
+    <string name="salary_calc_total_deduction">إجمالي الخصم</string>
+    <string name="salary_calc_deduction_formula">(غائب × في اليوم) + (نصف يوم × نصف يوم)</string>
+    <string name="salary_calc_breakdown">تفاصيل الحساب</string>
+    <string name="salary_calc_per_day_div_30">في اليوم (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">في الساعة (÷ 8 ساعات/اليوم)</string>
+    <string name="salary_calc_half_day_div_2">نصف يوم (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">غائب (%1$d أيام × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">أنصاف الأيام (%1$d أيام × %2$s)</string>
+    <string name="salary_calc_no_deduction">لا يوجد خصم</string>
+    <string name="salary_calc_final_payable">صافي الراتب المستحق</string>
+    <string name="salary_calc_fixed_formula">صيغة ثابتة لـ 30 يومًا</string>
+    <string name="salary_calc_hours_per_day">8 ساعات/اليوم</string>
+    <string name="salary_calc_div_30_days">÷ 30 أيام</string>
+    <string name="salary_calc_div_8_hours">÷ 8 ساعات/اليوم</string>
+    <string name="salary_calc_overtime_per_hour">إضافي/ساعة</string>
+    <string name="salary_calc_equal_per_hour">= في الساعة</string>
+    <string name="salary_calc_formula_details">تفاصيل الصيغة</string>
+    <string name="salary_calc_per_day_formula">في اليوم (الراتب الشهري ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">في الساعة (في اليوم ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">نصف يوم (في اليوم ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">إضافي/ساعة (= في الساعة)</string>
+    <string name="splash_service_unavailable">الخدمة غير متاحة</string>
+    <string name="splash_service_unavailable_body">التطبيق غير متاح مؤقتًا.
+يرجى المحاولة لاحقًا.</string>
+    <string name="salary_calc_formula_title">صيغة الراتب</string>
+    <string name="salary_calc_formula_per_day_label">في اليوم</string>
+    <string name="salary_calc_formula_per_day">= الراتب الشهري ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">في الساعة</string>
+    <string name="salary_calc_formula_per_hour">= راتب اليوم ÷ 8 (8 ساعات/اليوم)</string>
+    <string name="salary_calc_formula_half_day_label">نصف يوم</string>
+    <string name="salary_calc_formula_half_day">= راتب اليوم ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">الخصم</string>
+    <string name="salary_calc_formula_deduction">= (غائب × في اليوم) + (نصف يوم × نصف يوم)</string>
+    <string name="salary_calc_formula_final_pay_label">الصافي النهائي</string>
+    <string name="salary_calc_formula_final_pay">= الراتب الشهري − إجمالي الخصم</string>
+    <string name="salary_calc_formula_example">مثال: ₹18,000 → في اليوم ₹600 · في الساعة ₹75</string>
+    <string name="salary_breakdown_auto_title">تفصيل الراتب تلقائيًا</string>
+
 </resources>

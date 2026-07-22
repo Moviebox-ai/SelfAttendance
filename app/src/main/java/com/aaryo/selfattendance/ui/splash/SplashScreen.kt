@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -89,10 +90,10 @@ private fun BlockedDialog() {
             containerColor    = Color(0xFF1A1A1A),
             titleContentColor = Color.White,
             textContentColor  = Color(0xFFB0B0B0),
-            title = { Text("Service Unavailable", fontWeight = FontWeight.Bold) },
+            title = { Text(stringResource(R.string.splash_service_unavailable), fontWeight = FontWeight.Bold) },
             text  = {
                 Text(
-                    "The app is temporarily unavailable.\nPlease try again later.",
+                    stringResource(R.string.splash_service_unavailable_body),
                     textAlign = TextAlign.Center
                 )
             }

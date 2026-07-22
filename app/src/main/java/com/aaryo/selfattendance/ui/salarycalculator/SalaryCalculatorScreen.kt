@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.aaryo.selfattendance.R
 import com.aaryo.selfattendance.ads.AdsController
 import com.aaryo.selfattendance.data.remote.RemoteConfigManager
 import java.text.NumberFormat
@@ -202,23 +204,23 @@ private fun FormulaBanner() {
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text       = "Salary Formula",
+                    text       = stringResource(R.string.salary_calc_formula_title),
                     style      = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     color      = Color.White
                 )
             }
             Spacer(Modifier.height(10.dp))
-            FormulaLine("Per Day   ", "= Monthly Salary ÷ 30")
-            FormulaLine("Per Hour  ", "= Per Day Salary ÷ 8  (8 ghante/din)")
-            FormulaLine("Half Day  ", "= Per Day Salary ÷ 2")
-            FormulaLine("Deduction ", "= (Absent × Per Day) + (Half × Half Day)")
-            FormulaLine("Final Pay ", "= Monthly Salary − Total Deduction")
+            FormulaLine(stringResource(R.string.salary_calc_formula_per_day_label), stringResource(R.string.salary_calc_formula_per_day))
+            FormulaLine(stringResource(R.string.salary_calc_formula_per_hour_label), stringResource(R.string.salary_calc_formula_per_hour))
+            FormulaLine(stringResource(R.string.salary_calc_formula_half_day_label), stringResource(R.string.salary_calc_formula_half_day))
+            FormulaLine(stringResource(R.string.salary_calc_formula_deduction_label), stringResource(R.string.salary_calc_formula_deduction))
+            FormulaLine(stringResource(R.string.salary_calc_formula_final_pay_label), stringResource(R.string.salary_calc_formula_final_pay))
             Spacer(Modifier.height(10.dp))
             HorizontalDivider(color = Color.White.copy(alpha = 0.3f))
             Spacer(Modifier.height(8.dp))
             Text(
-                text  = "Example: ₹18,000 → Per Day ₹600 · Per Hour ₹75",
+                text  = stringResource(R.string.salary_calc_formula_example),
                 style = MaterialTheme.typography.labelSmall,
                 color = Color.White.copy(alpha = 0.85f)
             )
@@ -272,12 +274,12 @@ private fun InputCard(
             modifier            = Modifier.padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            SectionHeader(icon = Icons.Outlined.Payments, title = "Monthly Salary")
+            SectionHeader(icon = Icons.Outlined.Payments, title = stringResource(R.string.salary_calc_monthly_salary))
 
             OutlinedTextField(
                 value         = state.monthlySalaryInput,
                 onValueChange = { if (it.length <= 10) onSalaryChange(it) },
-                label         = { Text("Enter Monthly Salary") },
+                label         = { Text(stringResource(R.string.salary_calc_enter_monthly_salary)) },
                 placeholder   = {
                     Text(
                         "e.g. 18000",
@@ -304,13 +306,13 @@ private fun InputCard(
             )
 
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-            SectionHeader(icon = Icons.Outlined.CalendarMonth, title = "Attendance (out of 30 days)")
+            SectionHeader(icon = Icons.Outlined.CalendarMonth, title = stringResource(R.string.salary_calc_attendance_30))
 
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
                 DayInputField(
                     value           = state.presentDaysInput,
                     onValueChange   = onPresentChange,
-                    label           = "Present",
+                    label           = stringResource(R.string.dashboard_present),
                     errorText       = state.presentDaysError,
                     accentColor     = Color(0xFF2E7D32),
                     icon            = Icons.Outlined.CheckCircle,
@@ -321,7 +323,7 @@ private fun InputCard(
                 DayInputField(
                     value           = state.halfDaysInput,
                     onValueChange   = onHalfChange,
-                    label           = "Half Day",
+                    label           = stringResource(R.string.dashboard_half_day),
                     errorText       = state.halfDaysError,
                     accentColor     = Color(0xFFF57F17),
                     icon            = Icons.Outlined.WbSunny,
@@ -332,7 +334,7 @@ private fun InputCard(
                 DayInputField(
                     value           = state.absentDaysInput,
                     onValueChange   = onAbsentChange,
-                    label           = "Absent",
+                    label           = stringResource(R.string.dashboard_absent),
                     errorText       = state.absentDaysError,
                     accentColor     = MaterialTheme.colorScheme.error,
                     icon            = Icons.Outlined.Cancel,
@@ -358,7 +360,7 @@ private fun InputCard(
             ) {
                 Icon(imageVector = Icons.Default.Calculate, contentDescription = null, modifier = Modifier.size(20.dp))
                 Spacer(Modifier.width(8.dp))
-                Text("Calculate Salary", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.salary_calc_calculate_salary), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
             }
         }
     }
@@ -381,23 +383,23 @@ private fun ResultSection(state: SalaryCalculatorState) {
 
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
-        SectionHeader(icon = Icons.Outlined.Summarize, title = "Salary Summary")
+        SectionHeader(icon = Icons.Outlined.Summarize, title = stringResource(R.string.salary_calc_salary_summary))
 
         // ── Row 1: Monthly Salary · Per Day ──────────────────────────────────
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
             SummaryCard(
-                label    = "Monthly Salary",
+                label    = stringResource(R.string.salary_calc_monthly_salary),
                 amount   = fmt(monthlySalary, currencySymbol),
-                subLabel = "Total 30 days",
+                subLabel = stringResource(R.string.salary_calc_total_30_days),
                 icon     = Icons.Outlined.Payments,
                 iconTint = MaterialTheme.colorScheme.primary,
                 bgColor  = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
                 modifier = Modifier.weight(1f)
             )
             SummaryCard(
-                label    = "Per Day",
+                label    = stringResource(R.string.summary_per_day),
                 amount   = fmt(perDay, currencySymbol),
-                subLabel = "Monthly ÷ 30",
+                subLabel = stringResource(R.string.salary_calc_monthly_div_30),
                 icon     = Icons.Outlined.Today,
                 iconTint = Color(0xFF1565C0),
                 bgColor  = Color(0xFF1565C0).copy(alpha = 0.08f),
@@ -408,18 +410,18 @@ private fun ResultSection(state: SalaryCalculatorState) {
         // ── Row 2: Per Hour · Half Day ────────────────────────────────────────
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxWidth()) {
             SummaryCard(
-                label    = "Per Hour",
+                label    = stringResource(R.string.summary_per_hour),
                 amount   = fmt(perHour, currencySymbol),
-                subLabel = "Per Day ÷ 8 hrs",
+                subLabel = stringResource(R.string.salary_calc_per_day_div_8),
                 icon     = Icons.Outlined.Schedule,
                 iconTint = Color(0xFF6A1B9A),
                 bgColor  = Color(0xFF6A1B9A).copy(alpha = 0.08f),
                 modifier = Modifier.weight(1f)
             )
             SummaryCard(
-                label    = "Half Day",
+                label    = stringResource(R.string.dashboard_half_day),
                 amount   = fmt(halfDay, currencySymbol),
-                subLabel = "Per Day ÷ 2",
+                subLabel = stringResource(R.string.salary_calc_per_day_div_2),
                 icon     = Icons.Outlined.WbTwilight,
                 iconTint = Color(0xFFF57F17),
                 bgColor  = Color(0xFFF57F17).copy(alpha = 0.08f),
@@ -429,9 +431,9 @@ private fun ResultSection(state: SalaryCalculatorState) {
 
         // ── Row 3: Total Deduction (full width) ───────────────────────────────
         SummaryCard(
-            label    = "Total Deduction",
+            label    = stringResource(R.string.salary_calc_total_deduction),
             amount   = "− ${fmt(deduction, currencySymbol)}",
-            subLabel = "(Absent × Per Day) + (Half × Half Day)",
+            subLabel = stringResource(R.string.salary_calc_deduction_formula),
             icon     = Icons.Outlined.RemoveCircle,
             iconTint = MaterialTheme.colorScheme.error,
             bgColor  = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.4f),
@@ -472,7 +474,7 @@ private fun BreakdownCard(state: SalaryCalculatorState) {
         Column(modifier = Modifier.padding(20.dp)) {
 
             Text(
-                text       = "Calculation Breakdown",
+                text       = stringResource(R.string.salary_calc_breakdown),
                 style      = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color      = MaterialTheme.colorScheme.onSurface
@@ -481,31 +483,31 @@ private fun BreakdownCard(state: SalaryCalculatorState) {
             Spacer(Modifier.height(14.dp))
 
             // Base rates
-            BreakdownRow("Monthly Salary",            fmt(monthlySalary, currencySymbol), MaterialTheme.colorScheme.onSurface)
-            BreakdownRow("Per Day  (÷ 30)",            fmt(perDay, currencySymbol),        MaterialTheme.colorScheme.primary)
-            BreakdownRow("Per Hour (÷ 8 hrs/din)",     fmt(perHour, currencySymbol),       Color(0xFF6A1B9A))
-            BreakdownRow("Half Day (÷ 2)",             fmt(halfDay, currencySymbol),       Color(0xFFF57F17))
+            BreakdownRow(stringResource(R.string.salary_calc_monthly_salary),            fmt(monthlySalary, currencySymbol), MaterialTheme.colorScheme.onSurface)
+            BreakdownRow(stringResource(R.string.salary_calc_per_day_div_30),            fmt(perDay, currencySymbol),        MaterialTheme.colorScheme.primary)
+            BreakdownRow(stringResource(R.string.salary_calc_per_hour_div_8),     fmt(perHour, currencySymbol),       Color(0xFF6A1B9A))
+            BreakdownRow(stringResource(R.string.salary_calc_half_day_div_2),             fmt(halfDay, currencySymbol),       Color(0xFFF57F17))
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MaterialTheme.colorScheme.outlineVariant)
 
             // Deduction lines
             if (absentDays > 0) {
                 BreakdownRow(
-                    label = "Absent ($absentDays din × ${fmt(perDay, currencySymbol)})",
+                    label = stringResource(R.string.salary_calc_absent_deduction, absentDays, fmt(perDay, currencySymbol)),
                     value = "− ${fmt(absentDays * perDay, currencySymbol)}",
                     color = MaterialTheme.colorScheme.error
                 )
             }
             if (halfDays > 0) {
                 BreakdownRow(
-                    label = "Half Days ($halfDays din × ${fmt(halfDay, currencySymbol)})",
+                    label = stringResource(R.string.salary_calc_half_days_deduction, halfDays, fmt(halfDay, currencySymbol)),
                     value = "− ${fmt(halfDays * halfDay, currencySymbol)}",
                     color = Color(0xFFF57F17)
                 )
             }
             if (absentDays == 0 && halfDays == 0) {
                 BreakdownRow(
-                    label = "Koi deduction nahi",
+                    label = stringResource(R.string.salary_calc_no_deduction),
                     value = "${currencySymbol}0.00",
                     color = Color(0xFF2E7D32)
                 )
@@ -514,14 +516,14 @@ private fun BreakdownCard(state: SalaryCalculatorState) {
             HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MaterialTheme.colorScheme.outlineVariant)
 
             BreakdownRow(
-                label = "Total Deduction",
+                label = stringResource(R.string.salary_calc_total_deduction),
                 value = "− ${fmt(deduction, currencySymbol)}",
                 color = MaterialTheme.colorScheme.error,
                 bold  = true
             )
             Spacer(Modifier.height(2.dp))
             BreakdownRow(
-                label = "Final Salary Payable",
+                label = stringResource(R.string.salary_calc_final_payable),
                 value = fmt(finalSalary, currencySymbol),
                 color = Color(0xFF2E7D32),
                 bold  = true

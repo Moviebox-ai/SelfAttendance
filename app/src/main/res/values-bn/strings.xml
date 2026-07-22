@@ -157,4 +157,52 @@
     <string name="salary_slip_employee_details">কর্মচারীর বিবরণ</string>
     <string name="salary_slip_setup_profile">অনুগ্রহ করে আগে প্রোফাইলে আপনার বেতন সেট করুন</string>
     <string name="salary_slip_generate_btn">বেতন স্লিপ PDF তৈরি ও সংরক্ষণ করুন</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">মাসিক বেতন</string>
+    <string name="salary_calc_enter_monthly_salary">মাসিক বেতন লিখুন</string>
+    <string name="salary_calc_attendance_30">উপস্থিতি (৩০ দিনের মধ্যে)</string>
+    <string name="salary_calc_calculate_salary">বেতন হিসাব করুন</string>
+    <string name="salary_calc_salary_summary">বেতন সারাংশ</string>
+    <string name="salary_calc_total_30_days">মোট ৩০ দিন</string>
+    <string name="salary_calc_monthly_div_30">মাসিক বেতন ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">প্রতি দিন ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">প্রতি দিন ÷ 2</string>
+    <string name="salary_calc_total_deduction">মোট কর্তন</string>
+    <string name="salary_calc_deduction_formula">(অনুপস্থিত × প্রতি দিন) + (অর্ধেক দিন × অর্ধেক দিন)</string>
+    <string name="salary_calc_breakdown">হিসাবের বিবরণ</string>
+    <string name="salary_calc_per_day_div_30">প্রতি দিন (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">প্রতি ঘণ্টা (÷ ৮ ঘণ্টা/দিন)</string>
+    <string name="salary_calc_half_day_div_2">অর্ধেক দিন (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">অনুপস্থিত (%1$d দিন × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">অর্ধেক দিন (%1$d দিন × %2$s)</string>
+    <string name="salary_calc_no_deduction">কোনো কর্তন নেই</string>
+    <string name="salary_calc_final_payable">চূড়ান্ত প্রদেয় বেতন</string>
+    <string name="salary_calc_fixed_formula">৩০ দিনের নির্দিষ্ট সূত্র</string>
+    <string name="salary_calc_hours_per_day">৮ ঘণ্টা/দিন</string>
+    <string name="salary_calc_div_30_days">÷ 30 দিন</string>
+    <string name="salary_calc_div_8_hours">÷ ৮ ঘণ্টা/দিন</string>
+    <string name="salary_calc_overtime_per_hour">ওভারটাইম/ঘণ্টা</string>
+    <string name="salary_calc_equal_per_hour">= প্রতি ঘণ্টা</string>
+    <string name="salary_calc_formula_details">সূত্রের বিবরণ</string>
+    <string name="salary_calc_per_day_formula">প্রতি দিন (মাসিক বেতন ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">প্রতি ঘণ্টা (প্রতি দিন ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">অর্ধেক দিন (প্রতি দিন ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ওভারটাইম/ঘণ্টা (= প্রতি ঘণ্টা)</string>
+    <string name="splash_service_unavailable">পরিষেবা উপলব্ধ নয়</string>
+    <string name="splash_service_unavailable_body">অ্যাপটি সাময়িকভাবে উপলব্ধ নয়।
+অনুগ্রহ করে পরে আবার চেষ্টা করুন।</string>
+    <string name="salary_calc_formula_title">বেতনের সূত্র</string>
+    <string name="salary_calc_formula_per_day_label">প্রতি দিন</string>
+    <string name="salary_calc_formula_per_day">= মাসিক বেতন ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">প্রতি ঘণ্টা</string>
+    <string name="salary_calc_formula_per_hour">= প্রতি দিনের বেতন ÷ 8 (৮ ঘণ্টা/দিন)</string>
+    <string name="salary_calc_formula_half_day_label">অর্ধেক দিন</string>
+    <string name="salary_calc_formula_half_day">= প্রতি দিনের বেতন ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">কর্তন</string>
+    <string name="salary_calc_formula_deduction">= (অনুপস্থিত × প্রতি দিন) + (অর্ধেক দিন × অর্ধেক দিন)</string>
+    <string name="salary_calc_formula_final_pay_label">চূড়ান্ত প্রদান</string>
+    <string name="salary_calc_formula_final_pay">= মাসিক বেতন − মোট কর্তন</string>
+    <string name="salary_calc_formula_example">উদাহরণ: ₹18,000 → প্রতি দিন ₹600 · প্রতি ঘণ্টা ₹75</string>
+    <string name="salary_breakdown_auto_title">স্বয়ংক্রিয় বেতন বিবরণ</string>
+
 </resources>

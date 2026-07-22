@@ -157,4 +157,52 @@
     <string name="salary_slip_employee_details">ਕਰਮਚਾਰੀ ਵੇਰਵੇ</string>
     <string name="salary_slip_setup_profile">ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਪ੍ਰੋਫਾਈਲ ਵਿੱਚ ਆਪਣੀ ਤਨਖਾਹ ਸੈੱਟ ਕਰੋ</string>
     <string name="salary_slip_generate_btn">ਤਨਖਾਹ ਸਲਿੱਪ PDF ਬਣਾਓ ਅਤੇ ਸੇਵ ਕਰੋ</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ</string>
+    <string name="salary_calc_enter_monthly_salary">ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ ਦਰਜ ਕਰੋ</string>
+    <string name="salary_calc_attendance_30">ਹਾਜ਼ਰੀ (30 ਦਿਨਾਂ ਵਿੱਚੋਂ)</string>
+    <string name="salary_calc_calculate_salary">ਤਨਖਾਹ ਗਿਣੋ</string>
+    <string name="salary_calc_salary_summary">ਤਨਖਾਹ ਸੰਖੇਪ</string>
+    <string name="salary_calc_total_30_days">ਕੁੱਲ 30 ਦਿਨ</string>
+    <string name="salary_calc_monthly_div_30">ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">ਪ੍ਰਤੀ ਦਿਨ ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">ਪ੍ਰਤੀ ਦਿਨ ÷ 2</string>
+    <string name="salary_calc_total_deduction">ਕੁੱਲ ਕਟੌਤੀ</string>
+    <string name="salary_calc_deduction_formula">(ਗੈਰਹਾਜ਼ਰ × ਪ੍ਰਤੀ ਦਿਨ) + (ਅੱਧਾ ਦਿਨ × ਅੱਧਾ ਦਿਨ)</string>
+    <string name="salary_calc_breakdown">ਗਿਣਤੀ ਵੇਰਵਾ</string>
+    <string name="salary_calc_per_day_div_30">ਪ੍ਰਤੀ ਦਿਨ (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">ਪ੍ਰਤੀ ਘੰਟਾ (÷ 8 ਘੰਟੇ/ਦਿਨ)</string>
+    <string name="salary_calc_half_day_div_2">ਅੱਧਾ ਦਿਨ (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">ਗੈਰਹਾਜ਼ਰ (%1$d ਦਿਨ × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">ਅੱਧੇ ਦਿਨ (%1$d ਦਿਨ × %2$s)</string>
+    <string name="salary_calc_no_deduction">ਕੋਈ ਕਟੌਤੀ ਨਹੀਂ</string>
+    <string name="salary_calc_final_payable">ਦੇਣਯੋਗ ਅੰਤਿਮ ਤਨਖਾਹ</string>
+    <string name="salary_calc_fixed_formula">30-ਦਿਨ ਸਥਿਰ ਫਾਰਮੂਲਾ</string>
+    <string name="salary_calc_hours_per_day">8 ਘੰਟੇ/ਦਿਨ</string>
+    <string name="salary_calc_div_30_days">÷ 30 ਦਿਨ</string>
+    <string name="salary_calc_div_8_hours">÷ 8 ਘੰਟੇ/ਦਿਨ</string>
+    <string name="salary_calc_overtime_per_hour">ਓਵਰਟਾਈਮ/ਘੰਟਾ</string>
+    <string name="salary_calc_equal_per_hour">= ਪ੍ਰਤੀ ਘੰਟਾ</string>
+    <string name="salary_calc_formula_details">ਫਾਰਮੂਲਾ ਵੇਰਵੇ</string>
+    <string name="salary_calc_per_day_formula">ਪ੍ਰਤੀ ਦਿਨ (ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">ਪ੍ਰਤੀ ਘੰਟਾ (ਪ੍ਰਤੀ ਦਿਨ ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">ਅੱਧਾ ਦਿਨ (ਪ੍ਰਤੀ ਦਿਨ ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ਓਵਰਟਾਈਮ/ਘੰਟਾ (= ਪ੍ਰਤੀ ਘੰਟਾ)</string>
+    <string name="splash_service_unavailable">ਸੇਵਾ ਉਪਲਬਧ ਨਹੀਂ</string>
+    <string name="splash_service_unavailable_body">ਐਪ ਅਸਥਾਈ ਤੌਰ ਤੇ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।
+ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="salary_calc_formula_title">ਤਨਖਾਹ ਫਾਰਮੂਲਾ</string>
+    <string name="salary_calc_formula_per_day_label">ਪ੍ਰਤੀ ਦਿਨ</string>
+    <string name="salary_calc_formula_per_day">= ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">ਪ੍ਰਤੀ ਘੰਟਾ</string>
+    <string name="salary_calc_formula_per_hour">= ਪ੍ਰਤੀ ਦਿਨ ਤਨਖਾਹ ÷ 8 (8 ਘੰਟੇ/ਦਿਨ)</string>
+    <string name="salary_calc_formula_half_day_label">ਅੱਧਾ ਦਿਨ</string>
+    <string name="salary_calc_formula_half_day">= ਪ੍ਰਤੀ ਦਿਨ ਤਨਖਾਹ ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">ਕਟੌਤੀ</string>
+    <string name="salary_calc_formula_deduction">= (ਗੈਰਹਾਜ਼ਰ × ਪ੍ਰਤੀ ਦਿਨ) + (ਅੱਧਾ ਦਿਨ × ਅੱਧਾ ਦਿਨ)</string>
+    <string name="salary_calc_formula_final_pay_label">ਅੰਤਿਮ ਭੁਗਤਾਨ</string>
+    <string name="salary_calc_formula_final_pay">= ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ − ਕੁੱਲ ਕਟੌਤੀ</string>
+    <string name="salary_calc_formula_example">ਉਦਾਹਰਨ: ₹18,000 → ਪ੍ਰਤੀ ਦਿਨ ₹600 · ਪ੍ਰਤੀ ਘੰਟਾ ₹75</string>
+    <string name="salary_breakdown_auto_title">ਆਟੋ ਤਨਖਾਹ ਵੇਰਵਾ</string>
+
 </resources>

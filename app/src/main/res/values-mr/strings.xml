@@ -157,4 +157,52 @@
     <string name="salary_slip_employee_details">कर्मचारी तपशील</string>
     <string name="salary_slip_setup_profile">कृपया आधी प्रोफाइलमध्ये तुमचा पगार सेट करा</string>
     <string name="salary_slip_generate_btn">वेतन पावती PDF तयार करा आणि सेव करा</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">मासिक वेतन</string>
+    <string name="salary_calc_enter_monthly_salary">मासिक वेतन टाका</string>
+    <string name="salary_calc_attendance_30">हजेरी (30 दिवसांपैकी)</string>
+    <string name="salary_calc_calculate_salary">वेतन मोजा</string>
+    <string name="salary_calc_salary_summary">वेतन सारांश</string>
+    <string name="salary_calc_total_30_days">एकूण 30 दिवस</string>
+    <string name="salary_calc_monthly_div_30">मासिक वेतन ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">प्रति दिवस ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">प्रति दिवस ÷ 2</string>
+    <string name="salary_calc_total_deduction">एकूण कपात</string>
+    <string name="salary_calc_deduction_formula">(अनुपस्थित × प्रति दिवस) + (अर्धा दिवस × अर्धा दिवस)</string>
+    <string name="salary_calc_breakdown">गणनेचे तपशील</string>
+    <string name="salary_calc_per_day_div_30">प्रति दिवस (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">प्रति तास (÷ 8 तास/दिवस)</string>
+    <string name="salary_calc_half_day_div_2">अर्धा दिवस (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">अनुपस्थित (%1$d दिवस × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">अर्धे दिवस (%1$d दिवस × %2$s)</string>
+    <string name="salary_calc_no_deduction">कपात नाही</string>
+    <string name="salary_calc_final_payable">देय अंतिम वेतन</string>
+    <string name="salary_calc_fixed_formula">30-दिवस निश्चित सूत्र</string>
+    <string name="salary_calc_hours_per_day">8 तास/दिवस</string>
+    <string name="salary_calc_div_30_days">÷ 30 दिवस</string>
+    <string name="salary_calc_div_8_hours">÷ 8 तास/दिवस</string>
+    <string name="salary_calc_overtime_per_hour">ओव्हरटाइम/तास</string>
+    <string name="salary_calc_equal_per_hour">= प्रति तास</string>
+    <string name="salary_calc_formula_details">सूत्र तपशील</string>
+    <string name="salary_calc_per_day_formula">प्रति दिवस (मासिक वेतन ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">प्रति तास (प्रति दिवस ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">अर्धा दिवस (प्रति दिवस ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ओव्हरटाइम/तास (= प्रति तास)</string>
+    <string name="splash_service_unavailable">सेवा उपलब्ध नाही</string>
+    <string name="splash_service_unavailable_body">अॅप तात्पुरते उपलब्ध नाही.
+कृपया नंतर पुन्हा प्रयत्न करा.</string>
+    <string name="salary_calc_formula_title">वेतन सूत्र</string>
+    <string name="salary_calc_formula_per_day_label">प्रति दिवस</string>
+    <string name="salary_calc_formula_per_day">= मासिक वेतन ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">प्रति तास</string>
+    <string name="salary_calc_formula_per_hour">= प्रति दिवस वेतन ÷ 8 (8 तास/दिवस)</string>
+    <string name="salary_calc_formula_half_day_label">अर्धा दिवस</string>
+    <string name="salary_calc_formula_half_day">= प्रति दिवस वेतन ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">कपात</string>
+    <string name="salary_calc_formula_deduction">= (अनुपस्थित × प्रति दिवस) + (अर्धा दिवस × अर्धा दिवस)</string>
+    <string name="salary_calc_formula_final_pay_label">अंतिम देय</string>
+    <string name="salary_calc_formula_final_pay">= मासिक वेतन − एकूण कपात</string>
+    <string name="salary_calc_formula_example">उदाहरण: ₹18,000 → प्रति दिवस ₹600 · प्रति तास ₹75</string>
+    <string name="salary_breakdown_auto_title">ऑटो वेतन तपशील</string>
+
 </resources>

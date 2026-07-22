@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">%1$s 후에 광고가 다시 표시됩니다</string>
     <string name="settings_currency">앱 통화</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">월급</string>
+    <string name="salary_calc_enter_monthly_salary">월급 입력</string>
+    <string name="salary_calc_attendance_30">출석(30일 기준)</string>
+    <string name="salary_calc_calculate_salary">급여 계산</string>
+    <string name="salary_calc_salary_summary">급여 요약</string>
+    <string name="salary_calc_total_30_days">총 30일</string>
+    <string name="salary_calc_monthly_div_30">월급 ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">일당 ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">일당 ÷ 2</string>
+    <string name="salary_calc_total_deduction">총 공제</string>
+    <string name="salary_calc_deduction_formula">(결근 × 일당) + (반일 × 반일)</string>
+    <string name="salary_calc_breakdown">계산 내역</string>
+    <string name="salary_calc_per_day_div_30">일당 (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">시급 (÷ 8시간/일)</string>
+    <string name="salary_calc_half_day_div_2">반일 (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">결근 (%1$d 일 × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">반일 (%1$d 일 × %2$s)</string>
+    <string name="salary_calc_no_deduction">공제 없음</string>
+    <string name="salary_calc_final_payable">최종 지급 급여</string>
+    <string name="salary_calc_fixed_formula">30일 고정 공식</string>
+    <string name="salary_calc_hours_per_day">8시간/일</string>
+    <string name="salary_calc_div_30_days">÷ 30 일</string>
+    <string name="salary_calc_div_8_hours">÷ 8시간/일</string>
+    <string name="salary_calc_overtime_per_hour">초과근무/시간</string>
+    <string name="salary_calc_equal_per_hour">= 시급</string>
+    <string name="salary_calc_formula_details">공식 세부정보</string>
+    <string name="salary_calc_per_day_formula">일당 (월급 ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">시급 (일당 ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">반일 (일당 ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">초과근무/시간 (= 시급)</string>
+    <string name="splash_service_unavailable">서비스를 사용할 수 없음</string>
+    <string name="splash_service_unavailable_body">앱을 일시적으로 사용할 수 없습니다.
+나중에 다시 시도하세요.</string>
+    <string name="salary_calc_formula_title">급여 공식</string>
+    <string name="salary_calc_formula_per_day_label">일당</string>
+    <string name="salary_calc_formula_per_day">= 월급 ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">시급</string>
+    <string name="salary_calc_formula_per_hour">= 일당 ÷ 8 (8시간/일)</string>
+    <string name="salary_calc_formula_half_day_label">반일</string>
+    <string name="salary_calc_formula_half_day">= 일당 ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">공제</string>
+    <string name="salary_calc_formula_deduction">= (결근 × 일당) + (반일 × 반일)</string>
+    <string name="salary_calc_formula_final_pay_label">최종 지급</string>
+    <string name="salary_calc_formula_final_pay">= 월급 − 총 공제</string>
+    <string name="salary_calc_formula_example">예: ₹18,000 → 일당 ₹600 · 시급 ₹75</string>
+    <string name="salary_breakdown_auto_title">자동 급여 내역</string>
+
 </resources>

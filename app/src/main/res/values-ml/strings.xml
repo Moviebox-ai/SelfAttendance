@@ -157,4 +157,52 @@
     <string name="salary_slip_employee_details">ജീവനക്കാരുടെ വിശദാംശങ്ങൾ</string>
     <string name="salary_slip_setup_profile">ദയവായി ആദ്യം പ്രൊഫൈലിൽ നിങ്ങളുടെ ശമ്പളം സജ്ജമാക്കുക</string>
     <string name="salary_slip_generate_btn">ശമ്പള സ്ലിപ്പ് PDF സൃഷ്ടിച്ച് സംരക്ഷിക്കുക</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">മാസ ശമ്പളം</string>
+    <string name="salary_calc_enter_monthly_salary">മാസ ശമ്പളം നൽകുക</string>
+    <string name="salary_calc_attendance_30">ഹാജർ (30 ദിവസത്തിൽ)</string>
+    <string name="salary_calc_calculate_salary">ശമ്പളം കണക്കാക്കുക</string>
+    <string name="salary_calc_salary_summary">ശമ്പള സംഗ്രഹം</string>
+    <string name="salary_calc_total_30_days">ആകെ 30 ദിവസം</string>
+    <string name="salary_calc_monthly_div_30">മാസ ശമ്പളം ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">ദിവസംപ്രതി ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">ദിവസംപ്രതി ÷ 2</string>
+    <string name="salary_calc_total_deduction">ആകെ കുറവ്</string>
+    <string name="salary_calc_deduction_formula">(ഹാജരല്ല × ദിവസംപ്രതി) + (അര ദിവസം × അര ദിവസം)</string>
+    <string name="salary_calc_breakdown">കണക്കു വിശദാംശം</string>
+    <string name="salary_calc_per_day_div_30">ദിവസംപ്രതി (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">മണിക്കൂർപ്രതി (÷ 8 മണിക്കൂർ/ദിവസം)</string>
+    <string name="salary_calc_half_day_div_2">അര ദിവസം (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">ഹാജരല്ല (%1$d ദിവസം × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">അര ദിവസങ്ങൾ (%1$d ദിവസം × %2$s)</string>
+    <string name="salary_calc_no_deduction">കുറവ് ഇല്ല</string>
+    <string name="salary_calc_final_payable">അവസാനമായി നൽകേണ്ട ശമ്പളം</string>
+    <string name="salary_calc_fixed_formula">30-ദിവസ സ്ഥിര ഫോർമുല</string>
+    <string name="salary_calc_hours_per_day">8 മണിക്കൂർ/ദിവസം</string>
+    <string name="salary_calc_div_30_days">÷ 30 ദിവസം</string>
+    <string name="salary_calc_div_8_hours">÷ 8 മണിക്കൂർ/ദിവസം</string>
+    <string name="salary_calc_overtime_per_hour">ഓവർടൈം/മണിക്കൂർ</string>
+    <string name="salary_calc_equal_per_hour">= മണിക്കൂർപ്രതി</string>
+    <string name="salary_calc_formula_details">ഫോർമുല വിശദാംശങ്ങൾ</string>
+    <string name="salary_calc_per_day_formula">ദിവസംപ്രതി (മാസ ശമ്പളം ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">മണിക്കൂർപ്രതി (ദിവസംപ്രതി ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">അര ദിവസം (ദിവസംപ്രതി ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">ഓവർടൈം/മണിക്കൂർ (= മണിക്കൂർപ്രതി)</string>
+    <string name="splash_service_unavailable">സേവനം ലഭ്യമല്ല</string>
+    <string name="splash_service_unavailable_body">ആപ്പ് താൽക്കാലികമായി ലഭ്യമല്ല.
+ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="salary_calc_formula_title">ശമ്പള ഫോർമുല</string>
+    <string name="salary_calc_formula_per_day_label">ദിവസംപ്രതി</string>
+    <string name="salary_calc_formula_per_day">= മാസ ശമ്പളം ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">മണിക്കൂർപ്രതി</string>
+    <string name="salary_calc_formula_per_hour">= ദിവസ ശമ്പളം ÷ 8 (8 മണിക്കൂർ/ദിവസം)</string>
+    <string name="salary_calc_formula_half_day_label">അര ദിവസം</string>
+    <string name="salary_calc_formula_half_day">= ദിവസ ശമ്പളം ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">കുറവ്</string>
+    <string name="salary_calc_formula_deduction">= (ഹാജരല്ല × ദിവസംപ്രതി) + (അര ദിവസം × അര ദിവസം)</string>
+    <string name="salary_calc_formula_final_pay_label">അവസാന പേയ്‌മെന്റ്</string>
+    <string name="salary_calc_formula_final_pay">= മാസ ശമ്പളം − ആകെ കുറവ്</string>
+    <string name="salary_calc_formula_example">ഉദാഹരണം: ₹18,000 → ദിവസംപ്രതി ₹600 · മണിക്കൂർപ്രതി ₹75</string>
+    <string name="salary_breakdown_auto_title">ഓട്ടോ ശമ്പള വിശദാംശം</string>
+
 </resources>

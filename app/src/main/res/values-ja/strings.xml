@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">%1$s後に広告が再開されます</string>
     <string name="settings_currency">アプリの通貨</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">月給</string>
+    <string name="salary_calc_enter_monthly_salary">月給を入力</string>
+    <string name="salary_calc_attendance_30">出勤（30日中）</string>
+    <string name="salary_calc_calculate_salary">給与を計算</string>
+    <string name="salary_calc_salary_summary">給与サマリー</string>
+    <string name="salary_calc_total_30_days">合計30日</string>
+    <string name="salary_calc_monthly_div_30">月給 ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">日給 ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">日給 ÷ 2</string>
+    <string name="salary_calc_total_deduction">控除合計</string>
+    <string name="salary_calc_deduction_formula">(欠勤 × 日給) + (半日 × 半日)</string>
+    <string name="salary_calc_breakdown">計算内訳</string>
+    <string name="salary_calc_per_day_div_30">日給 (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">時給 (÷ 8時間/日)</string>
+    <string name="salary_calc_half_day_div_2">半日 (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">欠勤 (%1$d 日 × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">半日 (%1$d 日 × %2$s)</string>
+    <string name="salary_calc_no_deduction">控除なし</string>
+    <string name="salary_calc_final_payable">最終支払給与</string>
+    <string name="salary_calc_fixed_formula">30日固定式</string>
+    <string name="salary_calc_hours_per_day">8時間/日</string>
+    <string name="salary_calc_div_30_days">÷ 30 日</string>
+    <string name="salary_calc_div_8_hours">÷ 8時間/日</string>
+    <string name="salary_calc_overtime_per_hour">残業/時</string>
+    <string name="salary_calc_equal_per_hour">= 時給</string>
+    <string name="salary_calc_formula_details">計算式の詳細</string>
+    <string name="salary_calc_per_day_formula">日給 (月給 ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">時給 (日給 ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">半日 (日給 ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">残業/時 (= 時給)</string>
+    <string name="splash_service_unavailable">サービス利用不可</string>
+    <string name="splash_service_unavailable_body">アプリは一時的に利用できません。
+後でもう一度お試しください。</string>
+    <string name="salary_calc_formula_title">給与計算式</string>
+    <string name="salary_calc_formula_per_day_label">日給</string>
+    <string name="salary_calc_formula_per_day">= 月給 ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">時給</string>
+    <string name="salary_calc_formula_per_hour">= 日給 ÷ 8 (8時間/日)</string>
+    <string name="salary_calc_formula_half_day_label">半日</string>
+    <string name="salary_calc_formula_half_day">= 日給 ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">控除</string>
+    <string name="salary_calc_formula_deduction">= (欠勤 × 日給) + (半日 × 半日)</string>
+    <string name="salary_calc_formula_final_pay_label">最終支払</string>
+    <string name="salary_calc_formula_final_pay">= 月給 − 控除合計</string>
+    <string name="salary_calc_formula_example">例: ₹18,000 → 日給 ₹600 · 時給 ₹75</string>
+    <string name="salary_breakdown_auto_title">自動給与内訳</string>
+
 </resources>

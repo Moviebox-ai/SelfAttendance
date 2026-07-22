@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">Werbung kehrt in %1$s zurück</string>
     <string name="settings_currency">App-Währung</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">Monatsgehalt</string>
+    <string name="salary_calc_enter_monthly_salary">Monatsgehalt eingeben</string>
+    <string name="salary_calc_attendance_30">Anwesenheit (von 30 Tagen)</string>
+    <string name="salary_calc_calculate_salary">Gehalt berechnen</string>
+    <string name="salary_calc_salary_summary">Gehaltsübersicht</string>
+    <string name="salary_calc_total_30_days">Insgesamt 30 Tage</string>
+    <string name="salary_calc_monthly_div_30">Monatsgehalt ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">Pro Tag ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">Pro Tag ÷ 2</string>
+    <string name="salary_calc_total_deduction">Gesamtabzug</string>
+    <string name="salary_calc_deduction_formula">(Abwesend × Pro Tag) + (Halber Tag × Halber Tag)</string>
+    <string name="salary_calc_breakdown">Berechnungsdetails</string>
+    <string name="salary_calc_per_day_div_30">Pro Tag (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">Pro Stunde (÷ 8 Std./Tag)</string>
+    <string name="salary_calc_half_day_div_2">Halber Tag (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">Abwesend (%1$d Tage × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">Halbe Tage (%1$d Tage × %2$s)</string>
+    <string name="salary_calc_no_deduction">Kein Abzug</string>
+    <string name="salary_calc_final_payable">Endgültig zahlbares Gehalt</string>
+    <string name="salary_calc_fixed_formula">Feste 30-Tage-Formel</string>
+    <string name="salary_calc_hours_per_day">8 Std./Tag</string>
+    <string name="salary_calc_div_30_days">÷ 30 Tage</string>
+    <string name="salary_calc_div_8_hours">÷ 8 Std./Tag</string>
+    <string name="salary_calc_overtime_per_hour">Überstunden/Std.</string>
+    <string name="salary_calc_equal_per_hour">= Pro Stunde</string>
+    <string name="salary_calc_formula_details">Formeldetails</string>
+    <string name="salary_calc_per_day_formula">Pro Tag (Monatsgehalt ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">Pro Stunde (Pro Tag ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">Halber Tag (Pro Tag ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">Überstunden/Std. (= Pro Stunde)</string>
+    <string name="splash_service_unavailable">Dienst nicht verfügbar</string>
+    <string name="splash_service_unavailable_body">Die App ist vorübergehend nicht verfügbar.
+Bitte versuche es später erneut.</string>
+    <string name="salary_calc_formula_title">Gehaltsformel</string>
+    <string name="salary_calc_formula_per_day_label">Pro Tag</string>
+    <string name="salary_calc_formula_per_day">= Monatsgehalt ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">Pro Stunde</string>
+    <string name="salary_calc_formula_per_hour">= Tagesgehalt ÷ 8 (8 Std./Tag)</string>
+    <string name="salary_calc_formula_half_day_label">Halber Tag</string>
+    <string name="salary_calc_formula_half_day">= Tagesgehalt ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">Abzug</string>
+    <string name="salary_calc_formula_deduction">= (Abwesend × Pro Tag) + (Halber Tag × Halber Tag)</string>
+    <string name="salary_calc_formula_final_pay_label">Endzahlung</string>
+    <string name="salary_calc_formula_final_pay">= Monatsgehalt − Gesamtabzug</string>
+    <string name="salary_calc_formula_example">Beispiel: ₹18,000 → Pro Tag ₹600 · Pro Stunde ₹75</string>
+    <string name="salary_breakdown_auto_title">Automatische Gehaltsaufschlüsselung</string>
+
 </resources>

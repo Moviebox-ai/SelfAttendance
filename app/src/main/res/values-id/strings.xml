@@ -141,4 +141,52 @@
     <string name="rewarded_ad_free_active_subtitle">Iklan akan kembali dalam %1$s</string>
     <string name="settings_currency">Mata uang app</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">Gaji bulanan</string>
+    <string name="salary_calc_enter_monthly_salary">Masukkan gaji bulanan</string>
+    <string name="salary_calc_attendance_30">Kehadiran (dari 30 hari)</string>
+    <string name="salary_calc_calculate_salary">Hitung gaji</string>
+    <string name="salary_calc_salary_summary">Ringkasan gaji</string>
+    <string name="salary_calc_total_30_days">Total 30 hari</string>
+    <string name="salary_calc_monthly_div_30">Gaji bulanan ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">Per hari ÷ 8</string>
+    <string name="salary_calc_per_day_div_2">Per hari ÷ 2</string>
+    <string name="salary_calc_total_deduction">Total potongan</string>
+    <string name="salary_calc_deduction_formula">(Absen × Per hari) + (Setengah hari × Setengah hari)</string>
+    <string name="salary_calc_breakdown">Rincian perhitungan</string>
+    <string name="salary_calc_per_day_div_30">Per hari (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">Per jam (÷ 8 jam/hari)</string>
+    <string name="salary_calc_half_day_div_2">Setengah hari (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">Absen (%1$d hari × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">Setengah hari (%1$d hari × %2$s)</string>
+    <string name="salary_calc_no_deduction">Tidak ada potongan</string>
+    <string name="salary_calc_final_payable">Gaji akhir dibayar</string>
+    <string name="salary_calc_fixed_formula">Rumus tetap 30 hari</string>
+    <string name="salary_calc_hours_per_day">8 jam/hari</string>
+    <string name="salary_calc_div_30_days">÷ 30 hari</string>
+    <string name="salary_calc_div_8_hours">÷ 8 jam/hari</string>
+    <string name="salary_calc_overtime_per_hour">Lembur/jam</string>
+    <string name="salary_calc_equal_per_hour">= Per jam</string>
+    <string name="salary_calc_formula_details">Detail rumus</string>
+    <string name="salary_calc_per_day_formula">Per hari (Gaji bulanan ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">Per jam (Per hari ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">Setengah hari (Per hari ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">Lembur/jam (= Per jam)</string>
+    <string name="splash_service_unavailable">Layanan tidak tersedia</string>
+    <string name="splash_service_unavailable_body">Aplikasi sementara tidak tersedia.
+Silakan coba lagi nanti.</string>
+    <string name="salary_calc_formula_title">Rumus gaji</string>
+    <string name="salary_calc_formula_per_day_label">Per hari</string>
+    <string name="salary_calc_formula_per_day">= Gaji bulanan ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">Per jam</string>
+    <string name="salary_calc_formula_per_hour">= gaji per hari ÷ 8 (8 jam/hari)</string>
+    <string name="salary_calc_formula_half_day_label">Setengah hari</string>
+    <string name="salary_calc_formula_half_day">= gaji per hari ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">Potongan</string>
+    <string name="salary_calc_formula_deduction">= (Absen × Per hari) + (Setengah hari × Setengah hari)</string>
+    <string name="salary_calc_formula_final_pay_label">Bayaran akhir</string>
+    <string name="salary_calc_formula_final_pay">= Gaji bulanan − Total potongan</string>
+    <string name="salary_calc_formula_example">Contoh: ₹18,000 → Per hari ₹600 · Per jam ₹75</string>
+    <string name="salary_breakdown_auto_title">Rincian gaji otomatis</string>
+
 </resources>
