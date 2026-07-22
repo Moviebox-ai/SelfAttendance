@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">Select status ↑</string>
     <string name="settings_currency">App Currency</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+
+    <string name="dashboard_this_month">இந்த மாதம்</string>
+    <string name="calendar_delete_body">%1$s க்கான வருகையை நீக்க விரும்புகிறீர்களா?</string>
+    <string name="settings_logout_subtitle">உங்கள் கணக்கிலிருந்து வெளியேறவும்</string>
+    <string name="notification_reminder_streak_cta">உங்கள் வருகையை பதிவு செய்து தொடரை வைத்திருக்க தட்டவும் 🔥</string>
+    <string name="salary_slip_title">சம்பள சீட்டு</string>
+    <string name="salary_slip_employee_details">பணியாளர் விவரங்கள்</string>
+    <string name="salary_slip_setup_profile">முதலில் சுயவிவரத்தில் உங்கள் சம்பளத்தை அமைக்கவும்</string>
+    <string name="salary_slip_generate_btn">சம்பள சீட்டு PDF உருவாக்கி சேமிக்கவும்</string>
 </resources>

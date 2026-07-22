@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">উপরে স্ট্যাটাস ↑</string>
     <string name="settings_currency">অ্যাপ মুদ্রা</string>
     <string name="profile_updated_success">প্রোফাইল সফলভাবে আপডেট</string>
+
+    <string name="dashboard_this_month">এই মাস</string>
+    <string name="calendar_delete_body">আপনি কি %1$s-এর উপস্থিতি মুছে ফেলতে চান?</string>
+    <string name="settings_logout_subtitle">আপনার অ্যাকাউন্ট থেকে সাইন আউট করুন</string>
+    <string name="notification_reminder_streak_cta">আপনার উপস্থিতি মার্ক করতে এবং স্ট্রিক চালু রাখতে ট্যাপ করুন 🔥</string>
+    <string name="salary_slip_title">বেতন স্লিপ</string>
+    <string name="salary_slip_employee_details">কর্মচারীর বিবরণ</string>
+    <string name="salary_slip_setup_profile">অনুগ্রহ করে আগে প্রোফাইলে আপনার বেতন সেট করুন</string>
+    <string name="salary_slip_generate_btn">বেতন স্লিপ PDF তৈরি ও সংরক্ষণ করুন</string>
 </resources>

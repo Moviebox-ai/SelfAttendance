@@ -148,4 +148,11 @@
     <string name="calendar_select_status_first">ऊपर स्थिति चुनें ↑</string>
     <string name="settings_currency">ऐप मुद्रा</string>
     <string name="profile_updated_success">प्रोफ़ाइल सफलतापूर्वक अपडेट हुई</string>
+
+    <string name="settings_logout_subtitle">अपने खाते से साइन आउट करें</string>
+    <string name="notification_reminder_streak_cta">अपनी उपस्थिति दर्ज करने और स्ट्रीक बनाए रखने के लिए टैप करें 🔥</string>
+    <string name="salary_slip_title">वेतन पर्ची</string>
+    <string name="salary_slip_employee_details">कर्मचारी विवरण</string>
+    <string name="salary_slip_setup_profile">कृपया पहले प्रोफ़ाइल में अपना वेतन सेट करें</string>
+    <string name="salary_slip_generate_btn">वेतन पर्ची PDF बनाएँ और सेव करें</string>
 </resources>

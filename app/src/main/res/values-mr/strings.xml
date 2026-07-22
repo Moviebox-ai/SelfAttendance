@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">वर स्थिती निवडा ↑</string>
     <string name="settings_currency">ॲप चलन</string>
     <string name="profile_updated_success">प्रोफाइल यशस्वीरित्या अपडेट</string>
+
+    <string name="dashboard_this_month">हा महिना</string>
+    <string name="calendar_delete_body">तुम्हाला %1$s ची उपस्थिती हटवायची आहे का?</string>
+    <string name="settings_logout_subtitle">तुमच्या खात्यातून साइन आउट करा</string>
+    <string name="notification_reminder_streak_cta">तुमची उपस्थिती नोंदवण्यासाठी आणि स्ट्रीक चालू ठेवण्यासाठी टॅप करा 🔥</string>
+    <string name="salary_slip_title">वेतन पावती</string>
+    <string name="salary_slip_employee_details">कर्मचारी तपशील</string>
+    <string name="salary_slip_setup_profile">कृपया आधी प्रोफाइलमध्ये तुमचा पगार सेट करा</string>
+    <string name="salary_slip_generate_btn">वेतन पावती PDF तयार करा आणि सेव करा</string>
 </resources>
