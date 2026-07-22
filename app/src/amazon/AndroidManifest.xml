@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Amazon flavor manifest overlay.
+    Merged ON TOP of src/main/AndroidManifest.xml by the Android Gradle Plugin.
+    Uses tools:node="remove" to strip Google-Play-specific entries that are
+    unnecessary or harmful on Amazon Fire devices.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        Remove the GMS package visibility query.
+        Amazon Fire OS ships with Amazon Services, not Google Mobile Services.
+        Querying for com.google.android.gms is harmless but produces lint
+        warnings and reveals Play dependency to Amazon's review team.
+    -->
+    <queries>
+        <package
+            android:name="com.google.android.gms"
+            tools:node="remove" />
+    </queries>
+
+    <application>
+
+        <!--
+            Remove the com.google.android.gms.version meta-data entry.
+            This entry is injected by play-services-base and references a
+            Google Play Services resource integer. Amazon Fire does not ship
+            GMS, so the resource may be absent and cause runtime exceptions.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            tools:node="remove" />
+
+    </application>
+
+</manifest>

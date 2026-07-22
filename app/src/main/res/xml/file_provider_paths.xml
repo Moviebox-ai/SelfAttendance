@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- App-private external Documents (Android 9 and below PDF share) -->
+    <external-files-path
+        name="documents"
+        path="Documents/" />
+    <!-- Public external storage Documents folder (pre-Q PDF export share) -->
+    <external-path
+        name="public_documents"
+        path="Documents/" />
+    <files-path
+        name="files"
+        path="." />
+    <cache-path
+        name="cache"
+        path="." />
+</paths>

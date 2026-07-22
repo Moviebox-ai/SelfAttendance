@@ -1,0 +1,48 @@
+# =====================================================
+# Self Attendance Pro — .gitignore
+# CRITICAL: Sensitive files NEVER commit to Git
+# =====================================================
+
+# ── SENSITIVE FILES (NEVER COMMIT) ──────────────────
+# Keystore — contains signing key for Play Store
+app/keystore.jks
+*.jks
+*.keystore
+
+# Google Services — contains Firebase API keys
+# Note: google-services.json is needed to BUILD but
+# should NOT be in public repos. Use CI/CD secrets.
+# app/google-services.json  ← uncomment for public repos
+
+# Environment / secrets
+local.properties
+*.env
+secrets.properties
+
+# ── Build Output ─────────────────────────────────────
+*.apk
+*.aab
+*.ap_
+*.dex
+
+build/
+app/build/
+.gradle/
+
+# ── IDE ──────────────────────────────────────────────
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Android Studio
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ── ACSide ───────────────────────────────────────────
+.acside/
+
+# ── Logs ─────────────────────────────────────────────
+*.log

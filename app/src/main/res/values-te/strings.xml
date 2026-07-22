@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Self Attendance Pro</string>
+    <string name="nav_home">హోమ్</string>
+    <string name="nav_calendar">క్యాలెండర్</string>
+    <string name="nav_settings">సెట్టింగ్లు</string>
+    <string name="dashboard_greeting_morning">శుభోదయం</string>
+    <string name="dashboard_greeting_afternoon">నమస్కారం</string>
+    <string name="dashboard_greeting_evening">శుభ సాయంత్రం</string>
+    <string name="dashboard_estimated_salary">అంచనా జీతం</string>
+    <string name="dashboard_present">హాజరు</string>
+    <string name="dashboard_half_day">అర్ధ రోజు</string>
+    <string name="dashboard_absent">గైర్హాజరు</string>
+    <string name="dashboard_overtime">అదనపు సమయం</string>
+    <string name="calendar_mark_attendance">హాజరు నమోదు చేయండి</string>
+    <string name="calendar_present_btn">హాజరు</string>
+    <string name="calendar_half_day_btn">అర్ధ రోజు</string>
+    <string name="calendar_absent_btn">గైర్హాజరు</string>
+    <string name="calendar_save">సేవ్ చేయండి</string>
+    <string name="calendar_cancel">రద్దు</string>
+
+    <string name="settings_title">సెట్టింగ్లు</string>
+    <string name="settings_language">యాప్ భాష</string>
+    <string name="settings_logout">లాగ్అవుట్</string>
+    <string name="profile_name">పూర్తి పేరు</string>
+    <string name="profile_salary">నెలసరి జీతం (₹)</string>
+    <string name="common_cancel">రద్దు</string>
+
+    <!-- Fallback from English (not yet translated) -->
+    <string name="dashboard_attendance_progress">Attendance Progress</string>
+    <string name="dashboard_sponsored">Sponsored</string>
+    <string name="calendar_edit_attendance">Edit Attendance</string>
+    <string name="calendar_overtime_hours">Overtime Hours (optional)</string>
+    <string name="calendar_delete_title">Remove Attendance</string>
+    <string name="calendar_delete_confirm">Delete</string>
+    <string name="calendar_monthly_summary">Monthly Summary</string>
+
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_app_theme">App Theme</string>
+    <string name="settings_preferences">Preferences</string>
+    <string name="settings_daily_reminder">Daily Reminder</string>
+    <string name="settings_biometric">Biometric Login</string>
+    <string name="settings_data_management">Data Management</string>
+    <string name="settings_backup">Backup Data</string>
+    <string name="settings_restore">Restore Data</string>
+    <string name="settings_reset">Reset Attendance Data</string>
+    <string name="settings_general">General</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_terms">Terms &amp; Conditions</string>
+    <string name="settings_about">About App</string>
+    <string name="settings_rate">Rate This App</string>
+    <string name="settings_refer">Refer to Friends</string>
+    <string name="settings_version">Version 1.0.2</string>
+    <string name="settings_please_wait">Please wait…</string>
+    <string name="auth_login">Login</string>
+    <string name="auth_register">Create Account</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_google">Continue with Google</string>
+    <string name="auth_switch_register">Don\'t have an account? Create one</string>
+    <string name="auth_switch_login">Already have an account? Login</string>
+    <string name="profile_setup_title">Setup Your Profile</string>
+    <string name="profile_edit_title">Edit Profile</string>
+    <string name="profile_working_days">Working Days per Month</string>
+    <string name="profile_hours">Hours Per Day</string>
+    <string name="profile_overtime_rate">Overtime Rate (₹/hour)</string>
+    <string name="profile_save">Save &amp; Continue</string>
+    <string name="profile_update">Update Profile</string>
+    <string name="common_loading">Loading…</string>
+    <string name="common_error">Something went wrong</string>
+    <string name="common_retry">Retry</string>
+    <string name="common_ok">OK</string>
+    <string name="common_save">Save</string>
+    <string name="common_delete">Delete</string>
+
+    <!-- Missing strings added -->
+    <string name="app_open_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/9541869822</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/2282498349</string>
+    <string name="default_web_client_id" translatable="false">611062377939-aqsl27q6mgq5v44q7i2jmcfl0q9f0jhl.apps.googleusercontent.com</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/4828770637</string>
+    <string name="native_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/1044432701</string>
+    <string name="privacy_policy_url" translatable="false">https://sites.google.com/view/self-attendance-privacy-policy/home</string>
+    <string name="terms_of_service_url" translatable="false">https://sites.google.com/view/self-terms-and-conditions/home</string>
+    <string name="settings_refer_text" translatable="false">Check out Self Attendance Pro — track your work attendance and salary easily! https://play.google.com/store/apps/details?id=com.aaryo.selfattendance</string>
+    <string name="about_data_collected_title">మేము సేకరించే డేటా</string>
+    <string name="about_data_collected_msg">ఇమెయిల్ చిరునామా (లాగిన్), హాజరు రికార్డులు (స్థానిక మరియు బ్యాకప్), పరికర సమాచారం (ప్రకటనలు మరియు Analytics), యాప్ వినియోగ డేటా (Firebase Analytics)</string>
+    <string name="auth_forgot_password">పాస్‌వర్డ్ మర్చిపోయారా?</string>
+    <string name="auth_forgot_password_title">పాస్‌వర్డ్ రీసెట్ చేయండి</string>
+    <string name="auth_forgot_password_msg">మీ ఇమెయిల్ చిరునామా నమోదు చేయండి. మేము రీసెట్ లింక్ పంపుతాము.</string>
+    <string name="auth_forgot_password_send">రీసెట్ లింక్ పంపండి</string>
+    <string name="auth_forgot_password_sent">పాస్‌వర్డ్ రీసెట్ ఇమెయిల్ పంపబడింది! మీ ఇన్‌బాక్స్ చూడండి.</string>
+    <string name="auth_forgot_password_error">రీసెట్ ఇమెయిల్ పంపడంలో విఫలమైంది. ఇమెయిల్ చిరునామా తనిఖీ చేయండి.</string>
+    <string name="dialog_cancel">రద్దు చేయి</string>
+    <string name="dialog_confirm">నిర్ధారించు</string>
+    <string name="dialog_delete">తొలగించు</string>
+    <string name="dialog_ok">సరే</string>
+    <string name="dialog_restore">పునరుద్ధరించు</string>
+    <string name="notification_reminder_title">హాజరు రిమైండర్</string>
+    <string name="notification_reminder_body">ఈరోజు హాజరు గుర్తించడం మర్చిపోకండి</string>
+    <string name="notif_offer_channel_name">ఆఫర్లు మరియు ప్రమోషన్లు</string>
+
+    <!-- Rewarded Video Ad -->
+    <string name="rewarded_watch_ad_title">30 నిమిషాలు Ad-Free 🎉</string>
+    <string name="rewarded_watch_ad_subtitle">చిన్న వీడియో చూసి, ప్రకటనలు లేకుండా యాప్ ఆనందించండి</string>
+    <string name="rewarded_watch_btn">ఇప్పుడు చూడండి</string>
+    <string name="rewarded_ad_not_ready">ప్రకటన ఇంకా సిద్ధంగా లేదు, కొంత సేపు తర్వాత ప్రయత్నించండి</string>
+    <string name="rewarded_ad_free_active_title">✅ Ad-Free మోడ్ యాక్టివ్!</string>
+    <string name="rewarded_ad_free_active_subtitle">ప్రకటనలు %1$s లో తిరిగి వస్తాయి</string>
+    <string name="security_continue_btn">కొనసాగించు</string>
+    <string name="security_rooted_device_msg">ఈ పరికరం రూట్ చేయబడినట్లు కనిపిస్తోంది. కొన్ని ఫీచర్లు సరిగ్గా పని చేయకపోవచ్చు.</string>
+    <string name="security_warning_title">భద్రతా హెచ్చరిక</string>
+    <string name="settings_biometric_disabled">బయోమెట్రిక్ లాగిన్ నిలిపివేయబడింది</string>
+    <string name="settings_biometric_enabled">బయోమెట్రిక్ లాగిన్ ప్రారంభించబడింది</string>
+    <string name="settings_danger_zone">ప్రమాద జోన్</string>
+    <string name="settings_delete_account">ఖాతాను తొలగించు</string>
+    <string name="settings_delete_account_confirm">అవును, నా ఖాతాను తొలగించు</string>
+    <string name="settings_delete_account_msg">మీరు నిజంగా మీ ఖాతాను శాశ్వతంగా తొలగించాలనుకుంటున్నారా? అన్ని హాజరు రికార్డులు తొలగించబడతాయి. ఇది రద్దు చేయడం సాధ్యం కాదు.</string>
+    <string name="settings_delete_account_subtitle">మీ ఖాతా మరియు అన్ని డేటాను శాశ్వతంగా తొలగించండి</string>
+    <string name="settings_delete_account_warning">⚠️ ఇది శాశ్వతమైనది మరియు రద్దు చేయడం సాధ్యం కాదు.</string>
+    <string name="settings_delete_failed">ఖాతాను తొలగించడంలో విఫలమైంది. మళ్లీ ప్రయత్నించండి.</string>
+    <string name="settings_delete_reauth_required">భద్రత కోసం, ఖాతాను తొలగించే ముందు లాగ్‌అవుట్ చేసి మళ్లీ లాగిన్ చేయండి.</string>
+    <string name="settings_hourly_reminder">గంటకు రిమైండర్లు మరియు ఆఫర్లు</string>
+    <string name="settings_hourly_reminder_off">గంటకు నోటిఫికేషన్లు నిలిపివేయబడ్డాయి</string>
+    <string name="settings_hourly_reminder_on">ప్రతి 1-2 గంటలకు నోటిఫికేషన్లు వస్తాయి</string>
+    <string name="settings_reminder_disabled">రోజువారీ రిమైండర్ నిలిపివేయబడింది</string>
+    <string name="settings_reminder_enabled">రోజువారీ రిమైండర్ ప్రారంభించబడింది</string>
+    <string name="settings_reset_confirm_msg">మీకు నిశ్చయంగా ఉందా? ఈ చర్య అన్ని హాజరు రికార్డులను శాశ్వతంగా తొలగిస్తుంది.</string>
+    <string name="settings_restore_confirm_msg">బ్యాకప్ పునరుద్ధరించడం వర్తమాన డేటాను మారుస్తుంది. కొనసాగించాలా?</string>
+    <string name="settings_share_via">ద్వారా షేర్ చేయండి</string>
+    <string name="settings_theme">యాప్ థీమ్</string>
+    <string name="settings_theme_updated">థీమ్ అప్‌డేట్ చేయబడింది</string>
+    <string name="summary_per_day">రోజుకు</string>
+    <string name="summary_per_hour">గంటకు</string>
+    <string name="summary_salary">జీతం</string>
+    <string name="update_ready_message">అప్‌డేట్ డౌన్‌లోడ్ అయింది మరియు సిద్ధంగా ఉంది!</string>
+    <string name="update_restart_action">పునఃప్రారంభించు</string>
+    <string name="nav_rewards">Rewards</string>
+    <string name="nav_leaderboard">Leaderboard</string>
+    <string name="calendar_present_selected">✓ Present selected</string>
+    <string name="calendar_half_day_selected">✓ Half Day selected</string>
+    <string name="calendar_absent_selected">✓ Absent selected</string>
+    <string name="calendar_overtime_placeholder">e.g. 2.5</string>
+    <string name="calendar_overtime_autoselect">✅ Present auto-selected</string>
+    <string name="calendar_save_present_ot">Save — Present + %1$sh OT</string>
+    <string name="calendar_save_half_ot">Save — Half Day</string>
+    <string name="calendar_save_absent_ot">Save — Absent</string>
+    <string name="calendar_select_status_first">Select status ↑</string>
+    <string name="settings_currency">App Currency</string>
+    <string name="profile_updated_success">Profile updated successfully</string>
+</resources>

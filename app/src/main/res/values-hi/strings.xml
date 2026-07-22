@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Self Attendance Pro</string>
+    <string name="nav_home">होम</string>
+    <string name="nav_calendar">कैलेंडर</string>
+    <string name="nav_settings">सेटिंग्स</string>
+    <string name="dashboard_greeting_morning">सुप्रभात</string>
+    <string name="dashboard_greeting_afternoon">नमस्ते</string>
+    <string name="dashboard_greeting_evening">शुभ संध्या</string>
+    <string name="dashboard_estimated_salary">अनुमानित वेतन</string>
+    <string name="dashboard_attendance_progress">उपस्थिति प्रगति</string>
+    <string name="dashboard_present">उपस्थित</string>
+    <string name="dashboard_half_day">अर्ध दिवस</string>
+    <string name="dashboard_absent">अनुपस्थित</string>
+    <string name="dashboard_overtime">ओवरटाइम</string>
+    <string name="dashboard_sponsored">प्रायोजित</string>
+    <string name="dashboard_this_month">इस महीने</string>
+    <string name="calendar_mark_attendance">उपस्थिति दर्ज करें</string>
+    <string name="calendar_edit_attendance">उपस्थिति संपादित करें</string>
+    <string name="calendar_present_btn">उपस्थित</string>
+    <string name="calendar_half_day_btn">अर्ध दिवस</string>
+    <string name="calendar_absent_btn">अनुपस्थित</string>
+    <string name="calendar_overtime_hours">ओवरटाइम घंटे (वैकल्पिक)</string>
+    <string name="calendar_save">सहेजें</string>
+    <string name="calendar_cancel">रद्द करें</string>
+    <string name="calendar_delete_title">उपस्थिति हटाएं</string>
+    <string name="calendar_delete_confirm">हटाएं</string>
+    <string name="calendar_delete_body">क्या आप %1$s की उपस्थिति हटाना चाहते हैं?</string>
+    <string name="calendar_monthly_summary">मासिक सारांश</string>
+
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="settings_appearance">दिखावट</string>
+    <string name="settings_dark_mode">डार्क मोड</string>
+    <string name="settings_app_theme">ऐप थीम</string>
+    <string name="settings_language">ऐप भाषा</string>
+    <string name="settings_preferences">प्राथमिकताएं</string>
+    <string name="settings_daily_reminder">दैनिक अनुस्मारक</string>
+    <string name="settings_biometric">बायोमेट्रिक लॉगिन</string>
+    <string name="settings_data_management">डेटा प्रबंधन</string>
+    <string name="settings_backup">डेटा बैकअप</string>
+    <string name="settings_restore">डेटा पुनर्स्थापित करें</string>
+    <string name="settings_reset">उपस्थिति डेटा रीसेट करें</string>
+    <string name="settings_general">सामान्य</string>
+    <string name="settings_privacy">गोपनीयता नीति</string>
+    <string name="settings_terms">नियम और शर्तें</string>
+    <string name="settings_about">ऐप के बारे में</string>
+    <string name="settings_rate">ऐप रेट करें</string>
+    <string name="settings_refer">दोस्तों को रेफर करें</string>
+    <string name="settings_logout">लॉगआउट</string>
+    <string name="settings_version">संस्करण 1.0.2</string>
+    <string name="settings_please_wait">कृपया प्रतीक्षा करें…</string>
+
+    <string name="auth_login">लॉगिन</string>
+    <string name="auth_register">खाता बनाएं</string>
+    <string name="auth_email">ईमेल</string>
+    <string name="auth_password">पासवर्ड</string>
+    <string name="auth_google">Google से जारी रखें</string>
+    <string name="auth_switch_register">खाता नहीं है? बनाएं</string>
+    <string name="auth_switch_login">खाता है? लॉगिन करें</string>
+    <string name="profile_setup_title">प्रोफ़ाइल सेटअप करें</string>
+    <string name="profile_edit_title">प्रोफ़ाइल संपादित करें</string>
+    <string name="profile_name">पूरा नाम</string>
+    <string name="profile_salary">मासिक वेतन (₹)</string>
+    <string name="profile_working_days">प्रति माह कार्य दिवस</string>
+    <string name="profile_hours">प्रति दिन घंटे</string>
+    <string name="profile_overtime_rate">ओवरटाइम दर (₹/घंटा)</string>
+    <string name="profile_save">सहेजें और जारी रखें</string>
+    <string name="profile_update">प्रोफ़ाइल अपडेट करें</string>
+    <string name="common_loading">लोड हो रहा है…</string>
+    <string name="common_error">कुछ गलत हुआ</string>
+    <string name="common_retry">पुनः प्रयास करें</string>
+    <string name="common_ok">ठीक है</string>
+    <string name="common_cancel">रद्द करें</string>
+    <string name="common_save">सहेजें</string>
+    <string name="common_delete">हटाएं</string>
+
+    <!-- Missing strings added -->
+    <string name="app_open_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/9541869822</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/2282498349</string>
+    <string name="default_web_client_id" translatable="false">611062377939-aqsl27q6mgq5v44q7i2jmcfl0q9f0jhl.apps.googleusercontent.com</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/4828770637</string>
+    <string name="native_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/1044432701</string>
+    <string name="privacy_policy_url" translatable="false">https://sites.google.com/view/self-attendance-privacy-policy/home</string>
+    <string name="terms_of_service_url" translatable="false">https://sites.google.com/view/self-terms-and-conditions/home</string>
+    <string name="settings_refer_text" translatable="false">Check out Self Attendance Pro — track your work attendance and salary easily! https://play.google.com/store/apps/details?id=com.aaryo.selfattendance</string>
+    <string name="about_data_collected_title">हम जो डेटा एकत्र करते हैं</string>
+    <string name="about_data_collected_msg">ईमेल पता (लॉगिन), उपस्थिति रिकॉर्ड (स्थानीय और बैकअप), डिवाइस जानकारी (विज्ञापन और एनालिटिक्स), ऐप उपयोग डेटा (Firebase Analytics)</string>
+    <string name="auth_forgot_password">पासवर्ड भूल गए?</string>
+    <string name="auth_forgot_password_title">पासवर्ड रीसेट करें</string>
+    <string name="auth_forgot_password_msg">अपना ईमेल पता दर्ज करें। हम आपको रीसेट लिंक भेजेंगे।</string>
+    <string name="auth_forgot_password_send">रीसेट लिंक भेजें</string>
+    <string name="auth_forgot_password_sent">पासवर्ड रीसेट ईमेल भेजा गया! अपना इनबॉक्स देखें।</string>
+    <string name="auth_forgot_password_error">रीसेट ईमेल भेजने में विफल। कृपया ईमेल जांचें।</string>
+    <string name="dialog_cancel">रद्द करें</string>
+    <string name="dialog_confirm">पुष्टि करें</string>
+    <string name="dialog_delete">हटाएं</string>
+    <string name="dialog_ok">ठीक है</string>
+    <string name="dialog_restore">पुनर्स्थापित करें</string>
+    <string name="notification_reminder_title">उपस्थिति अनुस्मारक</string>
+    <string name="notification_reminder_body">आज की उपस्थिति दर्ज करना न भूलें</string>
+    <string name="notif_offer_channel_name">ऑफर और प्रमोशन</string>
+
+    <!-- Rewarded Video Ad -->
+    <string name="rewarded_watch_ad_title">30 मिनट के लिए Ad-Free 🎉</string>
+    <string name="rewarded_watch_ad_subtitle">एक छोटा वीडियो देखें और बिना विज्ञापन के ऐप का आनंद लें</string>
+    <string name="rewarded_watch_btn">अभी देखें</string>
+    <string name="rewarded_ad_not_ready">विज्ञापन अभी तैयार नहीं, कृपया थोड़ी देर में कोशिश करें</string>
+    <string name="rewarded_ad_free_active_title">✅ Ad-Free मोड सक्रिय!</string>
+    <string name="rewarded_ad_free_active_subtitle">विज्ञापन %1$s में वापस आएंगे</string>
+    <string name="security_continue_btn">जारी रखें</string>
+    <string name="security_rooted_device_msg">यह डिवाइस रूट लगती है। कुछ सुविधाएं ठीक से काम नहीं कर सकतीं।</string>
+    <string name="security_warning_title">सुरक्षा चेतावनी</string>
+    <string name="settings_biometric_disabled">बायोमेट्रिक लॉगिन बंद</string>
+    <string name="settings_biometric_enabled">बायोमेट्रिक लॉगिन चालू</string>
+    <string name="settings_danger_zone">खतरनाक ज़ोन</string>
+    <string name="settings_delete_account">खाता हटाएं</string>
+    <string name="settings_delete_account_confirm">हां, मेरा खाता हटाएं</string>
+    <string name="settings_delete_account_msg">क्या आप वाकई अपना खाता स्थायी रूप से हटाना चाहते हैं? सभी उपस्थिति रिकॉर्ड और प्रोफ़ाइल हट जाएगी। यह पूर्ववत नहीं होगा।</string>
+    <string name="settings_delete_account_subtitle">आपका खाता और सभी डेटा स्थायी रूप से हटाएं</string>
+    <string name="settings_delete_account_warning">⚠️ यह स्थायी और अपरिवर्तनीय है।</string>
+    <string name="settings_delete_failed">खाता हटाने में विफल। पुनः प्रयास करें या सहायता से संपर्क करें।</string>
+    <string name="settings_delete_reauth_required">सुरक्षा के लिए, खाता हटाने से पहले लॉगआउट और लॉगिन करें।</string>
+    <string name="settings_hourly_reminder">प्रति घंटा अनुस्मारक और ऑफर</string>
+    <string name="settings_hourly_reminder_off">प्रति घंटा नोटिफिकेशन बंद हैं</string>
+    <string name="settings_hourly_reminder_on">हर 1-2 घंटे में नोटिफिकेशन मिलेंगे</string>
+    <string name="settings_reminder_disabled">दैनिक अनुस्मारक बंद</string>
+    <string name="settings_reminder_enabled">दैनिक अनुस्मारक चालू</string>
+    <string name="settings_reset_confirm_msg">क्या आप निश्चित हैं? यह सभी उपस्थिति रिकॉर्ड स्थायी रूप से हटा देगा।</string>
+    <string name="settings_restore_confirm_msg">बैकअप पुनर्स्थापित करने से वर्तमान डेटा बदल जाएगा। जारी रखें?</string>
+    <string name="settings_share_via">इसके माध्यम से साझा करें</string>
+    <string name="settings_theme">ऐप थीम</string>
+    <string name="settings_theme_updated">थीम अपडेट किया गया</string>
+    <string name="summary_per_day">प्रति दिन</string>
+    <string name="summary_per_hour">प्रति घंटा</string>
+    <string name="summary_salary">वेतन</string>
+    <string name="update_ready_message">अपडेट डाउनलोड हो गया और तैयार है!</string>
+    <string name="update_restart_action">पुनरारंभ करें</string>
+    <string name="nav_rewards">पुरस्कार</string>
+    <string name="nav_leaderboard">लीडरबोर्ड</string>
+    <string name="calendar_present_selected">✓ उपस्थित चुना गया</string>
+    <string name="calendar_half_day_selected">✓ अर्ध दिवस चुना गया</string>
+    <string name="calendar_absent_selected">✓ अनुपस्थित चुना गया</string>
+    <string name="calendar_overtime_placeholder">उदा. 2.5 → स्वतः उपस्थित चुनता है</string>
+    <string name="calendar_overtime_autoselect">✅ उपस्थित स्वतः — ऊपर बदलें</string>
+    <string name="calendar_save_present_ot">सहेजें — उपस्थित + %1$sघ ओटी</string>
+    <string name="calendar_save_half_ot">सहेजें — अर्ध दिवस (ओटी नहीं)</string>
+    <string name="calendar_save_absent_ot">सहेजें — अनुपस्थित (ओटी नहीं)</string>
+    <string name="calendar_select_status_first">ऊपर स्थिति चुनें ↑</string>
+    <string name="settings_currency">ऐप मुद्रा</string>
+    <string name="profile_updated_success">प्रोफ़ाइल सफलतापूर्वक अपडेट हुई</string>
+</resources>
