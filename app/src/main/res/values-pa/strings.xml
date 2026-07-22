@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">Select status ↑</string>
     <string name="settings_currency">App Currency</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+
+    <string name="dashboard_this_month">ਇਸ ਮਹੀਨੇ</string>
+    <string name="calendar_delete_body">ਕੀ ਤੁਸੀਂ %1$s ਲਈ ਹਾਜ਼ਰੀ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <string name="settings_logout_subtitle">ਆਪਣੇ ਖਾਤੇ ਤੋਂ ਸਾਈਨ ਆਉਟ ਕਰੋ</string>
+    <string name="notification_reminder_streak_cta">ਆਪਣੀ ਹਾਜ਼ਰੀ ਲਗਾਉਣ ਅਤੇ ਸਟ੍ਰੀਕ ਜਾਰੀ ਰੱਖਣ ਲਈ ਟੈਪ ਕਰੋ 🔥</string>
+    <string name="salary_slip_title">ਤਨਖਾਹ ਸਲਿੱਪ</string>
+    <string name="salary_slip_employee_details">ਕਰਮਚਾਰੀ ਵੇਰਵੇ</string>
+    <string name="salary_slip_setup_profile">ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਪ੍ਰੋਫਾਈਲ ਵਿੱਚ ਆਪਣੀ ਤਨਖਾਹ ਸੈੱਟ ਕਰੋ</string>
+    <string name="salary_slip_generate_btn">ਤਨਖਾਹ ਸਲਿੱਪ PDF ਬਣਾਓ ਅਤੇ ਸੇਵ ਕਰੋ</string>
 </resources>

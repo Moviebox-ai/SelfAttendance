@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">Select status ↑</string>
     <string name="settings_currency">App Currency</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+
+    <string name="dashboard_this_month">ఈ నెల</string>
+    <string name="calendar_delete_body">మీరు %1$s కోసం హాజరును తొలగించాలనుకుంటున్నారా?</string>
+    <string name="settings_logout_subtitle">మీ ఖాతా నుండి సైన్ అవుట్ చేయండి</string>
+    <string name="notification_reminder_streak_cta">మీ హాజరును గుర్తించి స్ట్రీక్ కొనసాగించడానికి ట్యాప్ చేయండి 🔥</string>
+    <string name="salary_slip_title">జీతం స్లిప్</string>
+    <string name="salary_slip_employee_details">ఉద్యోగి వివరాలు</string>
+    <string name="salary_slip_setup_profile">దయచేసి ముందుగా ప్రొఫైల్‌లో మీ జీతాన్ని సెట్ చేయండి</string>
+    <string name="salary_slip_generate_btn">జీతం స్లిప్ PDF రూపొందించి సేవ్ చేయండి</string>
 </resources>

@@ -48,11 +48,11 @@ package com.aaryo.selfattendance
           super.onConfigurationChanged(newConfig)
           val savedLang = PreferencesManager(this).selectedLanguage
           val activeLang = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-              newConfig.locales.get(0)?.language ?: "en"
+              newConfig.locales.get(0)?.toLanguageTag() ?: "en"
           } else {
-              @Suppress("DEPRECATION") newConfig.locale?.language ?: "en"
+              @Suppress("DEPRECATION") newConfig.locale?.toLanguageTag() ?: "en"
           }
-          if (activeLang != savedLang) {
+          if (activeLang != LocaleManager.normalizeLanguageTag(savedLang)) {
               recreate()
           }
       }
@@ -69,6 +69,8 @@ package com.aaryo.selfattendance
       override fun onCreate(savedInstanceState: Bundle?) {
           installSplashScreen()
           super.onCreate(savedInstanceState)
+
+          LocaleManager.syncSystemAppLocaleIfNeeded(this)
 
           updateManager = InAppUpdateManager(this)
 

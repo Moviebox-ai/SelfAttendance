@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">Seleccione estado ↑</string>
     <string name="settings_currency">Moneda de la app</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+
+    <string name="dashboard_this_month">Este mes</string>
+    <string name="calendar_delete_body">¿Seguro que quieres eliminar la asistencia de %1$s?</string>
+    <string name="settings_logout_subtitle">Cerrar sesión en tu cuenta</string>
+    <string name="notification_reminder_streak_cta">Toca para registrar tu asistencia y mantener tu racha 🔥</string>
+    <string name="salary_slip_title">Recibo de sueldo</string>
+    <string name="salary_slip_employee_details">Datos del empleado</string>
+    <string name="salary_slip_setup_profile">Configura primero tu salario en el perfil</string>
+    <string name="salary_slip_generate_btn">Generar y guardar recibo de sueldo en PDF</string>
 </resources>

@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">Select status ↑</string>
     <string name="settings_currency">App Currency</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+
+    <string name="dashboard_this_month">ഈ മാസം</string>
+    <string name="calendar_delete_body">%1$s-ന്റെ ഹാജർ ഇല്ലാതാക്കണോ?</string>
+    <string name="settings_logout_subtitle">നിങ്ങളുടെ അക്കൗണ്ടിൽ നിന്ന് സൈൻ ഔട്ട് ചെയ്യുക</string>
+    <string name="notification_reminder_streak_cta">നിങ്ങളുടെ ഹാജർ രേഖപ്പെടുത്തി സ്ട്രീക്ക് നിലനിർത്താൻ ടാപ്പുചെയ്യുക 🔥</string>
+    <string name="salary_slip_title">ശമ്പള സ്ലിപ്പ്</string>
+    <string name="salary_slip_employee_details">ജീവനക്കാരുടെ വിശദാംശങ്ങൾ</string>
+    <string name="salary_slip_setup_profile">ദയവായി ആദ്യം പ്രൊഫൈലിൽ നിങ്ങളുടെ ശമ്പളം സജ്ജമാക്കുക</string>
+    <string name="salary_slip_generate_btn">ശമ്പള സ്ലിപ്പ് PDF സൃഷ്ടിച്ച് സംരക്ഷിക്കുക</string>
 </resources>

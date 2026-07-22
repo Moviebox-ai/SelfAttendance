@@ -70,12 +70,16 @@ object LocaleManager {
     // Locale.forLanguageTag() handles both simple codes ("en", "hi") and
     // script-qualified ones ("hi-Latn") correctly.
     private fun parseLocale(languageCode: String): Locale =
-        Locale.forLanguageTag(languageCode)
+        Locale.forLanguageTag(normalizeLanguageTag(languageCode))
+
+    fun normalizeLanguageTag(languageCode: String): String =
+        Locale.forLanguageTag(languageCode.ifBlank { "en" }).toLanguageTag()
 
     // ── Called from attachBaseContext() ────────────────────────────────────
     // Wraps the base Context so ALL resource lookups use [languageCode].
     fun applyLocale(base: Context, languageCode: String): Context {
-        val locale = parseLocale(languageCode)
+        val normalizedCode = normalizeLanguageTag(languageCode)
+        val locale = parseLocale(normalizedCode)
         Locale.setDefault(locale)
 
         val config = Configuration(base.resources.configuration)
@@ -95,10 +99,12 @@ object LocaleManager {
     // ── Called when user picks a language ──────────────────────────────────
     // Persists the choice, rebuilds Resources, then restarts the Activity.
     fun setLocaleAndRestart(activity: Activity, languageCode: String) {
-        // 1. Persist
-        PreferencesManager(activity).selectedLanguage = languageCode
+        val normalizedCode = normalizeLanguageTag(languageCode)
 
-        val locale = parseLocale(languageCode)
+        // 1. Persist
+        PreferencesManager(activity).selectedLanguage = normalizedCode
+
+        val locale = parseLocale(normalizedCode)
         Locale.setDefault(locale)
 
         val config = Configuration(activity.resources.configuration)
@@ -127,7 +133,7 @@ object LocaleManager {
                 val sysLocMgr =
                     activity.getSystemService(android.app.LocaleManager::class.java)
                 sysLocMgr?.applicationLocales =
-                    android.os.LocaleList.forLanguageTags(languageCode)
+                    android.os.LocaleList.forLanguageTags(normalizedCode)
             } catch (_: Exception) { /* attachBaseContext still covers it */ }
         }
 
@@ -135,6 +141,21 @@ object LocaleManager {
         //    configChanges="locale" only prevents SYSTEM-initiated recreation;
         //    an explicit recreate() always goes through the full lifecycle.
         activity.recreate()
+    }
+
+    fun syncSystemAppLocaleIfNeeded(activity: Activity) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+
+        val savedLanguage = normalizeLanguageTag(PreferencesManager(activity).selectedLanguage)
+        try {
+            val sysLocMgr = activity.getSystemService(android.app.LocaleManager::class.java)
+            val activeLanguage = sysLocMgr?.applicationLocales?.toLanguageTags().orEmpty()
+            if (activeLanguage != savedLanguage) {
+                sysLocMgr?.applicationLocales = android.os.LocaleList.forLanguageTags(savedLanguage)
+            }
+        } catch (_: Exception) {
+            // attachBaseContext() still applies the saved app locale for all resources.
+        }
     }
 
     fun getDisplayName(code: String): String = SUPPORTED_LANGUAGES[code] ?: "English"

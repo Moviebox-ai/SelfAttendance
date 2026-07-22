@@ -149,4 +149,13 @@
     <string name="calendar_select_status_first">ઉપર સ્ટેટસ પસંદ ↑</string>
     <string name="settings_currency">ઍપ ચલણ</string>
     <string name="profile_updated_success">પ્રોફાઇલ સફળતાપૂર્વક અપડેટ</string>
+
+    <string name="dashboard_this_month">આ મહિનો</string>
+    <string name="calendar_delete_body">શું તમે %1$s માટેની હાજરી કાઢી નાખવા માંગો છો?</string>
+    <string name="settings_logout_subtitle">તમારા એકાઉન્ટમાંથી સાઇન આઉટ કરો</string>
+    <string name="notification_reminder_streak_cta">તમારી હાજરી માર્ક કરવા અને સ્ટ્રીક ચાલુ રાખવા માટે ટેપ કરો 🔥</string>
+    <string name="salary_slip_title">પગાર સ્લિપ</string>
+    <string name="salary_slip_employee_details">કર્મચારી વિગતો</string>
+    <string name="salary_slip_setup_profile">કૃપા કરીને પહેલા પ્રોફાઇલમાં તમારો પગાર સેટ કરો</string>
+    <string name="salary_slip_generate_btn">પગાર સ્લિપ PDF બનાવો અને સેવ કરો</string>
 </resources>

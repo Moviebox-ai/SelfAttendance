@@ -148,4 +148,13 @@
     <string name="calendar_select_status_first">Select status ↑</string>
     <string name="settings_currency">App Currency</string>
     <string name="profile_updated_success">Profile updated successfully</string>
+
+    <string name="dashboard_this_month">ಈ ತಿಂಗಳು</string>
+    <string name="calendar_delete_body">%1$s ಗಾಗಿ ಹಾಜರಾತಿಯನ್ನು ಅಳಿಸಲು ಖಚಿತವೇ?</string>
+    <string name="settings_logout_subtitle">ನಿಮ್ಮ ಖಾತೆಯಿಂದ ಸೈನ್ ಔಟ್ ಮಾಡಿ</string>
+    <string name="notification_reminder_streak_cta">ನಿಮ್ಮ ಹಾಜರಾತಿ ಗುರುತಿಸಿ ಸ್ಟ್ರೀಕ್ ಉಳಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ 🔥</string>
+    <string name="salary_slip_title">ವೇತನ ಚೀಟಿ</string>
+    <string name="salary_slip_employee_details">ಉದ್ಯೋಗಿ ವಿವರಗಳು</string>
+    <string name="salary_slip_setup_profile">ದಯವಿಟ್ಟು ಮೊದಲು ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ನಿಮ್ಮ ವೇತನವನ್ನು ಸೆಟ್ ಮಾಡಿ</string>
+    <string name="salary_slip_generate_btn">ವೇತನ ಚೀಟಿ PDF ರಚಿಸಿ ಮತ್ತು ಉಳಿಸಿ</string>
 </resources>

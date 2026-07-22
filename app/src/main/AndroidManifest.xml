@@ -99,7 +99,7 @@
             android:exported="true"
             android:theme="@style/Theme.SelfAttendance.Splash"
             android:windowSoftInputMode="adjustResize"
-            android:configChanges="locale|layoutDirection|fontScale|orientation|screenSize|uiMode">
+            android:configChanges="fontScale|orientation|screenSize|uiMode">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
