@@ -185,4 +185,52 @@
     <string name="rewarded_ad_free_active_title">✅ Ad-Free Mode Active Hai!</string>
     <string name="rewarded_ad_free_active_subtitle">Ads %1$s mein wapas aayenge</string>
 
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">Monthly Salary</string>
+    <string name="salary_calc_enter_monthly_salary">Enter Monthly Salary</string>
+    <string name="salary_calc_attendance_30">Attendance (out of 30 days)</string>
+    <string name="salary_calc_calculate_salary">Calculate Salary</string>
+    <string name="salary_calc_salary_summary">Salary Summary</string>
+    <string name="salary_calc_total_30_days">Total 30 days</string>
+    <string name="salary_calc_monthly_div_30">Monthly ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">Per Day ÷ 8 hrs</string>
+    <string name="salary_calc_per_day_div_2">Per Day ÷ 2</string>
+    <string name="salary_calc_total_deduction">Total Deduction</string>
+    <string name="salary_calc_deduction_formula">(Absent × Per Day) + (Half × Half Day)</string>
+    <string name="salary_calc_breakdown">Calculation Breakdown</string>
+    <string name="salary_calc_per_day_div_30">Per Day (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">Per Hour (÷ 8 hrs/day)</string>
+    <string name="salary_calc_half_day_div_2">Half Day (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">Absent (%1$d days × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">Half Days (%1$d days × %2$s)</string>
+    <string name="salary_calc_no_deduction">No deduction</string>
+    <string name="salary_calc_final_payable">Final Salary Payable</string>
+    <string name="salary_calc_fixed_formula">30-Day Fixed Formula</string>
+    <string name="salary_calc_hours_per_day">8 hrs/day</string>
+    <string name="salary_calc_div_30_days">÷ 30 days</string>
+    <string name="salary_calc_div_8_hours">÷ 8 hrs/day</string>
+    <string name="salary_calc_overtime_per_hour">Overtime/hr</string>
+    <string name="salary_calc_equal_per_hour">= Per Hour</string>
+    <string name="salary_calc_formula_details">Formula Details</string>
+    <string name="salary_calc_per_day_formula">Per Day (Monthly ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">Per Hour (Per Day ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">Half Day (Per Day ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">Overtime/hr (= Per Hour rate)</string>
+    <string name="splash_service_unavailable">Service Unavailable</string>
+    <string name="splash_service_unavailable_body">The app is temporarily unavailable.
+Please try again later.</string>
+    <string name="salary_calc_formula_title">Salary Formula</string>
+    <string name="salary_calc_formula_per_day_label">Per Day</string>
+    <string name="salary_calc_formula_per_day">= Monthly Salary ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">Per Hour</string>
+    <string name="salary_calc_formula_per_hour">= Per Day Salary ÷ 8 (8 hrs/day)</string>
+    <string name="salary_calc_formula_half_day_label">Half Day</string>
+    <string name="salary_calc_formula_half_day">= Per Day Salary ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">Deduction</string>
+    <string name="salary_calc_formula_deduction">= (Absent × Per Day) + (Half × Half Day)</string>
+    <string name="salary_calc_formula_final_pay_label">Final Pay</string>
+    <string name="salary_calc_formula_final_pay">= Monthly Salary − Total Deduction</string>
+    <string name="salary_calc_formula_example">Example: ₹18,000 → Per Day ₹600 · Per Hour ₹75</string>
+    <string name="salary_breakdown_auto_title">Auto Salary Breakdown</string>
+
 </resources>

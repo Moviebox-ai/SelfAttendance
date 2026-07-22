@@ -14,9 +14,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.aaryo.selfattendance.R
 import com.aaryo.selfattendance.ui.dashboard.formatMoney
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -55,7 +57,7 @@ fun SalaryBreakdownCard(
             )
             Spacer(Modifier.width(8.dp))
             Text(
-                text       = "Auto Salary Breakdown",
+                text       = stringResource(R.string.salary_breakdown_auto_title),
                 style      = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
                 color      = MaterialTheme.colorScheme.onSurface
@@ -84,7 +86,7 @@ fun SalaryBreakdownCard(
             ) {
                 Column {
                     Text(
-                        text  = "Monthly Salary",
+                        text  = stringResource(R.string.salary_calc_monthly_salary),
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.White.copy(alpha = 0.8f)
                     )
@@ -97,12 +99,12 @@ fun SalaryBreakdownCard(
                 }
                 Column(horizontalAlignment = Alignment.End) {
                     Text(
-                        text  = "30-Day Fixed Formula",
+                        text  = stringResource(R.string.salary_calc_fixed_formula),
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.White.copy(alpha = 0.75f)
                     )
                     Text(
-                        text       = "8 hrs/day",
+                        text       = stringResource(R.string.salary_calc_hours_per_day),
                         style      = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.SemiBold,
                         color      = Color.White
@@ -118,8 +120,8 @@ fun SalaryBreakdownCard(
             modifier              = Modifier.fillMaxWidth()
         ) {
             BreakdownMiniCard(
-                label    = "Per Day",
-                formula  = "÷ 30 days",
+                label    = stringResource(R.string.summary_per_day),
+                formula  = stringResource(R.string.salary_calc_div_30_days),
                 amount   = "$currencySymbol${perDay.formatMoney()}",
                 icon     = Icons.Outlined.Today,
                 iconTint = MaterialTheme.colorScheme.primary,
@@ -128,8 +130,8 @@ fun SalaryBreakdownCard(
             )
             if (perHour != null) {
                 BreakdownMiniCard(
-                    label    = "Per Hour",
-                    formula  = "÷ 8 hrs/din",
+                    label    = stringResource(R.string.summary_per_hour),
+                    formula  = stringResource(R.string.salary_calc_div_8_hours),
                     amount   = "$currencySymbol${perHour.formatMoney()}",
                     icon     = Icons.Outlined.Schedule,
                     iconTint = Color(0xFF6A1B9A),
@@ -146,8 +148,8 @@ fun SalaryBreakdownCard(
         ) {
             if (halfDay != null) {
                 BreakdownMiniCard(
-                    label    = "Half Day",
-                    formula  = "÷ 2",
+                    label    = stringResource(R.string.dashboard_half_day),
+                    formula  = stringResource(R.string.salary_calc_half_day_div_2),
                     amount   = "$currencySymbol${halfDay.formatMoney()}",
                     icon     = Icons.Outlined.WbTwilight,
                     iconTint = Color(0xFFF57F17),
@@ -157,8 +159,8 @@ fun SalaryBreakdownCard(
             }
             if (overtimeRate != null) {
                 BreakdownMiniCard(
-                    label    = "Overtime/hr",
-                    formula  = "= Per Hour",
+                    label    = stringResource(R.string.salary_calc_overtime_per_hour),
+                    formula  = stringResource(R.string.salary_calc_equal_per_hour),
                     amount   = "$currencySymbol${overtimeRate.formatMoney()}",
                     icon     = Icons.Outlined.Bolt,
                     iconTint = Color(0xFF2E7D32),
@@ -179,7 +181,7 @@ fun SalaryBreakdownCard(
         ) {
             Column(modifier = Modifier.padding(14.dp)) {
                 Text(
-                    text       = "Formula Details",
+                    text       = stringResource(R.string.salary_calc_formula_details),
                     style      = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.SemiBold,
                     color      = MaterialTheme.colorScheme.onSurface
@@ -187,32 +189,32 @@ fun SalaryBreakdownCard(
                 Spacer(Modifier.height(10.dp))
 
                 DetailRow(
-                    label = "Monthly Salary",
+                    label = stringResource(R.string.salary_calc_monthly_salary),
                     value = "$currencySymbol${monthlySalary.formatMoney()}",
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 DetailRow(
-                    label = "Per Day  (Monthly ÷ 30)",
+                    label = stringResource(R.string.salary_calc_per_day_formula),
                     value = "$currencySymbol${perDay.formatMoney()}",
                     color = MaterialTheme.colorScheme.primary
                 )
                 perHour?.let {
                     DetailRow(
-                        label = "Per Hour  (Per Day ÷ 8)",
+                        label = stringResource(R.string.salary_calc_per_hour_formula),
                         value = "$currencySymbol${it.formatMoney()}",
                         color = Color(0xFF6A1B9A)
                     )
                 }
                 halfDay?.let {
                     DetailRow(
-                        label = "Half Day  (Per Day ÷ 2)",
+                        label = stringResource(R.string.salary_calc_half_day_formula),
                         value = "$currencySymbol${it.formatMoney()}",
                         color = Color(0xFFF57F17)
                     )
                 }
                 overtimeRate?.let {
                     DetailRow(
-                        label = "Overtime/hr  (= Per Hour rate)",
+                        label = stringResource(R.string.salary_calc_overtime_formula),
                         value = "$currencySymbol${it.formatMoney()}",
                         color = Color(0xFF2E7D32)
                     )
