@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Self Attendance Pro</string>
+    <string name="nav_home">ഹോം</string>
+    <string name="nav_calendar">കലണ്ടർ</string>
+    <string name="nav_settings">ക്രമീകരണം</string>
+    <string name="dashboard_greeting_morning">സുപ്രഭാതം</string>
+    <string name="dashboard_greeting_afternoon">നമസ്കാരം</string>
+    <string name="dashboard_greeting_evening">ശുഭ സന്ധ്യ</string>
+    <string name="dashboard_estimated_salary">കണക്കാക്കിയ ശമ്പളം</string>
+    <string name="dashboard_present">ഹാജർ</string>
+    <string name="dashboard_half_day">അർദ്ധ ദിവസം</string>
+    <string name="dashboard_absent">ഹാജരില്ല</string>
+    <string name="dashboard_overtime">അധിക സമയം</string>
+    <string name="calendar_mark_attendance">ഹാജർ രേഖപ്പെടുത്തുക</string>
+    <string name="calendar_present_btn">ഹാജർ</string>
+    <string name="calendar_half_day_btn">അർദ്ധ ദിവസം</string>
+    <string name="calendar_absent_btn">ഹാജരില്ല</string>
+    <string name="calendar_save">സംരക്ഷിക്കുക</string>
+    <string name="calendar_cancel">റദ്ദാക്കുക</string>
+
+    <string name="settings_title">ക്രമീകരണം</string>
+    <string name="settings_language">ആപ്പ് ഭാഷ</string>
+    <string name="settings_logout">ലോഗ്ഔട്ട്</string>
+    <string name="profile_name">പൂർണ്ണ പേര്</string>
+    <string name="profile_salary">മാസ ശമ്പളം (₹)</string>
+    <string name="common_cancel">റദ്ദാക്കുക</string>
+
+    <!-- Fallback from English (not yet translated) -->
+    <string name="dashboard_attendance_progress">Attendance Progress</string>
+    <string name="dashboard_sponsored">Sponsored</string>
+    <string name="calendar_edit_attendance">Edit Attendance</string>
+    <string name="calendar_overtime_hours">Overtime Hours (optional)</string>
+    <string name="calendar_delete_title">Remove Attendance</string>
+    <string name="calendar_delete_confirm">Delete</string>
+    <string name="calendar_monthly_summary">Monthly Summary</string>
+
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_app_theme">App Theme</string>
+    <string name="settings_preferences">Preferences</string>
+    <string name="settings_daily_reminder">Daily Reminder</string>
+    <string name="settings_biometric">Biometric Login</string>
+    <string name="settings_data_management">Data Management</string>
+    <string name="settings_backup">Backup Data</string>
+    <string name="settings_restore">Restore Data</string>
+    <string name="settings_reset">Reset Attendance Data</string>
+    <string name="settings_general">General</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_terms">Terms &amp; Conditions</string>
+    <string name="settings_about">About App</string>
+    <string name="settings_rate">Rate This App</string>
+    <string name="settings_refer">Refer to Friends</string>
+    <string name="settings_version">Version 1.0.2</string>
+    <string name="settings_please_wait">Please wait…</string>
+    <string name="auth_login">Login</string>
+    <string name="auth_register">Create Account</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_google">Continue with Google</string>
+    <string name="auth_switch_register">Don\'t have an account? Create one</string>
+    <string name="auth_switch_login">Already have an account? Login</string>
+    <string name="profile_setup_title">Setup Your Profile</string>
+    <string name="profile_edit_title">Edit Profile</string>
+    <string name="profile_working_days">Working Days per Month</string>
+    <string name="profile_hours">Hours Per Day</string>
+    <string name="profile_overtime_rate">Overtime Rate (₹/hour)</string>
+    <string name="profile_save">Save &amp; Continue</string>
+    <string name="profile_update">Update Profile</string>
+    <string name="common_loading">Loading…</string>
+    <string name="common_error">Something went wrong</string>
+    <string name="common_retry">Retry</string>
+    <string name="common_ok">OK</string>
+    <string name="common_save">Save</string>
+    <string name="common_delete">Delete</string>
+
+    <!-- Missing strings added -->
+    <string name="app_open_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/9541869822</string>
+    <string name="default_web_client_id" translatable="false">611062377939-aqsl27q6mgq5v44q7i2jmcfl0q9f0jhl.apps.googleusercontent.com</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/4828770637</string>
+    <string name="native_ad_unit_id" translatable="false">ca-app-pub-5703232582358249/1044432701</string>
+    <string name="privacy_policy_url" translatable="false">https://sites.google.com/view/self-attendance-privacy-policy/home</string>
+    <string name="terms_of_service_url" translatable="false">https://sites.google.com/view/self-terms-and-conditions/home</string>
+    <string name="settings_refer_text" translatable="false">Check out Self Attendance Pro — track your work attendance and salary easily! https://play.google.com/store/apps/details?id=com.aaryo.selfattendance</string>
+    <string name="about_data_collected_title">ഞങ്ങൾ ശേഖരിക്കുന്ന ഡേറ്റ</string>
+    <string name="about_data_collected_msg">ഇമെയിൽ വിലാസം (ലോഗിൻ), ഹാജർ രേഖകൾ (ലോക്കൽ, ബാക്കപ്പ്), ഡിവൈസ് വിവരം (പരസ്യങ്ങൾ, Analytics), ആപ്പ് ഉപഭോഗ ഡേറ്റ (Firebase Analytics)</string>
+    <string name="auth_forgot_password">പാസ്‌വേഡ് മറന്നോ?</string>
+    <string name="auth_forgot_password_title">പാസ്‌വേഡ് പുനഃസജ്ജീകരിക്കുക</string>
+    <string name="auth_forgot_password_msg">നിങ്ങളുടെ ഇമെയിൽ വിലാസം നൽകുക. ഞങ്ങൾ ഒരു റീസെറ്റ് ലിങ്ക് അയക്കും.</string>
+    <string name="auth_forgot_password_send">റീസെറ്റ് ലിങ്ക് അയക്കുക</string>
+    <string name="auth_forgot_password_sent">പാസ്‌വേഡ് റീസെറ്റ് ഇമെയിൽ അയച്ചു! നിങ്ങളുടെ ഇൻബോക്സ് പരിശോധിക്കുക.</string>
+    <string name="auth_forgot_password_error">റീസെറ്റ് ഇമെയിൽ അയക്കുന്നതിൽ പരാജയം. ഇമെയിൽ പരിശോധിക്കുക.</string>
+    <string name="dialog_cancel">റദ്ദാക്കുക</string>
+    <string name="dialog_confirm">സ്ഥിരീകരിക്കുക</string>
+    <string name="dialog_delete">ഇല്ലാതാക്കുക</string>
+    <string name="dialog_ok">ശരി</string>
+    <string name="dialog_restore">പുനഃസ്ഥാപിക്കുക</string>
+    <string name="notification_reminder_title">ഹാജർ ഓർമ്മപ്പെടുത്തൽ</string>
+    <string name="notification_reminder_body">ഇന്നത്തെ ഹാജർ അടയാളപ്പെടുത്താൻ മറക്കരുത്</string>
+    <string name="notif_offer_channel_name">ഓഫറുകൾ &amp; പ്രൊമോഷനുകൾ</string>
+
+    <!-- Rewarded Video Ad -->
+    <string name="rewarded_watch_ad_title">30 മിനിറ്റ് Ad-Free 🎉</string>
+    <string name="rewarded_watch_ad_subtitle">ഒരു ചെറിയ വീഡിയോ കണ്ട്, പരസ്യങ്ങളില്ലാതെ ആപ്പ് ആസ്വദിക്കൂ</string>
+    <string name="rewarded_watch_btn">ഇപ്പോൾ കാണൂ</string>
+    <string name="rewarded_ad_not_ready">പരസ്യം ഇനിയും തയ്യാറായിട്ടില്ല, അൽപ്പ സമയം കഴിഞ്ഞ് ശ്രമിക്കൂ</string>
+    <string name="rewarded_ad_free_active_title">✅ Ad-Free മോഡ് സജീവം!</string>
+    <string name="rewarded_ad_free_active_subtitle">പരസ്യങ്ങൾ %1$s ൽ തിരിച്ചു വരും</string>
+    <string name="security_continue_btn">തുടരുക</string>
+    <string name="security_rooted_device_msg">ഈ ഉപകരണം റൂട്ട് ചെയ്തതായി കാണപ്പെടുന്നു. ചില സവിശേഷതകൾ ശരിയായി പ്രവർത്തിക്കില്ല.</string>
+    <string name="security_warning_title">സുരക്ഷാ മുന്നറിയിപ്പ്</string>
+    <string name="settings_biometric_disabled">ബയോമെട്രിക് ലോഗിൻ പ്രവർത്തനരഹിതമാക്കി</string>
+    <string name="settings_biometric_enabled">ബയോമെട്രിക് ലോഗിൻ സക്രിയമാക്കി</string>
+    <string name="settings_danger_zone">അപകടകരമായ മേഖല</string>
+    <string name="settings_delete_account">അക്കൗണ്ട് ഇല്ലാതാക്കുക</string>
+    <string name="settings_delete_account_confirm">അതെ, എന്റെ അക്കൗണ്ട് ഇല്ലാതാക്കുക</string>
+    <string name="settings_delete_account_msg">നിങ്ങൾ ശരിക്കും അക്കൗണ്ട് ഇല്ലാതാക്കണോ? എല്ലാ ഹാജർ രേഖകളും നീക്കം ചെയ്യും. ഇത് പഴയ നിലയിൽ ആക്കാനാവില്ല.</string>
+    <string name="settings_delete_account_subtitle">നിങ്ങളുടെ അക്കൗണ്ടും ഡേറ്റയും സ്ഥിരമായി ഇല്ലാതാക്കുക</string>
+    <string name="settings_delete_account_warning">⚠️ ഇത് സ്ഥിരമാണ്, മാറ്റാനാവില്ല.</string>
+    <string name="settings_delete_failed">അക്കൗണ്ട് ഇല്ലാതാക്കുന്നതിൽ പരാജയം. വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="settings_delete_reauth_required">സുരക്ഷയ്ക്കായി, ഇല്ലാതാക്കുന്നതിന് മുൻപ് ലോഗ്ഔട്ട് ചെയ്ത് വീണ്ടും ലോഗിൻ ചെയ്യുക.</string>
+    <string name="settings_hourly_reminder">മണിക്കൂർ ഓർമ്മപ്പെടുത്തലുകളും ഓഫറുകളും</string>
+    <string name="settings_hourly_reminder_off">മണിക്കൂർ അറിയിപ്പുകൾ പ്രവർത്തനരഹിതം</string>
+    <string name="settings_hourly_reminder_on">ഓരോ 1-2 മണിക്കൂറിലും അറിയിപ്പുകൾ ലഭിക്കും</string>
+    <string name="settings_reminder_disabled">ദൈനംദിന ഓർമ്മപ്പെടുത്തൽ പ്രവർത്തനരഹിതം</string>
+    <string name="settings_reminder_enabled">ദൈനംദിന ഓർമ്മപ്പെടുത്തൽ സക്രിയം</string>
+    <string name="settings_reset_confirm_msg">ഉറപ്പാണോ? ഈ ക്രിയ എല്ലാ ഹാജർ രേഖകളും സ്ഥിരമായി ഇല്ലാതാക്കും.</string>
+    <string name="settings_restore_confirm_msg">ബാക്കപ്പ് പുനഃസ്ഥാപിക്കുന്നത് ഇപ്പോഴത്തെ ഡേറ്റ മാറ്റും. തുടരണോ?</string>
+    <string name="settings_share_via">വഴി ഷെയർ ചെയ്യുക</string>
+    <string name="settings_theme">ആപ്പ് തീം</string>
+    <string name="settings_theme_updated">തീം അപ്‌ഡേറ്റ് ചെയ്തു</string>
+    <string name="summary_per_day">ദിവസം</string>
+    <string name="summary_per_hour">മണിക്കൂർ</string>
+    <string name="summary_salary">ശമ്പളം</string>
+    <string name="update_ready_message">അപ്‌ഡേറ്റ് ഡൗൺലോഡ് ആയി, തയ്യാറാണ്!</string>
+    <string name="update_restart_action">പുനഃആരംഭിക്കുക</string>
+    <string name="nav_rewards">Rewards</string>
+    <string name="nav_leaderboard">Leaderboard</string>
+    <string name="calendar_present_selected">✓ Present selected</string>
+    <string name="calendar_half_day_selected">✓ Half Day selected</string>
+    <string name="calendar_absent_selected">✓ Absent selected</string>
+    <string name="calendar_overtime_placeholder">e.g. 2.5</string>
+    <string name="calendar_overtime_autoselect">✅ Present auto-selected</string>
+    <string name="calendar_save_present_ot">Save — Present + %1$sh OT</string>
+    <string name="calendar_save_half_ot">Save — Half Day</string>
+    <string name="calendar_save_absent_ot">Save — Absent</string>
+    <string name="calendar_select_status_first">Select status ↑</string>
+    <string name="settings_currency">App Currency</string>
+    <string name="profile_updated_success">Profile updated successfully</string>
+
+    <string name="dashboard_this_month">ഈ മാസം</string>
+    <string name="calendar_delete_body">%1$s-ന്റെ ഹാജർ ഇല്ലാതാക്കണോ?</string>
+    <string name="settings_logout_subtitle">നിങ്ങളുടെ അക്കൗണ്ടിൽ നിന്ന് സൈൻ ഔട്ട് ചെയ്യുക</string>
+    <string name="notification_reminder_streak_cta">നിങ്ങളുടെ ഹാജർ രേഖപ്പെടുത്തി സ്ട്രീക്ക് നിലനിർത്താൻ ടാപ്പുചെയ്യുക 🔥</string>
+    <string name="salary_slip_title">ശമ്പള സ്ലിപ്പ്</string>
+    <string name="salary_slip_employee_details">ജീവനക്കാരുടെ വിശദാംശങ്ങൾ</string>
+    <string name="salary_slip_setup_profile">ദയവായി ആദ്യം പ്രൊഫൈലിൽ നിങ്ങളുടെ ശമ്പളം സജ്ജമാക്കുക</string>
+    <string name="salary_slip_generate_btn">ശമ്പള സ്ലിപ്പ് PDF സൃഷ്ടിച്ച് സംരക്ഷിക്കുക</string>
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">Monthly Salary</string>
+    <string name="salary_calc_enter_monthly_salary">Enter Monthly Salary</string>
+    <string name="salary_calc_attendance_30">Attendance (out of 30 days)</string>
+    <string name="salary_calc_calculate_salary">Calculate Salary</string>
+    <string name="salary_calc_salary_summary">Salary Summary</string>
+    <string name="salary_calc_total_30_days">Total 30 days</string>
+    <string name="salary_calc_monthly_div_30">Monthly ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">Per Day ÷ 8 hrs</string>
+    <string name="salary_calc_per_day_div_2">Per Day ÷ 2</string>
+    <string name="salary_calc_total_deduction">Total Deduction</string>
+    <string name="salary_calc_deduction_formula">(Absent × Per Day) + (Half × Half Day)</string>
+    <string name="salary_calc_breakdown">Calculation Breakdown</string>
+    <string name="salary_calc_per_day_div_30">Per Day (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">Per Hour (÷ 8 hrs/day)</string>
+    <string name="salary_calc_half_day_div_2">Half Day (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">Absent (%1$d days × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">Half Days (%1$d days × %2$s)</string>
+    <string name="salary_calc_no_deduction">No deduction</string>
+    <string name="salary_calc_final_payable">Final Salary Payable</string>
+    <string name="salary_calc_fixed_formula">30-Day Fixed Formula</string>
+    <string name="salary_calc_hours_per_day">8 hrs/day</string>
+    <string name="salary_calc_div_30_days">÷ 30 days</string>
+    <string name="salary_calc_div_8_hours">÷ 8 hrs/day</string>
+    <string name="salary_calc_overtime_per_hour">Overtime/hr</string>
+    <string name="salary_calc_equal_per_hour">= Per Hour</string>
+    <string name="salary_calc_formula_details">Formula Details</string>
+    <string name="salary_calc_per_day_formula">Per Day (Monthly ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">Per Hour (Per Day ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">Half Day (Per Day ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">Overtime/hr (= Per Hour rate)</string>
+    <string name="splash_service_unavailable">Service Unavailable</string>
+    <string name="splash_service_unavailable_body">The app is temporarily unavailable.
+Please try again later.</string>
+    <string name="salary_calc_formula_title">Salary Formula</string>
+    <string name="salary_calc_formula_per_day_label">Per Day</string>
+    <string name="salary_calc_formula_per_day">= Monthly Salary ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">Per Hour</string>
+    <string name="salary_calc_formula_per_hour">= Per Day Salary ÷ 8 (8 hrs/day)</string>
+    <string name="salary_calc_formula_half_day_label">Half Day</string>
+    <string name="salary_calc_formula_half_day">= Per Day Salary ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">Deduction</string>
+    <string name="salary_calc_formula_deduction">= (Absent × Per Day) + (Half × Half Day)</string>
+    <string name="salary_calc_formula_final_pay_label">Final Pay</string>
+    <string name="salary_calc_formula_final_pay">= Monthly Salary − Total Deduction</string>
+    <string name="salary_calc_formula_example">Example: ₹18,000 → Per Day ₹600 · Per Hour ₹75</string>
+    <string name="salary_breakdown_auto_title">Auto Salary Breakdown</string>
+
+</resources>

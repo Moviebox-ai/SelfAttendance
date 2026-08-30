@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    GMA Ad Services config.
+    Empty enrollment-id was causing AdServices initialization failures on Android 13+,
+    which silently prevented ads from loading on newer devices.
+    Fix: opt out of AdServices attribution entirely instead of providing a blank ID.
+-->
+<ad-services-config>
+    <attribution enabled="false" />
+</ad-services-config>

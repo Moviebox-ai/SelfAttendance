@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Self Attendance Pro</string>
+
+    <!-- NAVIGATION -->
+    <string name="nav_home">Home</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_rewards">Rewards</string>
+    <string name="nav_leaderboard">Leaderboard</string>
+
+    <!-- DASHBOARD -->
+    <string name="dashboard_greeting_morning">Good Morning</string>
+    <string name="dashboard_greeting_afternoon">Namaste</string>
+    <string name="dashboard_greeting_evening">Good Evening</string>
+    <string name="dashboard_estimated_salary">Estimated Salary</string>
+    <string name="dashboard_attendance_progress">Attendance ka Progress</string>
+    <string name="dashboard_present">Present</string>
+    <string name="dashboard_half_day">Half Day</string>
+    <string name="dashboard_absent">Absent</string>
+    <string name="dashboard_overtime">Overtime</string>
+    <string name="dashboard_sponsored">Sponsored</string>
+    <string name="dashboard_this_month">Is Mahine</string>
+
+    <!-- CALENDAR -->
+    <string name="calendar_mark_attendance">Attendance Lagayein</string>
+    <string name="calendar_edit_attendance">Attendance Edit Karein</string>
+    <string name="calendar_present_btn">Present</string>
+    <string name="calendar_half_day_btn">Half Day</string>
+    <string name="calendar_absent_btn">Absent</string>
+    <string name="calendar_present_selected">✓ Present select ho gaya</string>
+    <string name="calendar_half_day_selected">✓ Half Day select ho gaya</string>
+    <string name="calendar_absent_selected">✓ Absent select ho gaya</string>
+    <string name="calendar_overtime_hours">Overtime Hours (optional)</string>
+    <string name="calendar_overtime_placeholder">jaise 2.5 → Present khud-ba-khud select ho jayega</string>
+    <string name="calendar_overtime_autoselect">✅ Present khud select ho gaya — upar se badal sakte hain</string>
+    <string name="calendar_save_present_ot">Save Karein — Present + %1$s ghante OT</string>
+    <string name="calendar_save_half_ot">Save Karein — Half Day (OT nahi lagega)</string>
+    <string name="calendar_save_absent_ot">Save Karein — Absent (OT nahi lagega)</string>
+    <string name="calendar_select_status_first">Pehle upar status select karein ↑</string>
+    <string name="calendar_save">Save Karein</string>
+    <string name="calendar_cancel">Cancel Karein</string>
+    <string name="calendar_delete_title">Attendance Hataayein</string>
+    <string name="calendar_delete_confirm">Delete Karein</string>
+    <string name="calendar_delete_body">Kya aap %1$s ki attendance delete karna chahte hain?</string>
+    <string name="calendar_monthly_summary">Mahine ka Summary</string>
+
+    <!-- SETTINGS -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_app_theme">App Theme</string>
+    <string name="settings_language">App Language</string>
+    <string name="settings_currency">App Currency</string>
+    <string name="profile_updated_success">Profile update ho gaya</string>
+    <string name="settings_preferences">Preferences</string>
+    <string name="settings_daily_reminder">Daily Reminder</string>
+    <string name="settings_biometric">Biometric Login</string>
+    <string name="settings_data_management">Data Management</string>
+    <string name="settings_backup">Data Backup Karein</string>
+    <string name="settings_restore">Data Restore Karein</string>
+    <string name="settings_reset">Attendance Data Reset Karein</string>
+    <string name="settings_general">General</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_terms">Terms &amp; Conditions</string>
+    <string name="settings_about">App ke Baare Mein</string>
+    <string name="settings_rate">App ko Rate Karein</string>
+    <string name="settings_refer">Doston ko Refer Karein</string>
+    <string name="settings_logout">Logout</string>
+    <string name="settings_logout_subtitle">Apne account se sign out karein</string>
+    <string name="settings_version">Version 1.0</string>
+    <string name="settings_please_wait">Thoda ruko…</string>
+
+    <!-- AUTH -->
+    <string name="auth_login">Login</string>
+    <string name="auth_register">Account Banayein</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_google">Google se Continue Karein</string>
+    <string name="auth_switch_register">Account nahi hai? Ek banayein</string>
+    <string name="auth_switch_login">Pehle se account hai? Login karein</string>
+
+    <!-- PROFILE -->
+    <string name="profile_setup_title">Apna Profile Set Karein</string>
+    <string name="profile_edit_title">Profile Edit Karein</string>
+    <string name="profile_name">Pura Naam</string>
+    <string name="profile_salary">Mahine ki Salary (₹)</string>
+    <string name="profile_working_days">Mahine mein Working Days</string>
+    <string name="profile_hours">Din mein Hours</string>
+    <string name="profile_overtime_rate">Overtime Rate (₹/ghanta)</string>
+    <string name="profile_save">Save Karke Aage Badhein</string>
+    <string name="profile_update">Profile Update Karein</string>
+
+    <!-- COMMON -->
+    <string name="common_loading">Load ho raha hai…</string>
+    <string name="common_error">Kuch galat ho gaya</string>
+    <string name="common_retry">Retry Karein</string>
+    <string name="common_ok">OK</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_save">Save Karein</string>
+    <string name="common_delete">Delete Karein</string>
+
+    <!-- NOTIFICATIONS -->
+    <string name="notification_reminder_title">Attendance Reminder</string>
+    <string name="notification_reminder_body">Aaj ki attendance lagana mat bhoolein</string>
+    <string name="notification_reminder_streak_cta">Attendance lagayein aur apni streak zinda rakhein 🔥</string>
+
+    <!-- SUMMARY -->
+    <string name="summary_salary">Salary</string>
+    <string name="summary_per_day">Per Din</string>
+    <string name="summary_per_hour">Per Ghanta</string>
+
+    <!-- SALARY SLIP -->
+    <string name="salary_slip_title">Salary Slip</string>
+    <string name="salary_slip_employee_details">Employee Details</string>
+    <string name="salary_slip_setup_profile">Pehle Profile mein apni salary set karein</string>
+    <string name="salary_slip_generate_btn">Salary Slip PDF Banayein aur Save Karein</string>
+
+    <!-- ACCOUNT DELETION -->
+    <string name="settings_danger_zone">Danger Zone</string>
+    <string name="settings_delete_account">Account Delete Karein</string>
+    <string name="settings_delete_account_subtitle">Apna account aur saara data hamesha ke liye delete karein</string>
+    <string name="settings_delete_account_msg">Kya aap sach mein apna account permanently delete karna chahte hain? Isse saare attendance records aur profile information hat jayegi. Ye action wapas nahi ho sakta.</string>
+    <string name="settings_delete_account_warning">⚠️ Ye permanent hai aur wapas nahi ho sakta.</string>
+    <string name="settings_delete_account_confirm">Haan, Mera Account Delete Karein</string>
+    <string name="settings_delete_reauth_required">Security ke liye, account delete karne se pehle logout karke dobara login karein.</string>
+    <string name="settings_delete_failed">Account delete nahi ho paaya. Dobara try karein ya support se contact karein.</string>
+
+    <!-- Dialog strings -->
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_delete">Delete Karein</string>
+    <string name="dialog_restore">Restore Karein</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_confirm">Confirm Karein</string>
+
+    <!-- Reset and Restore dialog messages -->
+    <string name="settings_reset_confirm_msg">Pakka? Isse saare attendance records hamesha ke liye delete ho jayenge.</string>
+    <string name="settings_restore_confirm_msg">Backup restore karne se aapka current data replace ho jayega. Continue karein?</string>
+
+    <!-- Settings feedback messages -->
+    <string name="settings_theme_updated">Theme update ho gaya</string>
+    <string name="settings_reminder_enabled">Daily reminder on ho gaya</string>
+    <string name="settings_reminder_disabled">Daily reminder off ho gaya</string>
+    <string name="settings_biometric_enabled">Biometric login on ho gaya</string>
+    <string name="settings_biometric_disabled">Biometric login off ho gaya</string>
+
+    <!-- Refer and Share -->
+    <string name="settings_refer_text">Self Attendance Pro try karein — apni attendance aur salary aasani se track karein! https://play.google.com/store/apps/details?id=com.aaryo.selfattendance</string>
+    <string name="settings_share_via">Share Karein</string>
+
+    <!-- MainActivity messages -->
+    <string name="update_ready_message">Update download ho gaya, ready hai!</string>
+    <string name="update_restart_action">Restart Karein</string>
+    <string name="security_warning_title">Security Warning</string>
+    <string name="security_rooted_device_msg">Ye device rooted lag raha hai. Kuch features shayad sahi se kaam na karein.</string>
+    <string name="security_continue_btn">Continue Karein</string>
+
+    <!-- Forgot Password -->
+    <string name="auth_forgot_password">Password Bhool Gaye?</string>
+    <string name="auth_forgot_password_title">Password Reset Karein</string>
+    <string name="auth_forgot_password_msg">Apna email address daalein. Hum aapko password reset karne ka link bhejenge.</string>
+    <string name="auth_forgot_password_send">Reset Link Bhejein</string>
+    <string name="auth_forgot_password_sent">Password reset email bhej diya gaya! Apna inbox check karein.</string>
+    <string name="auth_forgot_password_error">Reset email bhejne mein error aaya. Email address check karein.</string>
+
+    <!-- Theme -->
+    <string name="settings_theme">App Theme</string>
+
+    <!-- Data info -->
+    <string name="about_data_collected_title">Hum Kaunsa Data Collect Karte Hain</string>
+    <string name="about_data_collected_msg">Email address (login), Attendance records (locally store aur backup hote hain), Device information (ads aur analytics ke liye), App usage data (Firebase Analytics)</string>
+
+    <!-- HOURLY NOTIFICATIONS -->
+    <string name="settings_hourly_reminder">Hourly Reminders &amp; Offers</string>
+    <string name="settings_hourly_reminder_on">Aapko har 1–2 ghante mein notification milegi</string>
+    <string name="settings_hourly_reminder_off">Hourly notifications off hain</string>
+    <string name="notif_offer_channel_name">Offers &amp; Promotions</string>
+
+    <!-- Rewarded Video Ad -->
+    <string name="rewarded_watch_ad_title">30 Minute ke liye Ad-Free 🎉</string>
+    <string name="rewarded_watch_ad_subtitle">Ek chhota sa video dekhein aur bina ads ke app enjoy karein</string>
+    <string name="rewarded_watch_btn">Abhi Dekhein</string>
+    <string name="rewarded_ad_not_ready">Ad abhi ready nahi hai, thodi der mein try karein</string>
+    <string name="rewarded_ad_free_active_title">✅ Ad-Free Mode Active Hai!</string>
+    <string name="rewarded_ad_free_active_subtitle">Ads %1$s mein wapas aayenge</string>
+
+    <!-- Localized hardcoded UI strings -->
+    <string name="salary_calc_monthly_salary">Monthly Salary</string>
+    <string name="salary_calc_enter_monthly_salary">Enter Monthly Salary</string>
+    <string name="salary_calc_attendance_30">Attendance (out of 30 days)</string>
+    <string name="salary_calc_calculate_salary">Calculate Salary</string>
+    <string name="salary_calc_salary_summary">Salary Summary</string>
+    <string name="salary_calc_total_30_days">Total 30 days</string>
+    <string name="salary_calc_monthly_div_30">Monthly ÷ 30</string>
+    <string name="salary_calc_per_day_div_8">Per Day ÷ 8 hrs</string>
+    <string name="salary_calc_per_day_div_2">Per Day ÷ 2</string>
+    <string name="salary_calc_total_deduction">Total Deduction</string>
+    <string name="salary_calc_deduction_formula">(Absent × Per Day) + (Half × Half Day)</string>
+    <string name="salary_calc_breakdown">Calculation Breakdown</string>
+    <string name="salary_calc_per_day_div_30">Per Day (÷ 30)</string>
+    <string name="salary_calc_per_hour_div_8">Per Hour (÷ 8 hrs/day)</string>
+    <string name="salary_calc_half_day_div_2">Half Day (÷ 2)</string>
+    <string name="salary_calc_absent_deduction">Absent (%1$d days × %2$s)</string>
+    <string name="salary_calc_half_days_deduction">Half Days (%1$d days × %2$s)</string>
+    <string name="salary_calc_no_deduction">No deduction</string>
+    <string name="salary_calc_final_payable">Final Salary Payable</string>
+    <string name="salary_calc_fixed_formula">30-Day Fixed Formula</string>
+    <string name="salary_calc_hours_per_day">8 hrs/day</string>
+    <string name="salary_calc_div_30_days">÷ 30 days</string>
+    <string name="salary_calc_div_8_hours">÷ 8 hrs/day</string>
+    <string name="salary_calc_overtime_per_hour">Overtime/hr</string>
+    <string name="salary_calc_equal_per_hour">= Per Hour</string>
+    <string name="salary_calc_formula_details">Formula Details</string>
+    <string name="salary_calc_per_day_formula">Per Day (Monthly ÷ 30)</string>
+    <string name="salary_calc_per_hour_formula">Per Hour (Per Day ÷ 8)</string>
+    <string name="salary_calc_half_day_formula">Half Day (Per Day ÷ 2)</string>
+    <string name="salary_calc_overtime_formula">Overtime/hr (= Per Hour rate)</string>
+    <string name="splash_service_unavailable">Service Unavailable</string>
+    <string name="splash_service_unavailable_body">The app is temporarily unavailable.
+Please try again later.</string>
+    <string name="salary_calc_formula_title">Salary Formula</string>
+    <string name="salary_calc_formula_per_day_label">Per Day</string>
+    <string name="salary_calc_formula_per_day">= Monthly Salary ÷ 30</string>
+    <string name="salary_calc_formula_per_hour_label">Per Hour</string>
+    <string name="salary_calc_formula_per_hour">= Per Day Salary ÷ 8 (8 hrs/day)</string>
+    <string name="salary_calc_formula_half_day_label">Half Day</string>
+    <string name="salary_calc_formula_half_day">= Per Day Salary ÷ 2</string>
+    <string name="salary_calc_formula_deduction_label">Deduction</string>
+    <string name="salary_calc_formula_deduction">= (Absent × Per Day) + (Half × Half Day)</string>
+    <string name="salary_calc_formula_final_pay_label">Final Pay</string>
+    <string name="salary_calc_formula_final_pay">= Monthly Salary − Total Deduction</string>
+    <string name="salary_calc_formula_example">Example: ₹18,000 → Per Day ₹600 · Per Hour ₹75</string>
+    <string name="salary_breakdown_auto_title">Auto Salary Breakdown</string>
+
+</resources>

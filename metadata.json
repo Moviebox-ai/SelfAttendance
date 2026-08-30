@@ -1,0 +1,8 @@
+{
+  "name": "Self Attendance Pro",
+  "description": "Attendance tracking and salary calculation app",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

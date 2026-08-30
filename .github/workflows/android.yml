@@ -1,0 +1,271 @@
+name: Android CI Build
+
+on:
+  push:
+    branches: [ "main" ]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Required GitHub Secrets
+# ─────────────────────────────────────────────────────────────────────────────
+# KEYSTORE_BASE64       — base64-encoded release keystore (base64 keystore.jks)
+# KEYSTORE_PASSWORD     — keystore password
+# KEY_ALIAS             — key alias inside the keystore
+# KEY_PASSWORD          — key password
+#
+# AMAZON_CLIENT_ID      — OAuth client ID from Amazon Developer Security Profile
+# AMAZON_CLIENT_SECRET  — OAuth client secret from Amazon Developer Security Profile
+# AMAZON_APP_ID         — App ID from Amazon Developer Console
+#                         Format: amzn1.devportal.mobileapp.xxxxxxxxxxxxxxxx
+#
+# How to get Amazon credentials:
+#   1. Go to developer.amazon.com → Settings → Security Profiles
+#   2. Create a Security Profile (or use an existing one)
+#   3. Under "Web Settings", add https://amazon.com as an allowed origin
+#   4. Copy Client ID and Client Secret
+#   5. Your App ID is in the Appstore app's URL on developer.amazon.com
+# ─────────────────────────────────────────────────────────────────────────────
+
+jobs:
+
+  # ── Job 1: Build ────────────────────────────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 📥 Checkout
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      # 🧹 Remove stale flavor source files
+      # AGP automatically includes src/play/java/ and src/amazon/java/ for each
+      # flavor. Files from earlier migration ZIPs in those dirs cause Redeclaration.
+      # This step is idempotent — safe if the files are already absent.
+      - name: Remove stale flavor source files
+        run: |
+          rm -f app/src/play/java/com/aaryo/selfattendance/update/InAppUpdateManager.kt
+          rm -f app/src/play/java/com/aaryo/selfattendance/security/IntegrityCheck.kt
+          rm -f app/src/amazon/java/com/aaryo/selfattendance/update/InAppUpdateManager.kt
+          rm -f app/src/amazon/java/com/aaryo/selfattendance/security/IntegrityCheck.kt
+          echo "Done removing stale files"
+
+      # ☕ Java Setup
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 🔧 Gradle permission
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      # 📄 Ensure google-services.json exists
+      - name: Setup google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
+            echo "✅ google-services.json written from GitHub Secret"
+          elif [ -f "app/google-services.json" ]; then
+            echo "✅ app/google-services.json already present in repository"
+          else
+            echo "⚠️ Warning: creating fallback google-services.json..."
+            echo '{"project_info":{"project_number":"611062377939","firebase_url":"https://selfattendance-42445-default-rtdb.asia-southeast1.firebasedatabase.app","project_id":"selfattendance-42445","storage_bucket":"selfattendance-42445.firebasestorage.app"},"client":[{"client_info":{"mobilesdk_app_id":"1:611062377939:android:c6a5659acd3433fdd21326","android_client_info":{"package_name":"com.aaryo.selfattendance"}},"oauth_client":[{"client_id":"611062377939-jcodrhu34ooqhpd0cob02etlv13kiu3q.apps.googleusercontent.com","client_type":1,"android_info":{"package_name":"com.aaryo.selfattendance","certificate_hash":"3f3836d518e3366616f8b0cab7d7f2d1bb72fe99"}},{"client_id":"611062377939-qn6kbvei95am85genpcj7vj04n73g739.apps.googleusercontent.com","client_type":1,"android_info":{"package_name":"com.aaryo.selfattendance","certificate_hash":"456c77ed31000b2dc0fb48aca796dc3390072731"}},{"client_id":"611062377939-aqsl27q6mgq5v44q7i2jmcfl0q9f0jhl.apps.googleusercontent.com","client_type":3}],"api_key":[{"current_key":"AIzaSyBbPMcP-3YEQYyLCKI3MdzBoEkw8CT8hno"}],"services":{"appinvite_service":{"other_platform_oauth_client":[{"client_id":"611062377939-aqsl27q6mgq5v44q7i2jmcfl0q9f0jhl.apps.googleusercontent.com","client_type":3}]}}}],"configuration_version":"1"}' > app/google-services.json
+            echo "✅ Fallback google-services.json created successfully"
+          fi
+
+      # 🔐 Decode Release Keystore
+      - name: Decode Release Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo ""
+            echo "❌ ERROR: KEYSTORE_BASE64 secret is not set!"
+            echo ""
+            echo "Fix karo — yeh steps follow karo:"
+            echo "  1. Keystore banao (sirf ek baar):"
+            echo "     keytool -genkey -v -keystore keystore.jks \\"
+            echo "       -alias selfattendance -keyalg RSA -keysize 2048 -validity 10000"
+            echo "  2. Base64 encode karo:"
+            echo "     base64 keystore.jks | tr -d '\\n'"
+            echo "  3. GitHub → Settings → Secrets → Actions mein add karo:"
+            echo "     KEYSTORE_BASE64   = (step 2 ka output)"
+            echo "     KEYSTORE_PASSWORD = (keystore password jo step 1 mein diya)"
+            echo "     KEY_ALIAS         = selfattendance"
+            echo "     KEY_PASSWORD      = (key password jo step 1 mein diya)"
+            echo ""
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 --decode > app/keystore.jks
+          echo "✅ keystore.jks decoded successfully ($(wc -c < app/keystore.jks) bytes)"
+
+      # 🔑 Print SHA-1 (useful for Firebase / Google API Console)
+      - name: Print SHA-1
+        run: ./gradlew signingReport | grep SHA1 || true
+
+      # 🚀 Build Release APK + AAB
+      - name: Build Release APK + AAB
+        run: ./gradlew assembleRelease bundleRelease --stacktrace
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      # 📦 Upload Release APK artifact
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: app/build/outputs/apk/release/app-release.apk
+
+      # 📦 Upload Release AAB artifact
+      - name: Upload Release AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-aab
+          path: app/build/outputs/bundle/release/app-release.aab
+
+  # ── Job 2: Submit to Amazon Appstore ────────────────────────────────────────
+  # Runs only when the build succeeds AND all three Amazon secrets are set.
+  # Skip condition: if AMAZON_CLIENT_ID is empty the job is skipped gracefully.
+  submit-amazon:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ success() }}
+
+    steps:
+      - name: Check Amazon secrets are configured
+        id: check-secrets
+        run: |
+          if [ -z "$AMAZON_CLIENT_ID" ] || [ -z "$AMAZON_CLIENT_SECRET" ] || [ -z "$AMAZON_APP_ID" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "Amazon secrets not configured — skipping submission."
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Amazon secrets found — proceeding with submission."
+          fi
+        env:
+          AMAZON_CLIENT_ID:     ${{ secrets.AMAZON_CLIENT_ID }}
+          AMAZON_CLIENT_SECRET: ${{ secrets.AMAZON_CLIENT_SECRET }}
+          AMAZON_APP_ID:        ${{ secrets.AMAZON_APP_ID }}
+
+      # Download the Release APK built in the previous job
+      - name: Download Release APK
+        if: steps.check-secrets.outputs.skip == 'false'
+        uses: actions/download-artifact@v4
+        with:
+          name: release-apk
+          path: dist/
+
+      # ── Amazon Appstore Submission API ──────────────────────────────────────
+      # API docs: https://developer.amazon.com/docs/app-submission-api/overview.html
+      # Flow: get token → create edit → upload APK → validate → commit
+      - name: Submit to Amazon Appstore
+        if: steps.check-secrets.outputs.skip == 'false'
+        env:
+          AMAZON_CLIENT_ID:     ${{ secrets.AMAZON_CLIENT_ID }}
+          AMAZON_CLIENT_SECRET: ${{ secrets.AMAZON_CLIENT_SECRET }}
+          AMAZON_APP_ID:        ${{ secrets.AMAZON_APP_ID }}
+        run: |
+          set -e
+          APK_FILE="dist/app-release.apk"
+          API_BASE="https://developer.amazon.com/api/appstore"
+
+          echo "──────────────────────────────────────────────"
+          echo "Step 1: Obtain OAuth access token"
+          echo "──────────────────────────────────────────────"
+          TOKEN_JSON=$(curl -s -f -X POST "https://api.amazon.com/auth/o2/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "grant_type=client_credentials" \
+            -d "client_id=${AMAZON_CLIENT_ID}" \
+            -d "client_secret=${AMAZON_CLIENT_SECRET}" \
+            -d "scope=appstore::apps:readwrite")
+
+          ACCESS_TOKEN=$(echo "$TOKEN_JSON" | jq -r '.access_token')
+          if [ -z "$ACCESS_TOKEN" ] || [ "$ACCESS_TOKEN" = "null" ]; then
+            echo "ERROR: Failed to obtain access token."
+            echo "Response: $TOKEN_JSON"
+            exit 1
+          fi
+          echo "Access token obtained."
+
+          echo "──────────────────────────────────────────────"
+          echo "Step 2: Create a new edit for the app"
+          echo "──────────────────────────────────────────────"
+          EDIT_JSON=$(curl -s -f -X POST \
+            "${API_BASE}/applications/${AMAZON_APP_ID}/edits" \
+            -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+            -H "Content-Type: application/json")
+
+          EDIT_ID=$(echo "$EDIT_JSON" | jq -r '.id')
+          if [ -z "$EDIT_ID" ] || [ "$EDIT_ID" = "null" ]; then
+            echo "ERROR: Failed to create edit."
+            echo "Response: $EDIT_JSON"
+            exit 1
+          fi
+          echo "Edit created: $EDIT_ID"
+
+          echo "──────────────────────────────────────────────"
+          echo "Step 3: List existing APKs in this edit"
+          echo "──────────────────────────────────────────────"
+          APKS_JSON=$(curl -s -f -X GET \
+            "${API_BASE}/applications/${AMAZON_APP_ID}/edits/${EDIT_ID}/apks" \
+            -H "Authorization: Bearer ${ACCESS_TOKEN}")
+          echo "APKs in edit: $APKS_JSON"
+          EXISTING_APK_ID=$(echo "$APKS_JSON" | jq -r 'if type=="array" then .[0].id else .id end // empty')
+
+          echo "──────────────────────────────────────────────"
+          echo "Step 4: Upload / Replace APK"
+          echo "──────────────────────────────────────────────"
+          APK_SIZE=$(du -sh "$APK_FILE" | cut -f1)
+          echo "APK file: $APK_FILE ($APK_SIZE)"
+
+          if [ -n "$EXISTING_APK_ID" ] && [ "$EXISTING_APK_ID" != "null" ]; then
+            echo "Replacing existing APK: $EXISTING_APK_ID"
+            UPLOAD_RESP=$(curl -s -f -X PUT \
+              "${API_BASE}/applications/${AMAZON_APP_ID}/edits/${EDIT_ID}/apks/${EXISTING_APK_ID}/replace" \
+              -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+              -H "Content-Type: application/octet-stream" \
+              --data-binary "@${APK_FILE}")
+          else
+            echo "Uploading new APK..."
+            UPLOAD_RESP=$(curl -s -f -X POST \
+              "${API_BASE}/applications/${AMAZON_APP_ID}/edits/${EDIT_ID}/apks/upload" \
+              -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+              -H "Content-Type: application/octet-stream" \
+              --data-binary "@${APK_FILE}")
+          fi
+          echo "Upload response: $UPLOAD_RESP"
+
+          echo "──────────────────────────────────────────────"
+          echo "Step 5: Validate the edit"
+          echo "──────────────────────────────────────────────"
+          VALIDATE_RESP=$(curl -s -X POST \
+            "${API_BASE}/applications/${AMAZON_APP_ID}/edits/${EDIT_ID}/validate" \
+            -H "Authorization: Bearer ${ACCESS_TOKEN}")
+          echo "Validation response: $VALIDATE_RESP"
+
+          VALIDATION_STATUS=$(echo "$VALIDATE_RESP" | jq -r '.status // .validationStatus // "unknown"')
+          echo "Validation status: $VALIDATION_STATUS"
+          if [ "$VALIDATION_STATUS" = "FAILED" ]; then
+            echo "ERROR: Edit validation failed. Check the response above for details."
+            echo "The APK was uploaded but NOT submitted. Fix the issues and push again."
+            exit 1
+          fi
+
+          echo "──────────────────────────────────────────────"
+          echo "Step 6: Commit the edit (submit for review)"
+          echo "──────────────────────────────────────────────"
+          COMMIT_RESP=$(curl -s -f -X POST \
+            "${API_BASE}/applications/${AMAZON_APP_ID}/edits/${EDIT_ID}/commit" \
+            -H "Authorization: Bearer ${ACCESS_TOKEN}")
+          echo "Commit response: $COMMIT_RESP"
+
+          COMMIT_STATUS=$(echo "$COMMIT_RESP" | jq -r '.status // "unknown"')
+          echo "──────────────────────────────────────────────"
+          echo "Submission complete. Status: $COMMIT_STATUS"
+          echo "The app is now submitted for Amazon review."
+          echo "Check status at: https://developer.amazon.com"
+          echo "──────────────────────────────────────────────"
