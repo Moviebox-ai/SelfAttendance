@@ -92,6 +92,23 @@
             android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT"
             android:value="true"/>
 
+        <!-- Firebase Installations / Analytics / Crashlytics / Sessions auto-init configuration -->
+        <meta-data
+            android:name="firebase_installations_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="google_analytics_automatic_screen_reporting_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_sessions_enabled"
+            android:value="false" />
+
         <!-- Google Play Services -->
         <meta-data
             android:name="com.google.android.gms.version"

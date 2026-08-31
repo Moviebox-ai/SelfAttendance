@@ -197,21 +197,39 @@ fun SalaryPayrollScreen(
                     fontWeight = FontWeight.Bold
                 )
 
-                TextButton(
-                    onClick = {
-                        StaffReportGenerator.exportStaffMonthlyReportCsv(
-                            context = context,
-                            businessName = businessName,
-                            monthYear = selectedMonth,
-                            employees = employees,
-                            payouts = calculatedPayouts
-                        )
-                    },
-                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
-                ) {
-                    Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(16.dp))
-                    Spacer(Modifier.width(4.dp))
-                    Text("Excel Sheet", fontSize = 12.sp)
+                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    TextButton(
+                        onClick = {
+                            StaffReportGenerator.generateCompanyPayrollPdf(
+                                context = context,
+                                businessName = businessName,
+                                monthYear = selectedMonth,
+                                employees = employees,
+                                payouts = calculatedPayouts
+                            )
+                        },
+                        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Icon(Icons.Default.PictureAsPdf, contentDescription = null, modifier = Modifier.size(15.dp))
+                        Spacer(Modifier.width(3.dp))
+                        Text("Master PDF", fontSize = 12.sp)
+                    }
+                    TextButton(
+                        onClick = {
+                            StaffReportGenerator.exportStaffMonthlyReportCsv(
+                                context = context,
+                                businessName = businessName,
+                                monthYear = selectedMonth,
+                                employees = employees,
+                                payouts = calculatedPayouts
+                            )
+                        },
+                        contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(15.dp))
+                        Spacer(Modifier.width(3.dp))
+                        Text("Excel / CSV", fontSize = 12.sp)
+                    }
                 }
             }
 
@@ -275,20 +293,49 @@ fun SalaryPayrollScreen(
 
     // Pay Salary Dialog
     payingPayout?.let { (emp, payout) ->
-        var payAmount by remember { mutableStateOf(if (payout.paidAmount > 0) payout.paidAmount.toInt().toString() else payout.netPayable.toInt().toString()) }
+        var allowanceAmt by remember { mutableStateOf(if (payout.allowance > 0) payout.allowance.toInt().toString() else if (emp.fixedAllowance > 0) emp.fixedAllowance.toInt().toString() else "0") }
         var bonusAmt by remember { mutableStateOf(if (payout.bonus > 0) payout.bonus.toInt().toString() else "0") }
-        var otherDeductionAmt by remember { mutableStateOf(if (payout.otherDeductions > 0) payout.otherDeductions.toInt().toString() else "0") }
+        var otherDeductionAmt by remember { mutableStateOf(if (payout.otherDeductions > 0) payout.otherDeductions.toInt().toString() else if (emp.pfDeduction + emp.esiDeduction > 0) (emp.pfDeduction + emp.esiDeduction).toInt().toString() else "0") }
+        
+        // Base Earned without allowances
+        val baseEarnedOnly = remember(payout) { (payout.grossSalary - payout.allowance).coerceAtLeast(0.0) }
+        
+        val currentAllowance = allowanceAmt.toDoubleOrNull() ?: 0.0
+        val currentBonus = bonusAmt.toDoubleOrNull() ?: 0.0
+        val currentDeductions = otherDeductionAmt.toDoubleOrNull() ?: 0.0
+        val dynamicGross = baseEarnedOnly + currentAllowance
+        val dynamicNet = (dynamicGross + currentBonus - payout.totalAdvancesDeducted - currentDeductions).coerceAtLeast(0.0)
+        
+        var payAmount by remember { mutableStateOf(if (payout.paidAmount > 0) payout.paidAmount.toInt().toString() else payout.netPayable.toInt().toString()) }
         var paymentMode by remember { mutableStateOf(payout.paymentMode) }
         var notes by remember { mutableStateOf(payout.notes) }
 
         AlertDialog(
             onDismissRequest = { payingPayout = null },
-            title = { Text("Pay Salary: ${emp.name}", fontWeight = FontWeight.Bold) },
+            title = { Text("Disburse Salary: ${emp.name}", fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("Gross Earned: ₹${payout.grossSalary.toInt()}  |  Advance: -₹${payout.totalAdvancesDeducted.toInt()}", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(10.dp)) {
+                            Text("Base + OT Earned: ₹${baseEarnedOnly.toInt()}  |  Advance: -₹${payout.totalAdvancesDeducted.toInt()}", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Spacer(Modifier.height(2.dp))
+                            Text("Estimated Net Payable: ₹${dynamicNet.toInt()}", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, fontSize = 14.sp)
+                        }
+                    }
                     
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedTextField(
+                            value = allowanceAmt,
+                            onValueChange = { allowanceAmt = it },
+                            label = { Text("Allowance (+)") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
                         OutlinedTextField(
                             value = bonusAmt,
                             onValueChange = { bonusAmt = it },
@@ -297,15 +344,16 @@ fun SalaryPayrollScreen(
                             singleLine = true,
                             modifier = Modifier.weight(1f)
                         )
-                        OutlinedTextField(
-                            value = otherDeductionAmt,
-                            onValueChange = { otherDeductionAmt = it },
-                            label = { Text("Deductions (-)") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            singleLine = true,
-                            modifier = Modifier.weight(1f)
-                        )
                     }
+
+                    OutlinedTextField(
+                        value = otherDeductionAmt,
+                        onValueChange = { otherDeductionAmt = it },
+                        label = { Text("PF / ESI / Other Deductions (-)") },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
 
                     OutlinedTextField(
                         value = payAmount,
@@ -351,10 +399,14 @@ fun SalaryPayrollScreen(
             confirmButton = {
                 Button(onClick = {
                     val amt = payAmount.toDoubleOrNull() ?: 0.0
+                    val allw = allowanceAmt.toDoubleOrNull() ?: 0.0
                     val bns = bonusAmt.toDoubleOrNull() ?: 0.0
                     val ded = otherDeductionAmt.toDoubleOrNull() ?: 0.0
-                    val newNet = (payout.grossSalary + bns - payout.totalAdvancesDeducted - ded).coerceAtLeast(0.0)
+                    val newGross = baseEarnedOnly + allw
+                    val newNet = (newGross + bns - payout.totalAdvancesDeducted - ded).coerceAtLeast(0.0)
                     val updatedPayout = payout.copy(
+                        grossSalary = Math.round(newGross * 100.0) / 100.0,
+                        allowance = allw,
                         bonus = bns,
                         otherDeductions = ded,
                         netPayable = Math.round(newNet * 100.0) / 100.0
@@ -363,7 +415,7 @@ fun SalaryPayrollScreen(
                         payingPayout = null
                     }
                 }) {
-                    Text("Save Payment")
+                    Text("Save & Disburse")
                 }
             },
             dismissButton = {

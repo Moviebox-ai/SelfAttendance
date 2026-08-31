@@ -9,7 +9,39 @@ object RemoteConfigManager {
 
     fun getInstance(): RemoteConfigManager = this
 
-    private val remoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+    val isLiveConfig: Boolean by lazy {
+        try {
+            val app = com.google.firebase.FirebaseApp.getInstance()
+            val options = app.options
+            val projectId = options.projectId
+            val apiKey = options.apiKey
+            !projectId.isNullOrBlank() && 
+                projectId != "self-attendance-pro" && 
+                !apiKey.isNullOrBlank() && 
+                apiKey != "AIzaSyB8K1xT4vN9qZ2wL5mP7rJ0eA3cD6fH8yI"
+        } catch (t: Throwable) {
+            false
+        }
+    }
+
+    private val remoteConfig: FirebaseRemoteConfig? by lazy {
+        if (!isLiveConfig) {
+            null
+        } else {
+            try {
+                FirebaseRemoteConfig.getInstance().apply {
+                    val settings = FirebaseRemoteConfigSettings.Builder()
+                        .setMinimumFetchIntervalInSeconds(3600)
+                        .build()
+                    setConfigSettingsAsync(settings)
+                    setDefaultsAsync(localDefaults)
+                }
+            } catch (e: Throwable) {
+                Log.w("RemoteConfig", "FirebaseRemoteConfig initialization skipped/fallback: ${e.message}")
+                null
+            }
+        }
+    }
 
     // ── In-memory safe defaults ────────────────────────────────────────────
     // if getBoolean() is called before the task completes, unset keys return
@@ -34,21 +66,13 @@ object RemoteConfigManager {
         "update_message"       to ""
     )
 
-    init {
-        val settings = FirebaseRemoteConfigSettings.Builder()
-            .setMinimumFetchIntervalInSeconds(3600)
-            .build()
-        remoteConfig.setConfigSettingsAsync(settings)
-        remoteConfig.setDefaultsAsync(localDefaults)
-    }
-
     suspend fun fetch() {
         try {
-            remoteConfig.fetchAndActivate().await()
+            remoteConfig?.fetchAndActivate()?.await()
         } catch (e: kotlinx.coroutines.CancellationException) {
             throw e
-        } catch (e: Exception) {
-            Log.e("RemoteConfig", "Fetch failed", e)
+        } catch (e: Throwable) {
+            Log.w("RemoteConfig", "Remote config fetch skipped or offline, using local defaults: ${e.message}")
         }
     }
 
@@ -60,20 +84,22 @@ object RemoteConfigManager {
      * the server explicitly sent "false".
      */
     private fun getBooleanSafe(key: String): Boolean {
-        val rawStr = remoteConfig.getString(key)
+        val rc = remoteConfig ?: return localDefaults[key] as? Boolean ?: true
+        val rawStr = try { rc.getString(key) } catch (t: Throwable) { "" }
         if (rawStr.isEmpty()) {
             // Key not fetched / defaults not applied yet — use our local default
             return localDefaults[key] as? Boolean ?: true
         }
-        return remoteConfig.getBoolean(key)
+        return try { rc.getBoolean(key) } catch (t: Throwable) { localDefaults[key] as? Boolean ?: true }
     }
 
     private fun getLongSafe(key: String, fallback: Long = 0L): Long {
-        val rawStr = remoteConfig.getString(key)
+        val rc = remoteConfig ?: return (localDefaults[key] as? Long) ?: fallback
+        val rawStr = try { rc.getString(key) } catch (t: Throwable) { "" }
         if (rawStr.isEmpty()) {
             return (localDefaults[key] as? Long) ?: fallback
         }
-        return remoteConfig.getLong(key)
+        return try { rc.getLong(key) } catch (t: Throwable) { (localDefaults[key] as? Long) ?: fallback }
     }
 
     fun isAdsEnabled()       = getBooleanSafe("ads_enabled")
@@ -87,7 +113,7 @@ object RemoteConfigManager {
     fun isForceUpdateRequired(): Boolean = getBooleanSafe("force_update_required")
     fun getMinRequiredVersion(): Long = getLongSafe("min_required_version", 0L)
     fun getLatestVersionCode(): Long = getLongSafe("latest_version_code", 0L)
-    fun getUpdateMessage(): String = remoteConfig.getString("update_message")
+    fun getUpdateMessage(): String = remoteConfig?.let { try { it.getString("update_message") } catch (t: Throwable) { "" } } ?: ""
 
-    fun getString(key: String): String = remoteConfig.getString(key)
+    fun getString(key: String): String = remoteConfig?.let { try { it.getString(key) } catch (t: Throwable) { "" } } ?: ""
 }

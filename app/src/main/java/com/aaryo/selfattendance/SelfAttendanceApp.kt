@@ -104,11 +104,14 @@ class SelfAttendanceApp : Application() {
 
     private fun initCrashlytics() {
         try {
+            val isLive = RemoteConfigManager.isLiveConfig
             FirebaseCrashlytics.getInstance().apply {
-                setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
-                // Tag all reports with the store flavor for triage
-                setCustomKey("store", BuildConfig.STORE_NAME)
-                setCustomKey("is_amazon", BuildConfig.IS_AMAZON)
+                setCrashlyticsCollectionEnabled(isLive && !BuildConfig.DEBUG)
+                if (isLive) {
+                    // Tag all reports with the store flavor for triage
+                    setCustomKey("store", BuildConfig.STORE_NAME)
+                    setCustomKey("is_amazon", BuildConfig.IS_AMAZON)
+                }
             }
         } catch (e: Exception) {
             Log.e("AppInit", "Crashlytics init failed", e)

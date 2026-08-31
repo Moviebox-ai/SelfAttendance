@@ -236,6 +236,38 @@ fun StaffRowCard(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier.padding(top = 2.dp)
+                    ) {
+                        Surface(
+                            shape = RoundedCornerShape(4.dp),
+                            color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
+                        ) {
+                            Text(
+                                text = "⏰ ${employee.shiftStartTime} - ${employee.shiftEndTime}",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                            )
+                        }
+                        if (employee.fixedAllowance > 0) {
+                            Surface(
+                                shape = RoundedCornerShape(4.dp),
+                                color = Color(0xFF059669).copy(alpha = 0.12f)
+                            ) {
+                                Text(
+                                    text = "+₹${employee.fixedAllowance.toInt()} Allw",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color(0xFF059669),
+                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
+                    }
                     if (employee.phone.isNotBlank()) {
                         Text(
                             text = employee.phone,
@@ -273,8 +305,28 @@ fun AddEditStaffDialog(
     var salaryType by remember { mutableStateOf(initialEmployee?.salaryType ?: Employee.SALARY_TYPE_MONTHLY) }
     var baseSalary by remember { mutableStateOf(if (initialEmployee != null && initialEmployee.baseSalary > 0) initialEmployee.baseSalary.toInt().toString() else "") }
     var overtimeRate by remember { mutableStateOf(if (initialEmployee != null && initialEmployee.overtimeRatePerHour > 0) initialEmployee.overtimeRatePerHour.toInt().toString() else "") }
+    
+    // Shift & Timings
+    var shiftName by remember { mutableStateOf(initialEmployee?.shiftName ?: "Day Shift (9AM - 6PM)") }
+    var shiftStartTime by remember { mutableStateOf(initialEmployee?.shiftStartTime ?: "09:00") }
+    var shiftEndTime by remember { mutableStateOf(initialEmployee?.shiftEndTime ?: "18:00") }
+    var standardHours by remember { mutableStateOf(initialEmployee?.standardShiftHours?.toString() ?: "8.0") }
+    
+    // Allowances & Deductions
+    var fixedAllowance by remember { mutableStateOf(if (initialEmployee != null && initialEmployee.fixedAllowance > 0) initialEmployee.fixedAllowance.toInt().toString() else "") }
+    var pfDeduction by remember { mutableStateOf(if (initialEmployee != null && initialEmployee.pfDeduction > 0) initialEmployee.pfDeduction.toInt().toString() else "") }
+    var esiDeduction by remember { mutableStateOf(if (initialEmployee != null && initialEmployee.esiDeduction > 0) initialEmployee.esiDeduction.toInt().toString() else "") }
+
     var joiningDate by remember { mutableStateOf(initialEmployee?.joiningDate ?: LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))) }
     var isActive by remember { mutableStateOf(initialEmployee?.isActive ?: true) }
+
+    val shiftPresets = listOf(
+        "Day Shift (9AM - 6PM)" to ("09:00" to "18:00"),
+        "Morning Shift (6AM - 2PM)" to ("06:00" to "14:00"),
+        "Evening Shift (2PM - 10PM)" to ("14:00" to "22:00"),
+        "Night Shift (10PM - 6AM)" to ("22:00" to "06:00"),
+        "Custom Shift" to (shiftStartTime to shiftEndTime)
+    )
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -342,23 +394,128 @@ fun AddEditStaffDialog(
                     OutlinedTextField(
                         value = baseSalary,
                         onValueChange = { baseSalary = it },
-                        label = { Text(if (salaryType == Employee.SALARY_TYPE_MONTHLY) "Monthly Salary (₹)" else if (salaryType == Employee.SALARY_TYPE_DAILY) "Per Day Rate (₹)" else "Hourly Rate (₹)") },
+                        label = { Text(if (salaryType == Employee.SALARY_TYPE_MONTHLY) "Base Salary (₹)" else if (salaryType == Employee.SALARY_TYPE_DAILY) "Per Day Rate (₹)" else "Hourly Rate (₹)") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
+                }
+
+                // Shift & Timing Section
+                item {
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    Text("Shift & Working Hours", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                }
+                item {
+                    Text("Assigned Shift", style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Medium)
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        shiftPresets.take(4).forEach { (presetName, times) ->
+                            FilterChip(
+                                selected = shiftName == presetName,
+                                onClick = {
+                                    shiftName = presetName
+                                    shiftStartTime = times.first
+                                    shiftEndTime = times.second
+                                },
+                                label = { Text(presetName, fontSize = 12.sp) },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    }
+                }
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = shiftStartTime,
+                            onValueChange = { shiftStartTime = it },
+                            label = { Text("Start Time") },
+                            placeholder = { Text("09:00") },
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                        OutlinedTextField(
+                            value = shiftEndTime,
+                            onValueChange = { shiftEndTime = it },
+                            label = { Text("End Time") },
+                            placeholder = { Text("18:00") },
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = standardHours,
+                            onValueChange = { standardHours = it },
+                            label = { Text("Shift Hours") },
+                            placeholder = { Text("8.0") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                        OutlinedTextField(
+                            value = overtimeRate,
+                            onValueChange = { overtimeRate = it },
+                            label = { Text("OT Rate/Hr (₹)") },
+                            placeholder = { Text("Auto / Custom") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
+
+                // Allowances & Deductions
+                item {
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    Text("Fixed Allowances & Statutory Deductions", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                 }
                 item {
                     OutlinedTextField(
-                        value = overtimeRate,
-                        onValueChange = { overtimeRate = it },
-                        label = { Text("Overtime Rate Per Hour (₹) (Optional)") },
+                        value = fixedAllowance,
+                        onValueChange = { fixedAllowance = it },
+                        label = { Text("Monthly Fixed Allowance (₹) (Travel/Food)") },
+                        placeholder = { Text("e.g. 1500") },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
                 item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = pfDeduction,
+                            onValueChange = { pfDeduction = it },
+                            label = { Text("PF Deduction (₹)") },
+                            placeholder = { Text("e.g. 1800") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                        OutlinedTextField(
+                            value = esiDeduction,
+                            onValueChange = { esiDeduction = it },
+                            label = { Text("ESI / Tax (₹)") },
+                            placeholder = { Text("e.g. 250") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            singleLine = true,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                }
+
+                item {
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
                     OutlinedTextField(
                         value = joiningDate,
                         onValueChange = { joiningDate = it },
@@ -392,6 +549,13 @@ fun AddEditStaffDialog(
                             salaryType = salaryType,
                             baseSalary = baseSalary.toDoubleOrNull() ?: 0.0,
                             overtimeRatePerHour = overtimeRate.toDoubleOrNull() ?: 0.0,
+                            shiftName = shiftName.trim(),
+                            shiftStartTime = shiftStartTime.trim(),
+                            shiftEndTime = shiftEndTime.trim(),
+                            standardShiftHours = standardHours.toDoubleOrNull() ?: 8.0,
+                            fixedAllowance = fixedAllowance.toDoubleOrNull() ?: 0.0,
+                            pfDeduction = pfDeduction.toDoubleOrNull() ?: 0.0,
+                            esiDeduction = esiDeduction.toDoubleOrNull() ?: 0.0,
                             joiningDate = joiningDate.trim(),
                             isActive = isActive
                         )

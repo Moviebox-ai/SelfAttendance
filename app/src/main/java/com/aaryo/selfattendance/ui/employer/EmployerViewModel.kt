@@ -152,6 +152,9 @@ class EmployerViewModel(application: Application) : AndroidViewModel(application
     fun markAttendance(
         employeeId: Long,
         status: String,
+        shiftName: String = "Day Shift",
+        checkInTime: String? = null,
+        checkOutTime: String? = null,
         overtimeHours: Double = 0.0,
         notes: String = ""
     ) {
@@ -161,11 +164,47 @@ class EmployerViewModel(application: Application) : AndroidViewModel(application
                     employeeId = employeeId,
                     date = _selectedDate.value,
                     status = status,
+                    shiftName = shiftName,
+                    checkInTime = checkInTime,
+                    checkOutTime = checkOutTime,
                     overtimeHours = overtimeHours,
                     notes = notes
                 )
             } catch (e: Exception) {
                 _snackBarMessage.emit("Failed to mark attendance: ${e.message}")
+            }
+        }
+    }
+
+    fun updateMonthlyAdjustments(
+        payout: StaffSalaryPayout,
+        allowance: Double,
+        bonus: Double,
+        otherDeductions: Double,
+        onComplete: (() -> Unit)? = null
+    ) {
+        viewModelScope.launch {
+            try {
+                val netPayable = (payout.grossSalary - (payout.allowance) + allowance + bonus - payout.totalAdvancesDeducted - otherDeductions).coerceAtLeast(0.0)
+                val status = when {
+                    payout.paidAmount >= netPayable && netPayable > 0 -> StaffSalaryPayout.STATUS_PAID
+                    payout.paidAmount > 0 -> StaffSalaryPayout.STATUS_PARTIAL
+                    else -> StaffSalaryPayout.STATUS_PENDING
+                }
+                val updated = payout.copy(
+                    allowance = allowance,
+                    bonus = bonus,
+                    otherDeductions = otherDeductions,
+                    grossSalary = (payout.grossSalary - payout.allowance + allowance),
+                    netPayable = netPayable,
+                    paymentStatus = status,
+                    updatedAt = System.currentTimeMillis()
+                )
+                repository.saveSalaryPayout(updated)
+                _snackBarMessage.emit("Monthly allowances & deductions updated")
+                onComplete?.invoke()
+            } catch (e: Exception) {
+                _snackBarMessage.emit("Error updating payroll: ${e.message}")
             }
         }
     }

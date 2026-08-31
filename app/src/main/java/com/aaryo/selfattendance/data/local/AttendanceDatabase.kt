@@ -20,7 +20,7 @@ import com.aaryo.selfattendance.data.model.StaffSalaryPayout
         StaffAdvance::class,
         StaffSalaryPayout::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class AttendanceDatabase : RoomDatabase() {
@@ -132,6 +132,30 @@ abstract class AttendanceDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Migration from version 2 to version 3
+         * Adds shift timings, overtime tracking fields, allowances & deductions columns.
+         */
+        val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // Employees: Shift, Allowances & Deductions
+                db.execSQL("ALTER TABLE `employees` ADD COLUMN `shiftName` TEXT NOT NULL DEFAULT 'Day Shift (9AM - 6PM)'")
+                db.execSQL("ALTER TABLE `employees` ADD COLUMN `shiftStartTime` TEXT NOT NULL DEFAULT '09:00'")
+                db.execSQL("ALTER TABLE `employees` ADD COLUMN `shiftEndTime` TEXT NOT NULL DEFAULT '18:00'")
+                db.execSQL("ALTER TABLE `employees` ADD COLUMN `standardShiftHours` REAL NOT NULL DEFAULT 8.0")
+                db.execSQL("ALTER TABLE `employees` ADD COLUMN `fixedAllowance` REAL NOT NULL DEFAULT 0.0")
+                db.execSQL("ALTER TABLE `employees` ADD COLUMN `pfDeduction` REAL NOT NULL DEFAULT 0.0")
+                db.execSQL("ALTER TABLE `employees` ADD COLUMN `esiDeduction` REAL NOT NULL DEFAULT 0.0")
+
+                // Staff Attendance: Shift Name
+                db.execSQL("ALTER TABLE `staff_attendance` ADD COLUMN `shiftName` TEXT NOT NULL DEFAULT 'General'")
+
+                // Staff Salary Payout: Overtime Pay & Allowance
+                db.execSQL("ALTER TABLE `staff_salary_payouts` ADD COLUMN `totalOvertimePay` REAL NOT NULL DEFAULT 0.0")
+                db.execSQL("ALTER TABLE `staff_salary_payouts` ADD COLUMN `allowance` REAL NOT NULL DEFAULT 0.0")
+            }
+        }
+
         fun getDatabase(context: Context): AttendanceDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -139,7 +163,7 @@ abstract class AttendanceDatabase : RoomDatabase() {
                     AttendanceDatabase::class.java,
                     DATABASE_NAME
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .fallbackToDestructiveMigrationOnDowngrade(true)
                     .build()
 

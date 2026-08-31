@@ -180,6 +180,43 @@ fun StaffDetailScreen(
                                 }
                             }
                         }
+
+                        Spacer(Modifier.height(10.dp))
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                        Spacer(Modifier.height(10.dp))
+
+                        // Shift & Allowance summary
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column {
+                                Text("Assigned Shift", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text("${employee.shiftName} (${employee.shiftStartTime} - ${employee.shiftEndTime})", fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+                            }
+                            Column {
+                                Text("Shift Duration", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text("${employee.standardShiftHours} hrs / day", fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+                            }
+                        }
+
+                        if (employee.fixedAllowance > 0 || employee.pfDeduction > 0 || employee.esiDeduction > 0) {
+                            Spacer(Modifier.height(8.dp))
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                if (employee.fixedAllowance > 0) {
+                                    Text("+₹${employee.fixedAllowance.toInt()} Fixed Allw", fontSize = 11.sp, color = Color(0xFF059669), fontWeight = FontWeight.SemiBold)
+                                }
+                                if (employee.pfDeduction > 0) {
+                                    Text("-₹${employee.pfDeduction.toInt()} PF", fontSize = 11.sp, color = Color(0xFFDC2626), fontWeight = FontWeight.SemiBold)
+                                }
+                                if (employee.esiDeduction > 0) {
+                                    Text("-₹${employee.esiDeduction.toInt()} ESI", fontSize = 11.sp, color = Color(0xFFDC2626), fontWeight = FontWeight.SemiBold)
+                                }
+                            }
+                        }
                     }
                 }
             }
