@@ -197,6 +197,34 @@ fun DashboardScreen(navController: NavController) {
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
 
+                    // AX Coin Balance Chip
+                    Surface(
+                        onClick = { navController.navigate(Routes.REWARDS) },
+                        shape = RoundedCornerShape(20.dp),
+                        color = Color(0xFFFFD700).copy(alpha = 0.15f),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFD700).copy(alpha = 0.6f))
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            androidx.compose.foundation.Image(
+                                painter = androidx.compose.ui.res.painterResource(R.drawable.ax_coin),
+                                contentDescription = "AX Coins",
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(Modifier.width(4.dp))
+                            Text(
+                                "${prefs.coinBalance}",
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFFFFD700),
+                                fontSize = 13.sp
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.width(8.dp))
+
                     val initial =
                         state.profile.name
                             .takeIf { it.isNotBlank() }

@@ -1,7 +1,9 @@
 package com.aaryo.selfattendance.ui.referral
 
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -11,10 +13,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -23,15 +28,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.aaryo.selfattendance.R
 import com.aaryo.selfattendance.data.local.PreferencesManager
 import com.aaryo.selfattendance.data.repository.ReferralEntry
 import com.aaryo.selfattendance.data.repository.ReferralRepository
@@ -134,30 +142,68 @@ fun ReferAndEarnScreen(navController: NavController) {
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(20.dp))
                     .background(
-                        Brush.linearGradient(listOf(Color(0xFF1A237E), Color(0xFF4A148C), Color(0xFF880E4F)))
+                        Brush.linearGradient(listOf(Color(0xFF0F2042), Color(0xFF1E3A8A), Color(0xFF3B0764)))
                     )
                     .border(1.dp, GlassEdge, RoundedCornerShape(20.dp))
-                    .padding(24.dp),
+                    .padding(20.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        Icons.Default.EmojiEvents,
-                        null,
-                        tint     = RoyalGold,
-                        modifier = Modifier.size(48.dp)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(72.dp)
+                            .clip(CircleShape)
+                            .background(
+                                Brush.radialGradient(
+                                    listOf(RoyalGold.copy(0.35f), Color.Transparent)
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ax_coin),
+                            contentDescription = "AX Coins Reward",
+                            modifier = Modifier.size(54.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
+
+                    Spacer(Modifier.height(10.dp))
+
+                    Surface(
+                        color = RoyalGold.copy(0.18f),
+                        shape = RoundedCornerShape(20.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, RoyalGold.copy(0.6f))
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
+                        ) {
+                            Text("🎁", fontSize = 12.sp)
+                            Spacer(Modifier.width(6.dp))
+                            Text(
+                                "EARN 450 AX COINS PER REFERRAL",
+                                color = RoyalGold,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                letterSpacing = 0.5.sp
+                            )
+                        }
+                    }
+
                     Spacer(Modifier.height(12.dp))
+
                     Text(
-                        "Friend Refer Karo,\nCoins Kamao!",
+                        "Dost Ko Invite Karo,\nCoins Kamao!",
                         fontSize    = 22.sp,
                         fontWeight  = FontWeight.ExtraBold,
                         color       = TextWhite,
-                        textAlign   = TextAlign.Center
+                        textAlign   = TextAlign.Center,
+                        lineHeight  = 28.sp
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        "Jab aapka friend 5 din lagatar app use kare\nto aapko milenge 450 AX Coins!",
+                        "Jab aapka dost 5 din lagatar app use karega,\nto aap dono ko milenge 450 AX Coins!",
                         fontSize  = 13.sp,
                         color     = TextMuted,
                         textAlign = TextAlign.Center
@@ -174,6 +220,28 @@ fun ReferAndEarnScreen(navController: NavController) {
 
             // ── My Referral Code ─────────────────────────────────────────────
             if (isLoggedIn) {
+                val professionalShareText = remember(myCode) {
+                    """
+✨ *Self Attendance Pro — Smart Work & Salary Tracker* 📊💰
+
+Namaste! Apni daily work attendance mark karne, accurate overtime calculate karne aur instant Salary Slip (PDF) generate karne ke liye *Self Attendance Pro* app download karein!
+
+🎁 *Exclusive Joining Bonus:*
+Mera Referral Code use karne par aapko aur mujhe milenge *450 AX Coins*! 🪙
+
+🔑 *Referral Code:* $myCode
+
+⚡ *Top App Features:*
+✅ 1-Tap Daily Attendance Marking
+✅ Auto Salary & Overtime Calculation
+✅ 1-Click Monthly Salary Slip (PDF)
+✅ 100% Free & Secure Cloud Sync
+
+📲 *Abhi Download Karein (Google Play Store):*
+https://play.google.com/store/apps/details?id=com.aaryo.selfattendance
+                    """.trimIndent()
+                }
+
                 GlassCard {
                     Column(
                         modifier            = Modifier
@@ -182,7 +250,7 @@ fun ReferAndEarnScreen(navController: NavController) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            "Aapka Referral Code",
+                            "Aapka Unique Referral Code",
                             fontSize   = 13.sp,
                             color      = TextMuted,
                             fontWeight = FontWeight.Medium
@@ -196,15 +264,15 @@ fun ReferAndEarnScreen(navController: NavController) {
                                 .background(
                                     Brush.horizontalGradient(
                                         listOf(
-                                            RoyalGold.copy(0.12f),
-                                            PremiumBlue.copy(0.12f)
+                                            RoyalGold.copy(0.15f),
+                                            PremiumBlue.copy(0.15f)
                                         ),
                                         startX = shimmerX * 400f,
                                         endX   = (shimmerX + 0.5f) * 400f
                                     )
                                 )
-                                .border(1.dp, RoyalGold.copy(0.5f), RoundedCornerShape(12.dp))
-                                .padding(vertical = 16.dp, horizontal = 24.dp),
+                                .border(1.dp, RoyalGold.copy(0.6f), RoundedCornerShape(12.dp))
+                                .padding(vertical = 14.dp, horizontal = 20.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
@@ -216,7 +284,35 @@ fun ReferAndEarnScreen(navController: NavController) {
                             )
                         }
 
-                        Spacer(Modifier.height(14.dp))
+                        Spacer(Modifier.height(16.dp))
+
+                        // WhatsApp Direct Share (High Conversion)
+                        Button(
+                            onClick = {
+                                try {
+                                    val waIntent = Intent(Intent.ACTION_VIEW).apply {
+                                        data = Uri.parse("https://api.whatsapp.com/send?text=" + Uri.encode(professionalShareText))
+                                        setPackage("com.whatsapp")
+                                    }
+                                    context.startActivity(waIntent)
+                                } catch (_: Exception) {
+                                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_TEXT, professionalShareText)
+                                    }
+                                    context.startActivity(Intent.createChooser(shareIntent, "Share via WhatsApp"))
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape    = RoundedCornerShape(12.dp),
+                            colors   = ButtonDefaults.buttonColors(containerColor = Color(0xFF25D366))
+                        ) {
+                            Icon(Icons.Default.Send, null, tint = TextWhite, modifier = Modifier.size(18.dp))
+                            Spacer(Modifier.width(8.dp))
+                            Text("WhatsApp Par Share Karein", color = TextWhite, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        }
+
+                        Spacer(Modifier.height(10.dp))
 
                         Row(
                             modifier              = Modifier.fillMaxWidth(),
@@ -225,7 +321,7 @@ fun ReferAndEarnScreen(navController: NavController) {
                             OutlinedButton(
                                 onClick = {
                                     clipboard.setText(AnnotatedString(myCode))
-                                    scope.launch { snack.showSnackbar("Code copy ho gaya!") }
+                                    scope.launch { snack.showSnackbar("Referral Code copy ho gaya!") }
                                 },
                                 modifier = Modifier.weight(1f),
                                 shape    = RoundedCornerShape(10.dp),
@@ -236,19 +332,16 @@ fun ReferAndEarnScreen(navController: NavController) {
                             ) {
                                 Icon(Icons.Default.ContentCopy, null, tint = RoyalGold, modifier = Modifier.size(16.dp))
                                 Spacer(Modifier.width(6.dp))
-                                Text("Copy", color = TextWhite, fontSize = 13.sp)
+                                Text("Code Copy", color = TextWhite, fontSize = 12.sp)
                             }
 
                             Button(
                                 onClick = {
-                                    val shareText = "Self Attendance Pro app download karo aur apni attendance track karo!\n\n" +
-                                            "Mera referral code use karo: $myCode\n\n" +
-                                            "Download: https://play.google.com/store/apps/details?id=com.aaryo.selfattendance"
                                     val intent = Intent(Intent.ACTION_SEND).apply {
                                         type = "text/plain"
-                                        putExtra(Intent.EXTRA_TEXT, shareText)
+                                        putExtra(Intent.EXTRA_TEXT, professionalShareText)
                                     }
-                                    context.startActivity(Intent.createChooser(intent, "Share via"))
+                                    context.startActivity(Intent.createChooser(intent, "Share Invitation via"))
                                 },
                                 modifier = Modifier.weight(1f),
                                 shape    = RoundedCornerShape(10.dp),
@@ -256,7 +349,7 @@ fun ReferAndEarnScreen(navController: NavController) {
                             ) {
                                 Icon(Icons.Default.Share, null, tint = NavyBg, modifier = Modifier.size(16.dp))
                                 Spacer(Modifier.width(6.dp))
-                                Text("Share", color = NavyBg, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                                Text("All Apps", color = NavyBg, fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             }
                         }
                     }
@@ -575,10 +668,20 @@ private fun ReferralEntryRow(entry: ReferralEntry, index: Int) {
                 fontWeight = FontWeight.Bold,
                 fontSize   = 13.sp
             )
-            if (entry.rewardPaid) {
-                Text("450 AX earned", color = SuccessGreen, fontSize = 10.sp)
-            } else if (isComplete) {
-                Text("Collect karein!", color = RoyalGold, fontSize = 10.sp)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = painterResource(R.drawable.ax_coin),
+                    contentDescription = null,
+                    modifier = Modifier.size(12.dp)
+                )
+                Spacer(Modifier.width(3.dp))
+                if (entry.rewardPaid) {
+                    Text("450 AX earned", color = SuccessGreen, fontSize = 10.sp)
+                } else if (isComplete) {
+                    Text("Collect karein!", color = RoyalGold, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                } else {
+                    Text("450 AX reward", color = TextMuted, fontSize = 10.sp)
+                }
             }
         }
     }
@@ -604,7 +707,7 @@ private fun HowItWorksCard() {
                 "1" to "Apna referral code dost ko bhejo",
                 "2" to "Dost app download kare aur code enter kare",
                 "3" to "Dost 5 din lagatar app use kare",
-                "4" to "Aapko 450 AX Coins milenge!"
+                "4" to "Aapko aur dost ko 450 AX Coins milenge!"
             )
 
             steps.forEach { (num, text) ->
@@ -624,7 +727,15 @@ private fun HowItWorksCard() {
                         Text(num, color = NavyBg, fontWeight = FontWeight.ExtraBold, fontSize = 12.sp)
                     }
                     Spacer(Modifier.width(12.dp))
-                    Text(text, color = TextMuted, fontSize = 13.sp)
+                    Text(text, color = if (num == "4") RoyalGold else TextMuted, fontSize = 13.sp, fontWeight = if (num == "4") FontWeight.SemiBold else FontWeight.Normal)
+                    if (num == "4") {
+                        Spacer(Modifier.width(6.dp))
+                        Image(
+                            painter = painterResource(R.drawable.ax_coin),
+                            contentDescription = "Coin",
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
                 }
             }
 

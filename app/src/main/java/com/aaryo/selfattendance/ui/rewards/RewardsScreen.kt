@@ -599,7 +599,11 @@ private fun PremiumHeader(axBalance: Int, spinsLeft: Int, maxSpins: Int) {
                     .border(1.dp, RoyalGold.copy(0.5f), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.EmojiEvents, null, tint = RoyalGold, modifier = Modifier.size(22.dp))
+                Image(
+                    painter            = painterResource(com.aaryo.selfattendance.R.drawable.ax_coin),
+                    contentDescription = "AX Coin",
+                    modifier           = Modifier.size(30.dp)
+                )
             }
             Spacer(Modifier.width(12.dp))
             Column {
@@ -1063,7 +1067,13 @@ private fun LastRewardCard(label: String) {
                     .background(RoyalGold.copy(0.15f), CircleShape)
                     .border(1.dp, RoyalGold.copy(0.4f), CircleShape),
                 contentAlignment = Alignment.Center
-            ) { Text("🏅", fontSize = 18.sp) }
+            ) {
+                Image(
+                    painter            = painterResource(com.aaryo.selfattendance.R.drawable.ax_coin),
+                    contentDescription = null,
+                    modifier           = Modifier.size(24.dp)
+                )
+            }
             Spacer(Modifier.width(10.dp))
             Column {
                 Text("Last Reward Earned", fontSize = 11.sp, color = TextMuted)
@@ -1110,7 +1120,17 @@ private fun RewardWonDialog(segment: SpinSegment, onClaim: () -> Unit) {
                             CircleShape
                         ),
                     contentAlignment = Alignment.Center
-                ) { Text(segment.emoji, fontSize = 52.sp) }
+                ) {
+                    if (segment.isBad) {
+                        Text(segment.emoji, fontSize = 52.sp)
+                    } else {
+                        Image(
+                            painter            = painterResource(com.aaryo.selfattendance.R.drawable.ax_coin),
+                            contentDescription = "AX Coin Won",
+                            modifier           = Modifier.size(72.dp)
+                        )
+                    }
+                }
 
                 Spacer(Modifier.height(12.dp))
 
@@ -1139,8 +1159,12 @@ private fun RewardWonDialog(segment: SpinSegment, onClaim: () -> Unit) {
                             .padding(horizontal = 24.dp, vertical = 10.dp)
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("⚡", fontSize = 22.sp)
-                            Spacer(Modifier.width(6.dp))
+                            Image(
+                                painter            = painterResource(com.aaryo.selfattendance.R.drawable.ax_coin),
+                                contentDescription = null,
+                                modifier           = Modifier.size(24.dp)
+                            )
+                            Spacer(Modifier.width(8.dp))
                             Text(
                                 "${segment.label} ${segment.subLabel}",
                                 fontSize   = 26.sp,
