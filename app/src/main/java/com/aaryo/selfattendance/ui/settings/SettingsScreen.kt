@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import com.aaryo.selfattendance.review.InAppReviewManager
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -1058,7 +1059,17 @@ fun SettingsScreen(navController: NavController) {
                         title       = stringResource(R.string.settings_rate),
                         subtitle    = "Love the app? Give us a 5-star rating",
                         showDivider = true
-                    ) { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.aaryo.selfattendance"))) }
+                    ) {
+                        val act = activity as? Activity
+                        if (act != null) {
+                            InAppReviewManager.getInstance(context).requestReviewFlow(
+                                activity = act,
+                                fallbackToPlayStoreIfUnavailable = true
+                            )
+                        } else {
+                            InAppReviewManager.getInstance(context).openPlayStoreListing(context)
+                        }
+                    }
 
                     GeneralSettingsRow(
                         icon        = Icons.Default.Share,

@@ -10,6 +10,8 @@ import com.aaryo.selfattendance.data.model.UserProfile
 import com.aaryo.selfattendance.data.repository.AttendanceRepository
 import com.aaryo.selfattendance.data.repository.AuthRepository
 import com.aaryo.selfattendance.data.repository.ProfileRepository
+import com.aaryo.selfattendance.review.InAppReviewManager
+import com.aaryo.selfattendance.review.ReviewMilestone
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -155,6 +157,11 @@ class CalendarViewModel(
                 // and respects the global 60-second cooldown — fully AdMob-policy compliant.
                 if (activity != null) {
                     AdsController.showInterstitialAfterSave(activity)
+                    // Smart In-App Review check (gated to engagement milestones + 14-day cooldown)
+                    InAppReviewManager.getInstance(activity).triggerSmartReviewIfAppropriate(
+                        activity,
+                        ReviewMilestone.ATTENDANCE_MARKED
+                    )
                 }
 
             } catch (e: Exception) {
