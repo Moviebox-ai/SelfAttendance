@@ -15,8 +15,8 @@ object RemoteConfigManager {
             val options = app.options
             val projectId = options.projectId
             val apiKey = options.apiKey
+            // Check for valid, non-placeholder API key
             !projectId.isNullOrBlank() && 
-                projectId != "self-attendance-pro" && 
                 !apiKey.isNullOrBlank() && 
                 apiKey != "AIzaSyB8K1xT4vN9qZ2wL5mP7rJ0eA3cD6fH8yI"
         } catch (t: Throwable) {
@@ -31,7 +31,7 @@ object RemoteConfigManager {
             try {
                 FirebaseRemoteConfig.getInstance().apply {
                     val settings = FirebaseRemoteConfigSettings.Builder()
-                        .setMinimumFetchIntervalInSeconds(3600)
+                        .setMinimumFetchIntervalInSeconds(300) // 5 min interval for responsive force updates
                         .build()
                     setConfigSettingsAsync(settings)
                     setDefaultsAsync(localDefaults)
@@ -42,6 +42,11 @@ object RemoteConfigManager {
             }
         }
     }
+
+    // Firestore fallback for version control (realtime & instant via Firebase Console)
+    @Volatile private var firestoreMinVersion: Long = 0L
+    @Volatile private var firestoreForceRequired: Boolean = false
+    @Volatile private var firestoreUpdateMessage: String = ""
 
     // ── In-memory safe defaults ────────────────────────────────────────────
     // if getBoolean() is called before the task completes, unset keys return
@@ -67,12 +72,32 @@ object RemoteConfigManager {
     )
 
     suspend fun fetch() {
-        try {
-            remoteConfig?.fetchAndActivate()?.await()
-        } catch (e: kotlinx.coroutines.CancellationException) {
-            throw e
-        } catch (e: Throwable) {
-            Log.w("RemoteConfig", "Remote config fetch skipped or offline, using local defaults: ${e.message}")
+        if (isLiveConfig) {
+            try {
+                remoteConfig?.fetchAndActivate()?.await()
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Throwable) {
+                Log.w("RemoteConfig", "Remote config fetch skipped or offline, using local defaults: ${e.message}")
+            }
+        }
+
+        // Firestore fallback check: provides immediate control via Firestore console
+        if (isLiveConfig) {
+            try {
+                val firestore = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                val snapshot = firestore.collection("adminSettings").document("appConfig").get().await()
+                if (snapshot.exists()) {
+                    firestoreMinVersion = snapshot.getLong("min_required_version") ?: 0L
+                    firestoreForceRequired = snapshot.getBoolean("force_update_required") ?: false
+                    firestoreUpdateMessage = snapshot.getString("update_message") ?: ""
+                    Log.d("RemoteConfig", "Firestore appConfig: minVer=$firestoreMinVersion, force=$firestoreForceRequired")
+                }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
+            } catch (e: Throwable) {
+                Log.d("RemoteConfig", "Firestore appConfig fetch skipped/offline: ${e.message}")
+            }
         }
     }
 
@@ -110,10 +135,21 @@ object RemoteConfigManager {
     fun isAppEnabled()    = getBooleanSafe("app_enabled")
     fun allowScreenshot() = getBooleanSafe("allow_screenshot")
 
-    fun isForceUpdateRequired(): Boolean = getBooleanSafe("force_update_required")
-    fun getMinRequiredVersion(): Long = getLongSafe("min_required_version", 0L)
+    fun isForceUpdateRequired(): Boolean {
+        return getBooleanSafe("force_update_required") || firestoreForceRequired
+    }
+
+    fun getMinRequiredVersion(): Long {
+        val rcMin = getLongSafe("min_required_version", 0L)
+        return maxOf(rcMin, firestoreMinVersion)
+    }
+
     fun getLatestVersionCode(): Long = getLongSafe("latest_version_code", 0L)
-    fun getUpdateMessage(): String = remoteConfig?.let { try { it.getString("update_message") } catch (t: Throwable) { "" } } ?: ""
+
+    fun getUpdateMessage(): String {
+        val rcMsg = remoteConfig?.let { try { it.getString("update_message") } catch (t: Throwable) { "" } } ?: ""
+        return rcMsg.ifBlank { firestoreUpdateMessage }
+    }
 
     fun getString(key: String): String = remoteConfig?.let { try { it.getString(key) } catch (t: Throwable) { "" } } ?: ""
 }

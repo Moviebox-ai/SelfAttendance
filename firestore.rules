@@ -283,7 +283,7 @@ service cloud.firestore {
 
     match /adminSettings/{configDoc} {
 
-      allow read: if isActiveUser();
+      allow read: if configDoc == 'appConfig' || isActiveUser();
 
       allow create, update: if isAdmin()
           && configDoc == 'walletConfig'
@@ -308,7 +308,7 @@ service cloud.firestore {
           && (!('isAdRewardEnabled' in request.resource.data)
               || request.resource.data.isAdRewardEnabled is bool);
 
-      allow create, update: if isAdmin() && configDoc == 'adminConfig';
+      allow create, update: if isAdmin() && (configDoc == 'adminConfig' || configDoc == 'appConfig');
 
       allow delete: if false;
     }

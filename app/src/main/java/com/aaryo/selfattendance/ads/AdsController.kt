@@ -882,6 +882,12 @@ object AdsController {
         nativeAppContext = appCtx
         interstitialAppContext = appCtx
         try {
+            if (BuildConfig.DEBUG) {
+                val requestConfig = RequestConfiguration.Builder()
+                    .setTestDeviceIds(listOf(AdRequest.DEVICE_ID_EMULATOR))
+                    .build()
+                MobileAds.setRequestConfiguration(requestConfig)
+            }
             if (!mobileAdsReady) {
                 MobileAds.initialize(appCtx) {
                     onMobileAdsReady(appCtx)

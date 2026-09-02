@@ -1,5 +1,6 @@
 package com.aaryo.selfattendance.ui.update
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -9,7 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.SystemUpdate
@@ -29,14 +30,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aaryo.selfattendance.BuildConfig
 import com.aaryo.selfattendance.R
+import com.aaryo.selfattendance.data.remote.RemoteConfigManager
 import com.aaryo.selfattendance.update.InAppUpdateManager
+import kotlinx.coroutines.delay
 
 @Composable
 fun ForceUpdateScreen(
     onRetryCheck: () -> Unit = {}
 ) {
+    // Intercept hardware back button / gesture so user cannot bypass the update screen
+    BackHandler(enabled = true) { }
+
     val context = LocalContext.current
     var isChecking by remember { mutableStateOf(false) }
+
+    val remoteConfig = remember { RemoteConfigManager.getInstance() }
+    val customMessage = remember { remoteConfig.getUpdateMessage() }
+    val minRequiredVersion = remember { remoteConfig.getMinRequiredVersion() }
+
+    LaunchedEffect(isChecking) {
+        if (isChecking) {
+            delay(1500)
+            isChecking = false
+        }
+    }
 
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val pulseScale by infiniteTransition.animateFloat(
@@ -109,7 +126,7 @@ fun ForceUpdateScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = stringResource(R.string.force_update_message),
+                text = customMessage.ifBlank { stringResource(R.string.force_update_message) },
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
@@ -164,7 +181,7 @@ fun ForceUpdateScreen(
                         fontWeight = FontWeight.Bold
                     )
                     Icon(
-                        imageVector = Icons.Default.ArrowForward,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = null
                     )
                 }
@@ -203,7 +220,11 @@ fun ForceUpdateScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Current App Version: v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})",
+                text = if (minRequiredVersion > 0) {
+                    "Installed: v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) • Required: v$minRequiredVersion+"
+                } else {
+                    "Current App Version: v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+                },
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.outline
             )

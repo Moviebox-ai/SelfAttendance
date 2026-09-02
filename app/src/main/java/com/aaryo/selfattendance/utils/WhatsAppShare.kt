@@ -62,17 +62,25 @@ object WhatsAppShare {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
             `package` = "com.whatsapp"
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 
         val fallbackIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 
         try {
             context.startActivity(whatsappIntent)
         } catch (_: Exception) {
-            context.startActivity(Intent.createChooser(fallbackIntent, "Share via"))
+            try {
+                context.startActivity(Intent.createChooser(fallbackIntent, "Share via").apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+            } catch (e: Exception) {
+                android.widget.Toast.makeText(context, "No app available to share report", android.widget.Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

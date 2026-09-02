@@ -14,6 +14,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.outlined.*
@@ -72,7 +73,7 @@ fun SalaryCalculatorScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
-                            imageVector        = Icons.Outlined.ArrowBack,
+                            imageVector        = Icons.AutoMirrored.Outlined.ArrowBack,
                             contentDescription = "Back",
                             tint               = MaterialTheme.colorScheme.onSurface
                         )
@@ -737,9 +738,9 @@ private fun DayInputField(
                 textAlign  = TextAlign.Center
             )
         )
-        if (isError && errorText != null) {
+        if (isError) {
             Text(
-                text     = errorText,
+                text     = errorText ?: "",
                 style    = MaterialTheme.typography.labelSmall,
                 color    = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(start = 4.dp, top = 2.dp)

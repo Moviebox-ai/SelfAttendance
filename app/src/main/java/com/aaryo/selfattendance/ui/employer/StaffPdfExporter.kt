@@ -171,11 +171,15 @@ object StaffPdfExporter {
                 putExtra(Intent.EXTRA_SUBJECT, "Salary Slip - ${employee.name} (${payout.monthYear})")
                 putExtra(Intent.EXTRA_TEXT, "Hello ${employee.name},\nHere is your salary slip for ${payout.monthYear}.\nNet Payable: ₹${payout.netPayable.toInt()}")
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-            context.startActivity(Intent.createChooser(shareIntent, "Share Salary Slip"))
+            context.startActivity(Intent.createChooser(shareIntent, "Share Salary Slip").apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
 
         } catch (e: Exception) {
             e.printStackTrace()
+            android.widget.Toast.makeText(context, "Error sharing PDF: ${e.message}", android.widget.Toast.LENGTH_SHORT).show()
         }
     }
 }

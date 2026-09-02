@@ -97,9 +97,10 @@ class WeeklySummaryWorker(
                 else             -> "📊"
             }
 
+            val attendanceRate = if (total > 0) ((present + half * 0.5) / total * 100).toInt() else 0
             val title = "$emoji Last Week's Attendance Summary"
             val body  = "Present: $present | Half Day: $half | Absent: $absent\n" +
-                        "Attendance Rate: ${((present + half * 0.5) / total * 100).toInt()}%"
+                        "Attendance Rate: $attendanceRate%"
 
             AppNotificationManager.showAttendanceReminderWithMessage(
                 applicationContext, title, body

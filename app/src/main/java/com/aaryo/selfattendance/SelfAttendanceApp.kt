@@ -105,9 +105,9 @@ class SelfAttendanceApp : Application() {
     private fun initCrashlytics() {
         try {
             val isLive = RemoteConfigManager.isLiveConfig
-            FirebaseCrashlytics.getInstance().apply {
-                setCrashlyticsCollectionEnabled(isLive && !BuildConfig.DEBUG)
-                if (isLive) {
+            if (isLive) {
+                FirebaseCrashlytics.getInstance().apply {
+                    setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
                     // Tag all reports with the store flavor for triage
                     setCustomKey("store", BuildConfig.STORE_NAME)
                     setCustomKey("is_amazon", BuildConfig.IS_AMAZON)

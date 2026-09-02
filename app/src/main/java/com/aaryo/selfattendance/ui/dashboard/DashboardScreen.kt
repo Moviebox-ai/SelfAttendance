@@ -11,10 +11,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.draw.clip
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material.icons.filled.Work
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.rounded.Celebration
@@ -315,7 +315,7 @@ fun DashboardScreen(navController: NavController) {
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            imageVector = Icons.Default.TrendingUp,
+                            imageVector = Icons.AutoMirrored.Filled.TrendingUp,
                             contentDescription = "Salary",
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(26.dp)
@@ -386,7 +386,7 @@ fun DashboardScreen(navController: NavController) {
                             title = stringResource(R.string.dashboard_overtime),
                             value = state.overtime.formatMoney(),
                             accent = Color(0xFF1565C0),
-                            icon = Icons.Default.TrendingUp,
+                            icon = Icons.AutoMirrored.Filled.TrendingUp,
                             modifier = Modifier.weight(1f)
                         )
                         Spacer(modifier = Modifier.weight(1f))
@@ -404,7 +404,7 @@ fun DashboardScreen(navController: NavController) {
                             title = stringResource(R.string.dashboard_overtime),
                             value = state.overtime.formatMoney(),
                             accent = Color(0xFF1565C0),
-                            icon = Icons.Default.TrendingUp,
+                            icon = Icons.AutoMirrored.Filled.TrendingUp,
                             modifier = Modifier.weight(1f)
                         )
                     }

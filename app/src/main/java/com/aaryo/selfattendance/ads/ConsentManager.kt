@@ -72,6 +72,12 @@ object ConsentManager {
         }
 
         try {
+            if (BuildConfig.DEBUG) {
+                val requestConfig = com.google.android.gms.ads.RequestConfiguration.Builder()
+                    .setTestDeviceIds(listOf(com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR))
+                    .build()
+                com.google.android.gms.ads.MobileAds.setRequestConfiguration(requestConfig)
+            }
             com.google.android.gms.ads.MobileAds.initialize(activity.applicationContext) {
                 mobileAdsInitialized = true
                 // Signal AdsController so all ad load methods are unblocked

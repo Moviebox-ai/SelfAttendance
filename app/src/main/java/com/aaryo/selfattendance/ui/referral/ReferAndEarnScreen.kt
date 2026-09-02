@@ -12,14 +12,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -117,7 +117,7 @@ fun ReferAndEarnScreen(navController: NavController) {
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, null, tint = TextWhite)
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = TextWhite)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = NavyBg)
@@ -307,7 +307,7 @@ https://play.google.com/store/apps/details?id=com.aaryo.selfattendance
                             shape    = RoundedCornerShape(12.dp),
                             colors   = ButtonDefaults.buttonColors(containerColor = Color(0xFF25D366))
                         ) {
-                            Icon(Icons.Default.Send, null, tint = TextWhite, modifier = Modifier.size(18.dp))
+                            Icon(Icons.AutoMirrored.Filled.Send, null, tint = TextWhite, modifier = Modifier.size(18.dp))
                             Spacer(Modifier.width(8.dp))
                             Text("WhatsApp Par Share Karein", color = TextWhite, fontWeight = FontWeight.Bold, fontSize = 14.sp)
                         }
@@ -325,7 +325,7 @@ https://play.google.com/store/apps/details?id=com.aaryo.selfattendance
                                 },
                                 modifier = Modifier.weight(1f),
                                 shape    = RoundedCornerShape(10.dp),
-                                border   = ButtonDefaults.outlinedButtonBorder.copy(
+                                border   = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                                     width = 1.dp,
                                     brush = Brush.linearGradient(listOf(RoyalGold.copy(0.6f), PremiumBlue.copy(0.4f)))
                                 )

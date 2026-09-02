@@ -80,9 +80,7 @@ class InAppUpdateManager(private val activity: Activity) {
         val isForcedByConfig = remoteConfig.isForceUpdateRequired() || (minVersion > 0 && currentVersion < minVersion)
 
         val mustForce = forceUpdate || isForcedByConfig
-        if (mustForce) {
-            _isForceUpdateBlocked.value = true
-        }
+        _isForceUpdateBlocked.value = mustForce
 
         onUpdateDownloaded = onDownloaded
 
@@ -126,6 +124,11 @@ class InAppUpdateManager(private val activity: Activity) {
                 AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build(),
                 UPDATE_REQUEST_CODE
             )
+        } else if (forceUpdate) {
+            // Immediate in-app update not allowed directly by Play Core, but update is mandated:
+            // Keep blocking UI so user is forced to tap "Update Now" and go to Play Store
+            Log.d(TAG, "Force update mandated: keeping UI blocked for Play Store update")
+            _isForceUpdateBlocked.value = true
         } else if (info.isImmediateUpdateAllowed && !BuildConfig.DEBUG) {
             // Prioritize immediate update so user's app updates without delay
             Log.d(TAG, "Starting IMMEDIATE update flow for fast synchronization")

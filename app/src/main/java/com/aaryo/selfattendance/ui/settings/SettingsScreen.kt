@@ -27,11 +27,11 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.CloudUpload
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.GppGood
 import androidx.compose.material.icons.filled.Description
@@ -1101,7 +1101,7 @@ fun SettingsScreen(navController: NavController) {
                     }
 
                     GeneralSettingsRow(
-                        icon        = Icons.Default.ExitToApp,
+                        icon        = Icons.AutoMirrored.Filled.ExitToApp,
                         iconColor   = Color(0xFFE65100),
                         title       = stringResource(R.string.settings_logout),
                         subtitle    = stringResource(R.string.settings_logout_subtitle),

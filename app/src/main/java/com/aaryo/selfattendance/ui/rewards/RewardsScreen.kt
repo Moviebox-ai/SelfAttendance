@@ -15,11 +15,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.*
@@ -444,7 +444,7 @@ fun RewardsScreen(navController: NavController) {
                             )
                             Spacer(Modifier.width(8.dp))
                             Icon(
-                                imageVector = Icons.Default.OpenInNew,
+                                imageVector = Icons.AutoMirrored.Filled.OpenInNew,
                                 contentDescription = null,
                                 tint = NavyBg,
                                 modifier = Modifier.size(18.dp)
@@ -543,7 +543,7 @@ fun RewardsScreen(navController: NavController) {
                         ).show()
                     },
                     shape    = RoundedCornerShape(14.dp),
-                    border   = ButtonDefaults.outlinedButtonBorder.copy(
+                    border   = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                         width = 1.dp,
                         brush = Brush.linearGradient(listOf(RoyalGold.copy(0.5f), PremiumBlue.copy(0.5f)))
                     ),

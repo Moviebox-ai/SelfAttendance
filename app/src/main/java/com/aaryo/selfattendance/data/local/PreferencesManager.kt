@@ -3,7 +3,7 @@ package com.aaryo.selfattendance.data.local
 import android.content.Context
 import android.content.SharedPreferences
 
-class PreferencesManager(context: Context) {
+class PreferencesManager(val context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)

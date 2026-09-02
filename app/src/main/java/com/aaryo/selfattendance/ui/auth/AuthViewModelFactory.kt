@@ -10,6 +10,7 @@ class AuthViewModelFactory(
     private val profileRepository: ProfileRepository
 ) : ViewModelProvider.Factory {
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
         if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {

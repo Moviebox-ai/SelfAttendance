@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -30,7 +31,7 @@ fun EmployerMainScreen() {
         BottomItem(route = Routes.STAFF_ATTENDANCE,   title = "Attendance", icon = Icons.Default.HowToReg),
         BottomItem(route = Routes.STAFF_LIST,         title = "Staff",      icon = Icons.Default.People),
         BottomItem(route = Routes.ADVANCE_KHATA,      title = "Khata",      icon = Icons.Default.AccountBalanceWallet),
-        BottomItem(route = Routes.SALARY_PAYROLL,     title = "Payroll",    icon = Icons.Default.ReceiptLong)
+        BottomItem(route = Routes.SALARY_PAYROLL,     title = "Payroll",    icon = Icons.AutoMirrored.Filled.ReceiptLong)
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()

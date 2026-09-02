@@ -63,11 +63,14 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
                     return@launch
                 }
 
-                // Restore coin balance + premium unlocks from Firebase BEFORE
+                // Restore coin balance + premium unlocks + business trial from Firebase BEFORE
                 // any screen is shown. Awaited — navigation only happens after
                 // prefs are populated with the correct Firebase values.
                 runCatching {
                     RewardRepository.syncFromFirebase(PreferencesManager(getApplication()))
+                }
+                runCatching {
+                    com.aaryo.selfattendance.billing.BusinessTrialManager(getApplication()).syncWithServer()
                 }
 
                 val profile = runCatching {

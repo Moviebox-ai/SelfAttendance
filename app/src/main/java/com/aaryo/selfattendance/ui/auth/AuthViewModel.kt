@@ -119,6 +119,9 @@ class AuthViewModel(
                     runCatching {
                         RewardRepository.syncFromFirebase(prefs)
                     }
+                    runCatching {
+                        com.aaryo.selfattendance.billing.BusinessTrialManager(prefs.context).syncWithServer()
+                    }
 
                     withContext(Dispatchers.Main) {
                         val targetRoute = if (prefs.appMode == PreferencesManager.MODE_EMPLOYER) {
@@ -197,6 +200,9 @@ class AuthViewModel(
 
             runCatching {
                 RewardRepository.syncFromFirebase(prefs)
+            }
+            runCatching {
+                com.aaryo.selfattendance.billing.BusinessTrialManager(prefs.context).syncWithServer()
             }
 
             // Safety net: guarantees every account (new or pre-existing)
