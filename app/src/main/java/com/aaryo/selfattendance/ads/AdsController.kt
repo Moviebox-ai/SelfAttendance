@@ -836,7 +836,10 @@ object AdsController {
         AndroidView(
             modifier = modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .then(
+                    if (isAdLoaded) Modifier.wrapContentHeight()
+                    else Modifier.height(0.dp)
+                ),
             factory = { ctx ->
                 AdView(ctx).apply {
                     setAdSize(adSize)
