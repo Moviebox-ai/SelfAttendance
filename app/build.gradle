@@ -98,6 +98,12 @@ android {
         }
     }
 
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
     lint {
         abortOnError false
         disable 'GradleDependency', 'OldTargetApi'

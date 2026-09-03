@@ -27,7 +27,7 @@
     <string name="dashboard_present">Present</string>
     <string name="dashboard_half_day">Half Day</string>
     <string name="dashboard_absent">Absent</string>
-    <string name="dashboard_holiday">Holiday</string>
+    <string name="dashboard_holiday" translatable="false">Holiday</string>
     <string name="dashboard_overtime">Overtime</string>
     <string name="dashboard_sponsored">Sponsored</string>
     <string name="dashboard_this_month">This Month</string>
@@ -38,18 +38,18 @@
     <string name="calendar_present_btn">Present</string>
     <string name="calendar_half_day_btn">Half Day</string>
     <string name="calendar_absent_btn">Absent</string>
-    <string name="calendar_holiday_btn">Holiday / Paid Leave</string>
+    <string name="calendar_holiday_btn" translatable="false">Holiday / Paid Leave</string>
     <string name="calendar_present_selected">✓ Present selected</string>
     <string name="calendar_half_day_selected">✓ Half Day selected</string>
     <string name="calendar_absent_selected">✓ Absent selected</string>
-    <string name="calendar_holiday_selected">✓ Holiday selected</string>
+    <string name="calendar_holiday_selected" translatable="false">✓ Holiday selected</string>
     <string name="calendar_overtime_hours">Overtime Hours (optional)</string>
     <string name="calendar_overtime_placeholder">e.g. 2.5 → auto-selects Present</string>
     <string name="calendar_overtime_autoselect">✅ Present auto-selected — you can change it above</string>
     <string name="calendar_save_present_ot">Save — Present + %1$sh OT</string>
     <string name="calendar_save_half_ot">Save — Half Day (OT not applied)</string>
     <string name="calendar_save_absent_ot">Save — Absent (OT not applied)</string>
-    <string name="calendar_save_holiday_ot">Save — Holiday (Paid)</string>
+    <string name="calendar_save_holiday_ot" translatable="false">Save — Holiday (Paid)</string>
     <string name="calendar_select_status_first">Select status above ↑</string>
     <string name="calendar_save">Save</string>
     <string name="calendar_cancel">Cancel</string>
@@ -57,8 +57,8 @@
     <string name="calendar_delete_confirm">Delete</string>
     <string name="calendar_delete_body">Are you sure you want to delete attendance for %1$s?</string>
     <string name="calendar_monthly_summary">Monthly Summary</string>
-    <string name="calendar_view_holidays">Holidays List</string>
-    <string name="calendar_public_holiday">Public Holiday</string>
+    <string name="calendar_view_holidays" translatable="false">Holidays List</string>
+    <string name="calendar_public_holiday" translatable="false">Public Holiday</string>
 
     <!-- SETTINGS -->
     <string name="settings_title">Settings</string>
@@ -249,10 +249,10 @@ Please try again later.</string>
     <string name="salary_breakdown_auto_title">Auto Salary Breakdown</string>
 
     <!-- FORCE & AUTO UPDATE -->
-    <string name="force_update_title">Update Required</string>
-    <string name="force_update_message">A new and improved version of Self Attendance Pro is available with essential fixes, salary improvements, and performance upgrades. Please update now to continue.</string>
-    <string name="force_update_button">Update Now</string>
-    <string name="force_update_checking">Check Again</string>
-    <string name="update_downloading">Downloading update in background…</string>
+    <string name="force_update_title" translatable="false">Update Required</string>
+    <string name="force_update_message" translatable="false">A new and improved version of Self Attendance Pro is available with essential fixes, salary improvements, and performance upgrades. Please update now to continue.</string>
+    <string name="force_update_button" translatable="false">Update Now</string>
+    <string name="force_update_checking" translatable="false">Check Again</string>
+    <string name="update_downloading" translatable="false">Downloading update in background…</string>
 
 </resources>

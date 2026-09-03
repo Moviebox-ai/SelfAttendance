@@ -165,29 +165,29 @@ object StaffReportGenerator {
             // Row 1: Base Earned vs Advance Deductions
             val baseEarnedOnly = (payout.grossSalary - payout.totalOvertimePay - payout.allowance).coerceAtLeast(0.0)
             canvas.drawText("Base Earned Salary", 40f, rowY, normalPaint)
-            canvas.drawText(String.format("%.2f", baseEarnedOnly), 215f, rowY, normalPaint)
+            canvas.drawText(String.format(Locale.US, "%.2f", baseEarnedOnly), 215f, rowY, normalPaint)
             canvas.drawText("Advance Khata Settled", 310f, rowY, normalPaint)
-            canvas.drawText(String.format("%.2f", payout.totalAdvancesDeducted), 485f, rowY, normalPaint)
+            canvas.drawText(String.format(Locale.US, "%.2f", payout.totalAdvancesDeducted), 485f, rowY, normalPaint)
 
             rowY += 24f
             // Row 2: Overtime Pay vs PF / Statutory Deductions
             canvas.drawText("Overtime Earnings", 40f, rowY, normalPaint)
-            canvas.drawText(String.format("%.2f", payout.totalOvertimePay), 215f, rowY, normalPaint)
+            canvas.drawText(String.format(Locale.US, "%.2f", payout.totalOvertimePay), 215f, rowY, normalPaint)
             canvas.drawText("PF / Statutory Deduction", 310f, rowY, normalPaint)
-            canvas.drawText(String.format("%.2f", employee.pfDeduction), 485f, rowY, normalPaint)
+            canvas.drawText(String.format(Locale.US, "%.2f", employee.pfDeduction), 485f, rowY, normalPaint)
 
             rowY += 24f
             // Row 3: Fixed Allowances (Travel/Food) vs ESI / Tax
             canvas.drawText("Fixed Allowances (Food/Travel)", 40f, rowY, normalPaint)
-            canvas.drawText(String.format("%.2f", payout.allowance), 215f, rowY, normalPaint)
+            canvas.drawText(String.format(Locale.US, "%.2f", payout.allowance), 215f, rowY, normalPaint)
             canvas.drawText("ESI / Tax / Penalty", 310f, rowY, normalPaint)
             val otherDedRest = (payout.otherDeductions - employee.pfDeduction).coerceAtLeast(0.0)
-            canvas.drawText(String.format("%.2f", otherDedRest), 485f, rowY, normalPaint)
+            canvas.drawText(String.format(Locale.US, "%.2f", otherDedRest), 485f, rowY, normalPaint)
 
             rowY += 24f
             // Row 4: Performance Bonus / Incentives
             canvas.drawText("Incentive / Bonus", 40f, rowY, normalPaint)
-            canvas.drawText(String.format("%.2f", payout.bonus), 215f, rowY, normalPaint)
+            canvas.drawText(String.format(Locale.US, "%.2f", payout.bonus), 215f, rowY, normalPaint)
             canvas.drawText("Other Deductions", 310f, rowY, normalPaint)
             canvas.drawText("0.00", 485f, rowY, normalPaint)
 
@@ -197,9 +197,9 @@ object StaffReportGenerator {
             val totalEarnings = payout.grossSalary + payout.bonus
             val totalDeductions = payout.totalAdvancesDeducted + payout.otherDeductions
             canvas.drawText("Total Gross Earnings", 40f, rowY + 4f, boldPaint)
-            canvas.drawText("₹${String.format("%.2f", totalEarnings)}", 215f, rowY + 4f, boldPaint)
+            canvas.drawText("₹${String.format(Locale.US, "%.2f", totalEarnings)}", 215f, rowY + 4f, boldPaint)
             canvas.drawText("Total Deductions", 310f, rowY + 4f, boldPaint)
-            canvas.drawText("₹${String.format("%.2f", totalDeductions)}", 485f, rowY + 4f, boldPaint)
+            canvas.drawText("₹${String.format(Locale.US, "%.2f", totalDeductions)}", 485f, rowY + 4f, boldPaint)
 
             // Net Payable Highlight Box
             yPos = tableBottom + 20f
@@ -225,11 +225,11 @@ object StaffReportGenerator {
                 color = Color.rgb(30, 58, 138)
             }
             canvas.drawText("NET TAKE-HOME SALARY:", 45f, yPos + 36f, netTitlePaint)
-            canvas.drawText("₹${String.format("%.2f", payout.netPayable)}", 380f, yPos + 36f, netAmountPaint)
+            canvas.drawText("₹${String.format(Locale.US, "%.2f", payout.netPayable)}", 380f, yPos + 36f, netAmountPaint)
 
             // Disbursed Info
             yPos += 75f
-            canvas.drawText("Payment Disbursed: ₹${String.format("%.2f", payout.paidAmount)}   |   Mode: ${payout.paymentMode}   |   Date: ${payout.paymentDate ?: "Pending"}", 40f, yPos, boldPaint)
+            canvas.drawText("Payment Disbursed: ₹${String.format(Locale.US, "%.2f", payout.paidAmount)}   |   Mode: ${payout.paymentMode}   |   Date: ${payout.paymentDate ?: "Pending"}", 40f, yPos, boldPaint)
             if (payout.notes.isNotBlank()) {
                 canvas.drawText("Note / Ref ID: ${payout.notes}", 40f, yPos + 16f, subPaint)
             }
