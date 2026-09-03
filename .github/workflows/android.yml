@@ -107,8 +107,9 @@ jobs:
 
       # 🚀 Build Release APK + AAB
       - name: Build Release APK + AAB
-        run: ./gradlew assembleRelease bundleRelease --stacktrace
+        run: ./gradlew assembleRelease bundleRelease --stacktrace --no-daemon
         env:
+          GRADLE_OPTS: "-Xmx6144m -XX:MaxMetaspaceSize=1024m -XX:+UseG1GC"
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}

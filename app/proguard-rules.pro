@@ -4,10 +4,8 @@
 # ═══════════════════════════════════════════════════════════
 
 # R8 Optimizations & Anti-Decompilation Obfuscation
--optimizationpasses 5
+-optimizationpasses 2
 -allowaccessmodification
--mergeinterfacesaggressively
--overloadaggressively
 -repackageclasses
 
 # Strip logging in release builds
