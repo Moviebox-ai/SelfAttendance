@@ -43,6 +43,7 @@ class SelfAttendanceApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        cleanCorruptedWebViewCache()
         installGlobalCrashHandler()
         initFirebase()
         initCrashlytics()
@@ -51,6 +52,26 @@ class SelfAttendanceApp : Application() {
         initNotifications()
         // Log environment diagnostics (debug builds + Amazon release builds for triage)
         AppValidator.logDiagnostics(this)
+    }
+
+    /**
+     * Cleans up corrupted Chromium Simple Cache directory if present.
+     * Chromium/WebView may crash or output disk_cache errors when index files
+     * or HTTP code caches are left in an invalid state across app updates or emulated runs.
+     */
+    private fun cleanCorruptedWebViewCache() {
+        try {
+            val webViewCacheDir = java.io.File(cacheDir, "WebView/Default/HTTP Cache")
+            if (webViewCacheDir.exists()) {
+                val indexFile = java.io.File(webViewCacheDir, "index")
+                val codeCacheDir = java.io.File(webViewCacheDir, "Code Cache")
+                if (codeCacheDir.exists() && (!indexFile.exists() || indexFile.length() == 0L)) {
+                    codeCacheDir.deleteRecursively()
+                }
+            }
+        } catch (_: Exception) {
+            // Non-critical cache cleanup fallback
+        }
     }
 
     /**
