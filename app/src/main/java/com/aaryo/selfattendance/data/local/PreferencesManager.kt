@@ -282,6 +282,10 @@ class PreferencesManager(val context: Context) {
         get() = prefs.getString("coin_security_sig", "") ?: ""
         set(value) = prefs.edit().putString("coin_security_sig", value).apply()
 
+    var coinSecurityUid: String
+        get() = prefs.getString("coin_security_uid", "") ?: ""
+        set(value) = prefs.edit().putString("coin_security_uid", value).apply()
+
     var securityDailyEarnDate: String
         get() = prefs.getString("sec_daily_earn_date", "") ?: ""
         set(value) = prefs.edit().putString("sec_daily_earn_date", value).apply()

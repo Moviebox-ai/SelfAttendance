@@ -9,13 +9,13 @@ plugins {
 
 android {
 
-    namespace 'com.aaryo.selfattendance'
-    compileSdk 36
+    namespace = 'com.aaryo.selfattendance'
+    compileSdk = 36
 
     defaultConfig {
-        applicationId "com.aaryo.selfattendance"
-        minSdk 24
-        targetSdk 36
+        applicationId = "com.aaryo.selfattendance"
+        minSdk = 24
+        targetSdk = 36
 
         versionCode (System.getenv("VERSION_CODE")?.toInteger()
                   ?: System.getenv("GITHUB_RUN_NUMBER")?.toInteger()
@@ -51,19 +51,19 @@ android {
     buildTypes {
 
         debug {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
+            signingConfig = signingConfigs.debug
+            minifyEnabled = false
         }
 
         release {
             if (file("keystore.jks").exists() && System.getenv("KEYSTORE_PASSWORD")) {
-                signingConfig signingConfigs.release
+                signingConfig = signingConfigs.release
             } else {
-                signingConfig signingConfigs.debug
+                signingConfig = signingConfigs.debug
             }
-            minifyEnabled true
-            shrinkResources true
-            debuggable false
+            minifyEnabled = true
+            shrinkResources = true
+            debuggable = false
 
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -75,14 +75,14 @@ android {
     }
 
     buildFeatures {
-        compose true
-        buildConfig true
+        compose = true
+        buildConfig = true
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-        coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -94,7 +94,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
         jniLibs {
-            useLegacyPackaging true
+            useLegacyPackaging = true
         }
     }
 
@@ -105,7 +105,7 @@ android {
     }
 
     lint {
-        abortOnError false
+        abortOnError = false
         disable 'GradleDependency', 'OldTargetApi'
     }
 }

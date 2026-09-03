@@ -25,5 +25,5 @@ dependencies {
 // Repositories handled in settings.gradle
 
 tasks.register("clean", Delete) {
-delete rootProject.buildDir
+    delete rootProject.layout.buildDirectory
 }

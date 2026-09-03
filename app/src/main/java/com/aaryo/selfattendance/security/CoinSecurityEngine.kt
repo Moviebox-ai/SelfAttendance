@@ -44,39 +44,47 @@ object CoinSecurityEngine {
 
     /**
      * Checks if the local coin storage has been altered without a valid cryptographic signature.
+     * Supports seamless UID migration between guest and authenticated accounts, preventing false wipes.
      * Returns true if data is authentic, false if tampered.
      */
     fun verifyIntegrity(prefs: PreferencesManager): Boolean {
         val storedSig = prefs.coinSecuritySignature
+        val storedUid = prefs.coinSecurityUid
         val balance = prefs.coinBalance
         val totalEarned = prefs.totalCoinsEarned
 
-        // If never initialized (brand new install), accept 0 balance and initialize signature
+        // If never initialized (brand new install or upgrade from older version), initialize signature
         if (storedSig.isEmpty()) {
-            if (balance == 0 && totalEarned == 0) {
-                updateSignature(prefs, 0, 0)
-                return true
-            } else {
-                // Suspicious non-zero balance with no signature
-                Log.w(TAG, "Integrity check failed: Non-zero balance ($balance) with missing signature.")
-                return false
+            updateSignature(prefs, balance, totalEarned)
+            return true
+        }
+
+        val uid = currentUid
+        val matchesCurrent = storedSig == generateSignature(balance, totalEarned, uid)
+        val matchesStoredUid = storedUid.isNotEmpty() && storedSig == generateSignature(balance, totalEarned, storedUid)
+        val matchesGuest = storedSig == generateSignature(balance, totalEarned, "guest_device")
+
+        val matches = matchesCurrent || matchesStoredUid || matchesGuest
+
+        if (matches) {
+            // If user transitioned from guest/another state to an authenticated account, upgrade signature
+            if (uid != "guest_device" && storedUid != uid) {
+                updateSignature(prefs, balance, totalEarned)
             }
+            return true
         }
 
-        val expectedSig = generateSignature(balance, totalEarned, currentUid)
-        val matches = storedSig == expectedSig
-
-        if (!matches) {
-            Log.e(TAG, "TAMPER DETECTED! Expected: $expectedSig, Stored: $storedSig for coins: $balance")
-        }
-        return matches
+        Log.e(TAG, "TAMPER DETECTED! Expected: ${generateSignature(balance, totalEarned, uid)}, Stored: $storedSig for coins: $balance")
+        return false
     }
 
     /**
      * Atomically computes and writes a new cryptographic signature alongside the new coin state.
      */
     fun updateSignature(prefs: PreferencesManager, newBalance: Int, newTotalEarned: Int) {
-        val sig = generateSignature(newBalance, newTotalEarned, currentUid)
+        val uid = currentUid
+        val sig = generateSignature(newBalance, newTotalEarned, uid)
+        prefs.coinSecurityUid = uid
         prefs.coinSecuritySignature = sig
     }
 

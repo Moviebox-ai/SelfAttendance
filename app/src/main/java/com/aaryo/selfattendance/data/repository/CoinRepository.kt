@@ -15,8 +15,8 @@ class CoinRepository(private val context: Context) {
 
     fun getLocalDailyCoinsEarned(): Int {
         val today = LocalDate.now().toString()
-        return if (prefs.lastSpinDate == today) {
-            prefs.dailySpinsUsed
+        return if (prefs.securityDailyEarnDate == today) {
+            prefs.securityDailyEarnedCoins
         } else {
             0
         }
@@ -24,8 +24,8 @@ class CoinRepository(private val context: Context) {
 
     fun setLocalDailyCoins(coins: Int) {
         val today = LocalDate.now().toString()
-        prefs.lastSpinDate = today
-        prefs.dailySpinsUsed = coins
+        prefs.securityDailyEarnDate = today
+        prefs.securityDailyEarnedCoins = coins
     }
 
     /**
@@ -33,9 +33,9 @@ class CoinRepository(private val context: Context) {
      */
     fun addLocalDailyCoins(coins: Int): Boolean {
         val today = LocalDate.now().toString()
-        if (prefs.lastSpinDate != today) {
-            prefs.lastSpinDate = today
-            prefs.dailySpinsUsed = 0
+        if (prefs.securityDailyEarnDate != today) {
+            prefs.securityDailyEarnDate = today
+            prefs.securityDailyEarnedCoins = 0
         }
 
         // Validate award against anti-cheat rules
@@ -49,16 +49,11 @@ class CoinRepository(private val context: Context) {
             return false
         }
 
-        val success = CoinSecurityEngine.secureCreditCoins(
+        return CoinSecurityEngine.secureCreditCoins(
             prefs = prefs,
             amount = coins,
             source = "ad_reward_or_spin"
         )
-
-        if (success) {
-            prefs.dailySpinsUsed = prefs.dailySpinsUsed + coins
-        }
-        return success
     }
 
     fun canWatchAd(): Boolean {
