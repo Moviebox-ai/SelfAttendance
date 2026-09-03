@@ -4,9 +4,10 @@
 # ═══════════════════════════════════════════════════════════
 
 # R8 Optimizations & Anti-Decompilation Obfuscation
--optimizationpasses 2
+-optimizationpasses 5
 -allowaccessmodification
--repackageclasses
+-repackageclasses ''
+-overloadaggressively
 
 # Strip logging in release builds
 -assumenosideeffects class android.util.Log {
@@ -19,21 +20,21 @@
 }
 
 # ── Kotlin ──────────────────────────────────────────────
--keep class kotlin.** { *; }
--keep class kotlin.Metadata { *; }
+# Keep only essential reflection metadata if required
 -dontwarn kotlin.**
 -keepclassmembers class **$WhenMappings { <fields>; }
 -keepclassmembers class kotlin.Lazy { *; }
 
 # ── Firebase ────────────────────────────────────────────
--keep class com.google.firebase.** { *; }
--keep class com.google.android.gms.** { *; }
 -dontwarn com.google.firebase.**
 -dontwarn com.google.android.gms.**
 
-# Firestore data model classes (accessed via reflection)
--keep class com.aaryo.selfattendance.data.model.** { *; }
-
+# Firestore data model classes (accessed via reflection / serialization)
+-keepclassmembers class com.aaryo.selfattendance.data.model.** {
+    <init>(...);
+    <fields>;
+    public <methods>;
+}
 
 # ── AdMob / Ads ─────────────────────────────────────────
 -keep class com.google.android.gms.ads.** { *; }
@@ -45,28 +46,21 @@
 -dontwarn com.google.android.ump.**
 
 # ── Play Core (play flavor only) ─────────────────────────
-# The amazon flavor does not link these libraries; dontwarn prevents
-# R8 from failing on missing references in the shrunk output.
--keep class com.google.android.play.core.integrity.** { *; }
--keep class com.google.android.play.core.appupdate.** { *; }
--keep class com.google.android.play.core.install.** { *; }
--keep class com.google.android.play.core.ktx.** { *; }
 -dontwarn com.google.android.play.core.**
 
 # ── WorkManager ─────────────────────────────────────────
--keep class androidx.work.** { *; }
 -keep class * extends androidx.work.Worker
 -keep class * extends androidx.work.ListenableWorker {
     public <init>(android.content.Context, androidx.work.WorkerParameters);
 }
 
 # ── Jetpack Compose ─────────────────────────────────────
--keep class androidx.compose.** { *; }
 -dontwarn androidx.compose.**
 
 # ── Room Database ────────────────────────────────────────
 -keep class * extends androidx.room.RoomDatabase
--keep @androidx.room.Entity class *
+-keep @androidx.room.Entity class * { <fields>; <init>(...); }
+-keep @androidx.room.Dao interface * { *; }
 -dontwarn androidx.room.**
 
 # ── Coroutines ───────────────────────────────────────────
@@ -98,11 +92,8 @@
 -keep class com.aaryo.selfattendance.BuildConfig { *; }
 
 # -- ZXing QR Code --
--keep class com.google.zxing.** { *; }
--keep class com.journeyapps.** { *; }
 -dontwarn com.google.zxing.**
 -dontwarn com.journeyapps.**
 
 # -- Biometric --
--keep class androidx.biometric.** { *; }
 -dontwarn androidx.biometric.**

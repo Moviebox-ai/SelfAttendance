@@ -4,7 +4,6 @@
     <!-- Main App Theme -->
     <style name="Theme.SelfAttendance"
         parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <!-- Splash Screen Theme — Gold background -->
