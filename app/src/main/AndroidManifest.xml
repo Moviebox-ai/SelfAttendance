@@ -139,6 +139,14 @@
 
         </activity>
 
+        <!-- Google Mobile Ads AdActivity optimization for hardware acceleration and window sync -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:hardwareAccelerated="true"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent" />
+
         <!-- Alarm Receiver for exact background notifications -->
         <receiver
             android:name=".notifications.AlarmReceiver"
