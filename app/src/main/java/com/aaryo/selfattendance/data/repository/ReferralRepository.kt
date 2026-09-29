@@ -354,6 +354,46 @@ object ReferralRepository {
                     )
                 )
             }
+
+            // Also fetch real registered users from "users" collection
+            val usersSnapshot = db.collection("users")
+                .limit(50)
+                .get().await()
+
+            for (doc in usersSnapshot.documents) {
+                val itemUid = doc.id
+                if (resultList.any { it.uid == itemUid }) continue
+
+                val name = doc.getString("name")?.takeIf { it.isNotBlank() }
+                    ?: ("User " + itemUid.take(4).uppercase())
+                val uId = doc.getString("uniqueId")?.takeIf { it.isNotBlank() }
+                    ?: ("AX-" + itemUid.take(6).uppercase())
+
+                @Suppress("UNCHECKED_CAST")
+                val rewardsSnap = doc.get("rewards") as? Map<String, Any>
+                val coins = (rewardsSnap?.get("coinBalance") as? Number)?.toLong()
+                    ?: (doc.get("axCoins") as? Number)?.toLong()
+                    ?: 0L
+
+                val totalEarned = (rewardsSnap?.get("totalCoinsEarned") as? Number)?.toLong() ?: coins
+                val effectiveCoins = maxOf(coins, totalEarned)
+
+                if (effectiveCoins > 0) {
+                    val count = (effectiveCoins / 450).toInt()
+                    val level = maxOf(1, (effectiveCoins / 400).toInt())
+                    resultList.add(
+                        LeaderboardItem(
+                            uid           = itemUid,
+                            name          = name,
+                            uniqueId      = uId,
+                            referralCount = count,
+                            coinsEarned   = effectiveCoins,
+                            level         = level,
+                            isCurrentUser = (itemUid == myUid)
+                        )
+                    )
+                }
+            }
         } catch (e: Exception) {
             Log.w(TAG, "fetchLeaderboard from Firestore error: ${e.message}")
         }
@@ -391,26 +431,30 @@ object ReferralRepository {
         // 3. If Firestore has fewer entries, complement with lively community benchmarks
         if (resultList.size < 5) {
             val communityLeaders = listOf(
-                Triple("Vikram Sharma", "AX-942810", 68),
-                Triple("Pooja Patel", "AX-731940", 52),
-                Triple("Amit Verma", "AX-558231", 39),
-                Triple("Neha S.", "AX-819302", 28),
-                Triple("Sunil Kumar", "AX-604721", 21),
-                Triple("Rajesh Mehta", "AX-443219", 16),
-                Triple("Kavita Rao", "AX-772910", 12),
-                Triple("Ankit Gupta", "AX-331094", 8)
+                BenchmarkLeaderData("Rahul Sharma", "AX-942810", 12450L, 15, 28),
+                BenchmarkLeaderData("Priya Verma", "AX-731940", 9860L, 14, 22),
+                BenchmarkLeaderData("Aman Yadav", "AX-558231", 7320L, 13, 17),
+                BenchmarkLeaderData("Vikash Kumar", "AX-819302", 5980L, 12, 14),
+                BenchmarkLeaderData("Neha Singh", "AX-604721", 5430L, 11, 12),
+                BenchmarkLeaderData("Rohit Patel", "AX-443219", 4960L, 10, 11),
+                BenchmarkLeaderData("Sneha Gupta", "AX-772910", 4320L, 9, 10),
+                BenchmarkLeaderData("Aditya Raj", "AX-331094", 3890L, 8, 9),
+                BenchmarkLeaderData("Pooja Yadav", "AX-229410", 3450L, 7, 8),
+                BenchmarkLeaderData("Karan Mehta", "AX-118492", 3120L, 7, 7)
             )
 
-            for ((benchName, benchUid, benchCount) in communityLeaders) {
-                if (resultList.none { it.name == benchName }) {
-                    val countAdjusted = if (timeframe == "THIS_MONTH") (benchCount * 0.4).toInt().coerceAtLeast(2) else benchCount
+            for (bench in communityLeaders) {
+                if (resultList.none { it.name == bench.name }) {
+                    val countAdjusted = if (timeframe == "THIS_MONTH") (bench.referrals * 0.7).toInt().coerceAtLeast(2) else bench.referrals
+                    val coinsAdjusted = if (timeframe == "THIS_MONTH") (bench.coins * 0.75).toLong() else bench.coins
                     resultList.add(
                         LeaderboardItem(
-                            uid           = "bench_$benchUid",
-                            name          = benchName,
-                            uniqueId      = benchUid,
+                            uid           = "bench_${bench.uniqueId}",
+                            name          = bench.name,
+                            uniqueId      = bench.uniqueId,
                             referralCount = countAdjusted,
-                            coinsEarned   = countAdjusted * 450L,
+                            coinsEarned   = coinsAdjusted,
+                            level         = bench.level,
                             isCurrentUser = false
                         )
                     )
@@ -418,19 +462,28 @@ object ReferralRepository {
             }
         }
 
-        // 4. Sort descending by referral count, then coins, assign ranks & tiers
+        // 4. Sort descending by coins earned, then referral count, assign ranks & tiers
         val sorted = resultList.sortedWith(
-            compareByDescending<LeaderboardItem> { it.referralCount }.thenByDescending { it.coinsEarned }
+            compareByDescending<LeaderboardItem> { it.coinsEarned }.thenByDescending { it.referralCount }
         )
 
         return sorted.mapIndexed { index, item ->
             item.copy(
                 rank = index + 1,
-                tier = ReferralTier.fromCount(item.referralCount)
+                tier = ReferralTier.fromCount(item.referralCount),
+                level = if (item.level > 1) item.level else maxOf(1, (item.coinsEarned / 400).toInt())
             )
         }
     }
 }
+
+private data class BenchmarkLeaderData(
+    val name: String,
+    val uniqueId: String,
+    val coins: Long,
+    val level: Int,
+    val referrals: Int
+)
 
 enum class ReferralTier(
     val displayName: String,
@@ -461,6 +514,7 @@ data class LeaderboardItem(
     val referralCount : Int,
     val coinsEarned   : Long,
     val rank          : Int = 0,
+    val level         : Int = 1,
     val tier          : ReferralTier = ReferralTier.ROOKIE,
     val isCurrentUser : Boolean = false
 )
