@@ -11,6 +11,7 @@ import com.aaryo.selfattendance.ui.profile.EditProfileScreen
 import com.aaryo.selfattendance.ui.profile.SetupProfileScreen
 import com.aaryo.selfattendance.ui.settings.ManageSubscriptionScreen
 import com.aaryo.selfattendance.ui.splash.SplashScreen
+import com.aaryo.selfattendance.ui.leaderboard.LeaderboardScreen
 
 @Composable
 fun AppNavGraph(
@@ -51,6 +52,10 @@ fun AppNavGraph(
 
         composable(Routes.MANAGE_SUBSCRIPTION) {
             ManageSubscriptionScreen(navController)
+        }
+
+        composable(Routes.LEADERBOARD) {
+            LeaderboardScreen(navController)
         }
     }
 }

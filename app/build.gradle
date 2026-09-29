@@ -19,8 +19,8 @@ android {
 
         versionCode (System.getenv("VERSION_CODE")?.toInteger()
                   ?: System.getenv("GITHUB_RUN_NUMBER")?.toInteger()
-                  ?: 805)
-        versionName "1.0.9"
+                  ?: 806)
+        versionName "1.0.10"
 
         vectorDrawables.useSupportLibrary = true
         buildConfigField "String", "FIREBASE_API_KEY", "\"debug_key\""

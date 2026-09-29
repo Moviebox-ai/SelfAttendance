@@ -27,6 +27,7 @@ import com.aaryo.selfattendance.ui.settings.ManageSubscriptionScreen
 import com.aaryo.selfattendance.ui.settings.SettingsScreen
 import com.aaryo.selfattendance.ui.salarycalculator.SalaryCalculatorScreen
 import com.aaryo.selfattendance.ui.referral.ReferAndEarnScreen
+import com.aaryo.selfattendance.ui.leaderboard.LeaderboardScreen
 import com.aaryo.selfattendance.ads.AdsController
 import com.aaryo.selfattendance.ads.BannerAdComposable
 
@@ -110,6 +111,7 @@ fun MainScreen(
             composable(Routes.SALARY_CALCULATOR){ SalaryCalculatorScreen(navController) }
 
             composable(Routes.REFER_AND_EARN) { ReferAndEarnScreen(navController) }
+            composable(Routes.LEADERBOARD)    { LeaderboardScreen(navController) }
         }
     }
 }

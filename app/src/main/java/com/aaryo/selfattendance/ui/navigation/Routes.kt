@@ -20,6 +20,7 @@ object Routes {
 
     // ── Refer and Earn ────────────────────────────────────────────────────
     const val REFER_AND_EARN = "refer_and_earn"
+    const val LEADERBOARD    = "leaderboard"
 
     // ── Employer / Business Mode ──────────────────────────────────────────
     const val EMPLOYER_MAIN       = "employer_main"

@@ -3,9 +3,11 @@ package com.aaryo.selfattendance.ui.referral
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -40,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aaryo.selfattendance.R
+import com.aaryo.selfattendance.ui.navigation.Routes
 import com.aaryo.selfattendance.data.local.PreferencesManager
 import com.aaryo.selfattendance.data.repository.ReferralEntry
 import com.aaryo.selfattendance.data.repository.ReferralRepository
@@ -118,6 +121,11 @@ fun ReferAndEarnScreen(navController: NavController) {
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, null, tint = TextWhite)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { navController.navigate(Routes.LEADERBOARD) }) {
+                        Icon(Icons.Default.EmojiEvents, contentDescription = "Leaderboard", tint = RoyalGold)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = NavyBg)
@@ -215,6 +223,13 @@ fun ReferAndEarnScreen(navController: NavController) {
 
             // ── How it works ─────────────────────────────────────────────────
             HowItWorksCard()
+
+            Spacer(Modifier.height(18.dp))
+
+            // ── Referral Leaderboard Teaser ──────────────────────────────────
+            LeaderboardTeaserCard(
+                onClick = { navController.navigate(Routes.LEADERBOARD) }
+            )
 
             Spacer(Modifier.height(20.dp))
 
@@ -751,6 +766,82 @@ private fun HowItWorksCard() {
                     color    = Color(0xFFFFB74D),
                     fontSize = 12.sp
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun LeaderboardTeaserCard(onClick: () -> Unit) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = DarkSlate),
+        border = BorderStroke(
+            1.dp,
+            Brush.horizontalGradient(listOf(RoyalGold.copy(0.7f), PremiumBlue.copy(0.5f)))
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .clickable { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(46.dp)
+                    .clip(CircleShape)
+                    .background(
+                        Brush.radialGradient(listOf(RoyalGold, RoyalGoldDark))
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("🏆", fontSize = 22.sp)
+            }
+
+            Spacer(Modifier.width(14.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        "Referral Leaderboard",
+                        color = RoyalGold,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Box(
+                        modifier = Modifier
+                            .background(RoyalGold.copy(0.2f), RoundedCornerShape(4.dp))
+                            .padding(horizontal = 5.dp, vertical = 2.dp)
+                    ) {
+                        Text("TOP RANKINGS", fontSize = 9.sp, fontWeight = FontWeight.ExtraBold, color = RoyalGold)
+                    }
+                }
+                Spacer(Modifier.height(3.dp))
+                Text(
+                    "Top referrers list dekhein aur rank banayein!",
+                    color = TextWhite.copy(0.85f),
+                    fontSize = 11.sp
+                )
+            }
+
+            Spacer(Modifier.width(8.dp))
+
+            FilledTonalButton(
+                onClick = onClick,
+                shape = RoundedCornerShape(10.dp),
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = RoyalGold,
+                    contentColor = NavyBg
+                ),
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+            ) {
+                Text("View", fontSize = 12.sp, fontWeight = FontWeight.Bold)
             }
         }
     }

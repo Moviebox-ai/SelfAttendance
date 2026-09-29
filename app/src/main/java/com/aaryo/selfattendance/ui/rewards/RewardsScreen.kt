@@ -20,8 +20,11 @@ import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -43,11 +46,13 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
+import com.aaryo.selfattendance.ui.navigation.Routes
 import com.aaryo.selfattendance.ads.AdsController
 import com.aaryo.selfattendance.data.local.PreferencesManager
 import com.aaryo.selfattendance.data.remote.RemoteConfigManager
 import com.aaryo.selfattendance.data.repository.RewardRepository
 import com.aaryo.selfattendance.security.CoinSecurityEngine
+import com.aaryo.selfattendance.utils.RewardVoiceAnnouncementManager
 import com.aaryo.selfattendance.utils.SpinSoundManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -134,8 +139,16 @@ fun RewardsScreen(navController: NavController) {
     val scope    = rememberCoroutineScope()
     val snack    = remember { SnackbarHostState() }
     val soundMgr = remember { SpinSoundManager(context) }
+    val voiceMgr = remember { RewardVoiceAnnouncementManager(context) }
 
-    DisposableEffect(Unit) { onDispose { soundMgr.release() } }
+    DisposableEffect(Unit) {
+        onDispose {
+            soundMgr.release()
+            voiceMgr.release()
+        }
+    }
+
+    val isVoicePlaying by voiceMgr.isPlaying.collectAsState()
 
     val today    = LocalDate.now().toString()
     val isNewDay = prefs.lastSpinDate != today
@@ -361,9 +374,24 @@ fun RewardsScreen(navController: NavController) {
             ) {
 
                 // ── Header ───────────────────────────────────────────────────
-                PremiumHeader(axBalance = axBalance, spinsLeft = spinsLeft, maxSpins = MAX_DAILY_SPINS)
+                PremiumHeader(
+                    axBalance = axBalance,
+                    spinsLeft = spinsLeft,
+                    maxSpins = MAX_DAILY_SPINS,
+                    onOpenLeaderboard = { navController.navigate(Routes.LEADERBOARD) }
+                )
 
-                Spacer(Modifier.height(20.dp))
+                Spacer(Modifier.height(14.dp))
+
+                // ── Voice Announcement Player ──────────────────────────────────
+                RewardVoiceAnnouncementCard(
+                    isPlaying = isVoicePlaying,
+                    onToggle = {
+                        voiceMgr.startAnnouncement(scope)
+                    }
+                )
+
+                Spacer(Modifier.height(18.dp))
 
                 // ── Wheel ────────────────────────────────────────────────────
                 WheelSection(
@@ -589,26 +617,53 @@ fun RewardsScreen(navController: NavController) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 @Composable
-private fun PremiumHeader(axBalance: Int, spinsLeft: Int, maxSpins: Int) {
+private fun PremiumHeader(
+    axBalance: Int,
+    spinsLeft: Int,
+    maxSpins: Int,
+    onOpenLeaderboard: () -> Unit = {}
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Box(
-                modifier = Modifier
-                    .size(42.dp)
-                    .background(Brush.radialGradient(listOf(RoyalGold.copy(0.3f), Color.Transparent)), CircleShape)
-                    .border(1.dp, RoyalGold.copy(0.5f), CircleShape),
-                contentAlignment = Alignment.Center
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter            = painterResource(com.aaryo.selfattendance.R.drawable.ax_coin),
-                    contentDescription = "AX Coin",
-                    modifier           = Modifier.size(30.dp)
-                )
+                Box(
+                    modifier = Modifier
+                        .size(42.dp)
+                        .background(Brush.radialGradient(listOf(RoyalGold.copy(0.3f), Color.Transparent)), CircleShape)
+                        .border(1.dp, RoyalGold.copy(0.5f), CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter            = painterResource(com.aaryo.selfattendance.R.drawable.ax_coin),
+                        contentDescription = "AX Coin",
+                        modifier           = Modifier.size(30.dp)
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Column {
+                    Text("Daily Reward Spin", fontSize = 21.sp, fontWeight = FontWeight.ExtraBold, color = TextWhite)
+                    Text("Ad dekho, spin karo, coins kamao!", fontSize = 12.sp, color = TextMuted)
+                }
             }
-            Spacer(Modifier.width(12.dp))
-            Column {
-                Text("Daily Reward Spin", fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, color = TextWhite)
-                Text("Ad dekho, spin karo, coins kamao!", fontSize = 12.sp, color = TextMuted)
+
+            IconButton(
+                onClick = onOpenLeaderboard,
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(
+                        Brush.radialGradient(listOf(Color(0xFF243B6A), Color(0xFF142445))),
+                        CircleShape
+                    )
+                    .border(1.dp, RoyalGold.copy(0.5f), CircleShape)
+            ) {
+                Text("🏆", fontSize = 18.sp)
             }
         }
 
@@ -657,6 +712,131 @@ private fun PremiumHeader(axBalance: Int, spinsLeft: Int, maxSpins: Int) {
                 modifier = Modifier.fillMaxWidth().height(2.dp)
                     .background(Brush.horizontalGradient(listOf(Color.Transparent, RoyalGold.copy(0.7f), Color.Transparent)))
             )
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Reward Voice Announcement Card
+// ─────────────────────────────────────────────────────────────────────────────
+
+@Composable
+private fun RewardVoiceAnnouncementCard(
+    isPlaying: Boolean,
+    onToggle: () -> Unit
+) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = DarkSlate),
+        border = androidx.compose.foundation.BorderStroke(
+            width = 1.dp,
+            brush = Brush.horizontalGradient(
+                listOf(
+                    RoyalGold.copy(alpha = if (isPlaying) 0.8f else 0.4f),
+                    PremiumBlue.copy(alpha = if (isPlaying) 0.8f else 0.3f)
+                )
+            )
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .clickable { onToggle() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(44.dp)
+                    .background(
+                        brush = if (isPlaying) {
+                            Brush.radialGradient(listOf(RoyalGold, RoyalGoldDark))
+                        } else {
+                            Brush.radialGradient(listOf(Color(0xFF243B6A), Color(0xFF142445)))
+                        },
+                        shape = CircleShape
+                    )
+                    .border(
+                        1.5.dp,
+                        if (isPlaying) RoyalGoldLight else RoyalGold.copy(0.4f),
+                        CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = if (isPlaying) Icons.Default.Stop else Icons.Default.VolumeUp,
+                    contentDescription = if (isPlaying) "Stop Announcement" else "Play Announcement",
+                    tint = if (isPlaying) NavyBg else RoyalGold,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+
+            Spacer(Modifier.width(12.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Rewards Voice Announcement",
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isPlaying) RoyalGold else TextWhite
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                color = if (isPlaying) SuccessGreen.copy(0.2f) else RoyalGold.copy(0.15f),
+                                shape = RoundedCornerShape(4.dp)
+                            )
+                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            text = if (isPlaying) "PLAYING" else "HINDI",
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (isPlaying) SuccessGreen else RoyalGold
+                        )
+                    }
+                }
+
+                Spacer(Modifier.height(3.dp))
+
+                Text(
+                    text = if (isPlaying)
+                        "Suniye: Rules, daily spin aur rewards ki jaankari..."
+                    else
+                        "Tap karein aur rules & features ka audio suniye 🔊",
+                    fontSize = 11.sp,
+                    color = if (isPlaying) TextWhite else TextMuted
+                )
+            }
+
+            Spacer(Modifier.width(8.dp))
+
+            FilledTonalButton(
+                onClick = onToggle,
+                shape = RoundedCornerShape(10.dp),
+                colors = ButtonDefaults.filledTonalButtonColors(
+                    containerColor = if (isPlaying) Color(0xFFE53935) else RoyalGold,
+                    contentColor = if (isPlaying) Color.White else NavyBg
+                ),
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+            ) {
+                Icon(
+                    imageVector = if (isPlaying) Icons.Default.Stop else Icons.Default.PlayArrow,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp)
+                )
+                Spacer(Modifier.width(4.dp))
+                Text(
+                    text = if (isPlaying) "Stop" else "Sunein",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }

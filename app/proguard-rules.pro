@@ -37,8 +37,13 @@
 }
 
 # ── AdMob / Ads ─────────────────────────────────────────
--keep class com.google.android.gms.ads.** { *; }
--keep class com.google.ads.** { *; }
+# Official Google Mobile Ads R8 guidelines: keep public interfaces, do not keep entire internal packages
+-keep public class com.google.android.gms.ads.** {
+    public *;
+}
+-keep public class com.google.ads.** {
+    public *;
+}
 -dontwarn com.google.android.gms.ads.**
 
 # UMP Consent SDK (Play flavor; dontwarn covers Amazon where it is absent)
