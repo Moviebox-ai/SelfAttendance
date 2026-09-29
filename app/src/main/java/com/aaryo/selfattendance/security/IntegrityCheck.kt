@@ -9,23 +9,57 @@ import com.google.android.play.core.integrity.IntegrityTokenRequest
 import java.security.SecureRandom
 
 /**
- * Verifies device and app integrity via the Google Play Integrity API.
+ * Enterprise Device Integrity and Play Integrity API Engine.
  *
- * On Google Play builds (IS_AMAZON == false) — requests a Play Integrity token
- * and reports the result. Failure always passes (never blocks the user).
+ * Verifies that the app is executing on a genuine, unmodified device
+ * and uncompromised runtime environment.
  *
- * On Amazon builds (IS_AMAZON == true) — immediately passes without calling
- * any Play APIs (Play Integrity is unavailable on Fire devices).
+ * Checks performed:
+ * 1. Root and SU detection (Magisk, KernelSU, Busybox, test-keys, su binaries)
+ * 2. Virtual/cloned containers (Parallel Space, Dual Space, VirtualXposed)
+ * 3. Dynamic instrumentation & hooking frameworks (Frida, Xposed, Substrate)
+ * 4. Google Play Integrity API token handshake
  */
 class IntegrityCheck(private val context: Context) {
 
-    fun check(onResult: (passed: Boolean) -> Unit = {}) {
-        if (BuildConfig.IS_AMAZON) {
-            Log.d(TAG, "Amazon build — skipping Play Integrity check")
-            onResult(true)
+    sealed class IntegrityVerdict {
+        object Trusted : IntegrityVerdict()
+        data class Compromised(val reason: String) : IntegrityVerdict()
+    }
+
+    /**
+     * Executes the comprehensive integrity evaluation asynchronously.
+     */
+    fun checkIntegrity(onVerdict: (verdict: IntegrityVerdict) -> Unit) {
+        // 1. Fast-path Root Detection
+        if (RootDetector.isDeviceRooted()) {
+            Log.e(TAG, "Device compromised: Root detected")
+            onVerdict(IntegrityVerdict.Compromised("ROOT_DETECTED"))
             return
         }
 
+        // 2. Virtual or Cloned Environment Detection
+        if (AntiDecompileGuard.isVirtualOrClonedEnvironment(context)) {
+            Log.e(TAG, "Device compromised: Cloned / virtual container detected")
+            onVerdict(IntegrityVerdict.Compromised("VIRTUAL_CONTAINER_DETECTED"))
+            return
+        }
+
+        // 3. Debugger and Hooking Framework Detection
+        if (!AntiDecompileGuard.isDeviceAndAppSecure(context)) {
+            Log.e(TAG, "Device compromised: Active debugger / hooking framework detected")
+            onVerdict(IntegrityVerdict.Compromised("HOOKING_FRAMEWORK_DETECTED"))
+            return
+        }
+
+        // 4. Amazon FireOS / Non-Play environment skip
+        if (BuildConfig.IS_AMAZON) {
+            Log.d(TAG, "Amazon build — Play Integrity skipped, local checks passed")
+            onVerdict(IntegrityVerdict.Trusted)
+            return
+        }
+
+        // 5. Google Play Integrity API Handshake
         try {
             val integrityManager = IntegrityManagerFactory.create(context)
 
@@ -44,21 +78,37 @@ class IntegrityCheck(private val context: Context) {
                 .addOnSuccessListener { response ->
                     val token = response.token()
                     if (token.isNotEmpty()) {
-                        Log.d(TAG, "Integrity token received")
-                        onResult(true)
+                        Log.d(TAG, "Play Integrity token successfully obtained")
+                        onVerdict(IntegrityVerdict.Trusted)
                     } else {
-                        Log.w(TAG, "Empty integrity token")
-                        onResult(false)
+                        Log.w(TAG, "Play Integrity returned an empty token")
+                        // In release, empty token is considered suspicious
+                        if (!BuildConfig.DEBUG) {
+                            onVerdict(IntegrityVerdict.Compromised("EMPTY_INTEGRITY_TOKEN"))
+                        } else {
+                            onVerdict(IntegrityVerdict.Trusted)
+                        }
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.w(TAG, "Integrity check unavailable/failed: ${e.message}")
-                    onResult(true) // Graceful fallback — never block the user
+                    Log.w(TAG, "Play Integrity API error: ${e.message}")
+                    // In debug / emulators without Google Play Store, allow graceful fallback
+                    // On genuine devices with Google Play, log exception
+                    onVerdict(IntegrityVerdict.Trusted)
                 }
 
         } catch (e: Exception) {
-            Log.w(TAG, "Integrity check crash/unavailable: ${e.message}")
-            onResult(true) // Graceful fallback
+            Log.w(TAG, "Play Integrity initialization failure: ${e.message}")
+            onVerdict(IntegrityVerdict.Trusted)
+        }
+    }
+
+    /**
+     * Backward-compatible simple boolean check for legacy calls.
+     */
+    fun check(onResult: (passed: Boolean) -> Unit = {}) {
+        checkIntegrity { verdict ->
+            onResult(verdict is IntegrityVerdict.Trusted)
         }
     }
 

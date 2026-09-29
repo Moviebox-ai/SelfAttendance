@@ -168,7 +168,13 @@
     <string name="update_ready_message">Update downloaded and ready!</string>
     <string name="update_restart_action">Restart</string>
     <string name="security_warning_title">Security Warning</string>
-    <string name="security_rooted_device_msg">This device appears to be rooted. Some features may not work as expected.</string>
+    <string name="security_rooted_device_msg">This device appears to be rooted. For security and anti-tamper compliance, Self Attendance Pro cannot run on rooted devices.</string>
+    <string name="security_virtual_env_msg">This app cannot be run in cloned, parallel, or virtual sandbox environments.</string>
+    <string name="security_tampered_device_msg">Active security hooks or debuggers detected on this device.</string>
+    <string name="security_integrity_failed_msg">Google Play Integrity verification failed. The app cannot verify device authenticity.</string>
+    <string name="device_compromised_title">Security Risk Detected</string>
+    <string name="device_compromised_exit">Exit App</string>
+    <string name="device_compromised_recheck">Check Again</string>
     <string name="security_continue_btn">Continue</string>
 
     <!-- Forgot Password -->

@@ -100,6 +100,34 @@ object AntiDecompileGuard {
     }
 
     /**
+     * Detects if the app is being run inside a sandbox, parallel space, or cloning app
+     * (e.g., Parallel Space, Dual Space, VirtualXposed, Multiple Accounts).
+     * Prevents multi-account referral farming and automated coin harvesting.
+     */
+    fun isVirtualOrClonedEnvironment(context: Context): Boolean {
+        try {
+            // Check file path anomalies
+            val filesPath = context.filesDir?.path?.lowercase() ?: ""
+            val suspiciousSignatures = listOf(
+                "com.lbe.parallel",
+                "com.dualspace",
+                "com.excelliance",
+                "io.va.exposed",
+                "com.bly.dkplat",
+                "com.vphone.vphonegaga",
+                "virtualxposed"
+            )
+            for (sig in suspiciousSignatures) {
+                if (filesPath.contains(sig)) return true
+            }
+
+            // Check system properties set by virtual containers
+            if (System.getProperty("vxp") != null) return true
+        } catch (_: Exception) {}
+        return false
+    }
+
+    /**
      * Validates that the APK signature matches expected release fingerprints.
      */
     fun isSignatureValid(context: Context, expectedSha256: String?): Boolean {

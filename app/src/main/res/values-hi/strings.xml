@@ -116,7 +116,13 @@
     <string name="rewarded_ad_free_active_title">✅ Ad-Free मोड सक्रिय!</string>
     <string name="rewarded_ad_free_active_subtitle">विज्ञापन %1$s में वापस आएंगे</string>
     <string name="security_continue_btn">जारी रखें</string>
-    <string name="security_rooted_device_msg">यह डिवाइस रूट लगती है। कुछ सुविधाएं ठीक से काम नहीं कर सकतीं।</string>
+    <string name="security_rooted_device_msg">यह डिवाइस रूटेड (Rooted) पाई गई है। डेटा और कॉइन सुरक्षा के लिए Self Attendance Pro रूटेड डिवाइस पर नहीं चल सकता।</string>
+    <string name="security_virtual_env_msg">यह ऐप क्लोन (Cloned) या वर्चुअल सैंडबॉक्स में नहीं चलाया जा सकता।</string>
+    <string name="security_tampered_device_msg">डिवाइस में अनधिकृत सिक्योरिटी हुक या डीबगर सक्रिय पाया गया है।</string>
+    <string name="security_integrity_failed_msg">Play Integrity सत्यापन विफल रहा। डिवाइस की प्रामाणिकता की पुष्टि नहीं हो सकी।</string>
+    <string name="device_compromised_title">सुरक्षा जोखिम का पता चला</string>
+    <string name="device_compromised_exit">ऐप बंद करें</string>
+    <string name="device_compromised_recheck">पुनः जांचें</string>
     <string name="security_warning_title">सुरक्षा चेतावनी</string>
     <string name="settings_biometric_disabled">बायोमेट्रिक लॉगिन बंद</string>
     <string name="settings_biometric_enabled">बायोमेट्रिक लॉगिन चालू</string>

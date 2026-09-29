@@ -273,29 +273,60 @@ import com.aaryo.selfattendance.security.BiometricGate
       // ── Security ──────────────────────────────────────────────────────────
 
       private fun handleSecurityChecks() {
-          if (BuildConfig.DEBUG) return
-          try {
-              if (!AntiDecompileGuard.isDeviceAndAppSecure(this)) {
-                  FirebaseCrashlytics.getInstance().log("Security check: Debugger or hooking tool active")
-              }
+          if (BuildConfig.DEBUG) {
+              android.util.Log.d("MainActivity", "Debug build — running integrity checks in permissive logging mode")
               if (RootDetector.isDeviceRooted()) {
-                  // so the dialog is translated correctly for all supported locales.
-                  showSecurityWarningDialog(
-                      getString(R.string.security_warning_title),
-                      getString(R.string.security_rooted_device_msg)
-                  )
+                  android.util.Log.w("MainActivity", "Root detected in debug build (non-blocking for development)")
               }
-          } catch (e: Exception) { FirebaseCrashlytics.getInstance().recordException(e) }
+              return
+          }
+
+          try {
+              // Comprehensive verification: Root, Hooking, Virtual/Cloned containers, and Play Integrity API
+              IntegrityCheck(this).checkIntegrity { verdict ->
+                  runOnUiThread {
+                      when (verdict) {
+                          is IntegrityCheck.IntegrityVerdict.Trusted -> {
+                              android.util.Log.d("MainActivity", "Device integrity verified: Trusted environment")
+                          }
+                          is IntegrityCheck.IntegrityVerdict.Compromised -> {
+                              val errorMsg = when (verdict.reason) {
+                                  "ROOT_DETECTED" -> getString(R.string.security_rooted_device_msg)
+                                  "VIRTUAL_CONTAINER_DETECTED" -> getString(R.string.security_virtual_env_msg)
+                                  "HOOKING_FRAMEWORK_DETECTED" -> getString(R.string.security_tampered_device_msg)
+                                  "EMPTY_INTEGRITY_TOKEN" -> getString(R.string.security_integrity_failed_msg)
+                                  else -> getString(R.string.security_rooted_device_msg)
+                              }
+                              showCompromisedDeviceDialog(errorMsg)
+                          }
+                      }
+                  }
+              }
+          } catch (e: Exception) {
+              FirebaseCrashlytics.getInstance().recordException(e)
+          }
       }
 
-      private fun showSecurityWarningDialog(title: String, message: String) {
+      private fun showCompromisedDeviceDialog(message: String) {
+          if (isFinishing || isDestroyed) return
           try {
               AlertDialog.Builder(this)
-                  .setTitle(title)
+                  .setTitle(R.string.device_compromised_title)
                   .setMessage(message)
-                  .setPositiveButton(R.string.security_continue_btn) { d, _ -> d.dismiss() }
+                  .setCancelable(false)
+                  .setPositiveButton(R.string.device_compromised_exit) { _, _ ->
+                      finishAffinity()
+                      android.os.Process.killProcess(android.os.Process.myPid())
+                  }
+                  .setNegativeButton(R.string.device_compromised_recheck) { dialog, _ ->
+                      dialog.dismiss()
+                      handleSecurityChecks()
+                  }
                   .show()
-          } catch (e: Exception) { FirebaseCrashlytics.getInstance().recordException(e) }
+          } catch (e: Exception) {
+              FirebaseCrashlytics.getInstance().recordException(e)
+              finishAffinity()
+          }
       }
 
       // ── Notifications ─────────────────────────────────────────────────────
