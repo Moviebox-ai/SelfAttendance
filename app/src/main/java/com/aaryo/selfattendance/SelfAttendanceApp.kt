@@ -55,20 +55,16 @@ class SelfAttendanceApp : Application() {
     }
 
     /**
-     * Cleans up corrupted Chromium Simple Cache directory if present.
-     * Chromium/WebView may crash or output disk_cache errors when index files
-     * or HTTP code caches are left in an invalid state across app updates or emulated runs.
+     * Pre-creates and initializes Chromium Simple Cache directories.
+     * Prevents opendir 'No such file or directory' errors when Chromium WebView
+     * initializes its disk cache.
      */
     private fun cleanCorruptedWebViewCache() {
         try {
-            val webViewCacheDir = java.io.File(cacheDir, "WebView/Default/HTTP Cache")
-            if (webViewCacheDir.exists()) {
-                val indexFile = java.io.File(webViewCacheDir, "index")
-                val codeCacheDir = java.io.File(webViewCacheDir, "Code Cache")
-                if (codeCacheDir.exists() && (!indexFile.exists() || indexFile.length() == 0L)) {
-                    codeCacheDir.deleteRecursively()
-                }
-            }
+            val jsDir = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/js")
+            val wasmDir = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/wasm")
+            if (!jsDir.exists()) jsDir.mkdirs()
+            if (!wasmDir.exists()) wasmDir.mkdirs()
         } catch (_: Exception) {
             // Non-critical cache cleanup fallback
         }

@@ -275,7 +275,7 @@ import com.aaryo.selfattendance.security.BiometricGate
       private fun handleSecurityChecks() {
           if (BuildConfig.DEBUG) {
               android.util.Log.d("MainActivity", "Debug build — running integrity checks in permissive logging mode")
-              if (RootDetector.isDeviceRooted()) {
+              if (RootDetector.isDeviceRooted(this)) {
                   android.util.Log.w("MainActivity", "Root detected in debug build (non-blocking for development)")
               }
               return
