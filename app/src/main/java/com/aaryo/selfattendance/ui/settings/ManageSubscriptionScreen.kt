@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -623,20 +624,59 @@ private fun UpgradeOrSwitchPlanCard(
                 }
             }
 
+            // ── Limited Time Offer Banner ─────────────────────────────────
+            Surface(
+                shape = RoundedCornerShape(14.dp),
+                color = Color(0xFFFFFBEB),
+                border = BorderStroke(1.dp, Color(0xFFF59E0B)),
+                modifier = Modifier.fillMaxWidth().padding(bottom = 6.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Icon(
+                        Icons.Default.LocalFireDepartment,
+                        contentDescription = null,
+                        tint = Color(0xFFDC2626),
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Column {
+                        Text(
+                            text = "⚡ LIMITED TIME OFFER • THIS WEEK ONLY",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color(0xFFB45309)
+                        )
+                        Text(
+                            text = "Save 58% on Yearly Plan + Lock in ₹125/month pricing forever!",
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFF78350F)
+                        )
+                    }
+                }
+            }
+
             // Plan Selector Cards
             PlanOptionCard(
                 title = "Yearly Plan (12 Months)",
+                originalPrice = "₹3,599",
                 price = "$yearlyPrice / year",
                 subtitle = "Only ~₹125/month • Save 58% vs monthly",
-                badge = "BEST VALUE - SAVE 58%",
+                limitedTag = "⚡ THIS WEEK ONLY: Save ₹2,100 discount",
+                badge = "🔥 BEST VALUE - SAVE 58% THIS WEEK",
                 isSelected = selectedPlan == BillingManager.PRODUCT_ID_BUSINESS_YEARLY,
                 onClick = { onPlanSelect(BillingManager.PRODUCT_ID_BUSINESS_YEARLY) }
             )
 
             PlanOptionCard(
                 title = "6 Months Plan",
+                originalPrice = "₹1,799",
                 price = "$sixMonthPrice / 6 months",
                 subtitle = "Only ~₹166/month • Save 45% vs monthly",
+                limitedTag = "⚡ Limited Deal: Save ₹900 this month",
                 badge = "POPULAR - SAVE 45%",
                 isSelected = selectedPlan == BillingManager.PRODUCT_ID_BUSINESS_6MONTH,
                 onClick = { onPlanSelect(BillingManager.PRODUCT_ID_BUSINESS_6MONTH) }
@@ -644,9 +684,11 @@ private fun UpgradeOrSwitchPlanCard(
 
             PlanOptionCard(
                 title = "1 Month Plan",
+                originalPrice = "₹299",
                 price = "$monthlyPrice / month",
                 subtitle = "Billed monthly • Cancel anytime in Google Play",
-                badge = null,
+                limitedTag = null,
+                badge = "STANDARD",
                 isSelected = selectedPlan == BillingManager.PRODUCT_ID_BUSINESS_MONTHLY,
                 onClick = { onPlanSelect(BillingManager.PRODUCT_ID_BUSINESS_MONTHLY) }
             )
@@ -691,7 +733,9 @@ private fun UpgradeOrSwitchPlanCard(
 private fun PlanOptionCard(
     title: String,
     price: String,
+    originalPrice: String? = null,
     subtitle: String,
+    limitedTag: String? = null,
     badge: String?,
     isSelected: Boolean,
     onClick: () -> Unit
@@ -744,6 +788,15 @@ private fun PlanOptionCard(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp
                     )
+                    if (limitedTag != null) {
+                        Spacer(Modifier.height(3.dp))
+                        Text(
+                            text = limitedTag,
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFDC2626)
+                        )
+                    }
                 }
 
                 RadioButton(
@@ -752,14 +805,28 @@ private fun PlanOptionCard(
                 )
             }
 
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(6.dp))
 
-            Text(
-                text = price,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.ExtraBold,
-                color = MaterialTheme.colorScheme.primary
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                if (originalPrice != null) {
+                    Text(
+                        text = originalPrice,
+                        style = MaterialTheme.typography.bodySmall,
+                        textDecoration = TextDecoration.LineThrough,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+                Text(
+                    text = price,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }

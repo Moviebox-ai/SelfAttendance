@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aaryo.selfattendance.billing.BillingManager
@@ -188,16 +189,104 @@ fun BusinessPlansBottomSheet(
                 }
             }
 
-            Spacer(modifier = Modifier.height(18.dp))
+            Spacer(modifier = Modifier.height(14.dp))
+
+            // ── Limited Time Offer Banner ─────────────────────────────────────
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                color = Color(0xFFFFFBEB), // Warm Gold Light
+                border = BorderStroke(1.5.dp, Color(0xFFF59E0B)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(14.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Surface(
+                            shape = RoundedCornerShape(6.dp),
+                            color = Color(0xFFDC2626) // Urgency Flame Red
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.LocalFireDepartment,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(13.dp)
+                                )
+                                Text(
+                                    text = "LIMITED-TIME OFFER • THIS WEEK ONLY",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = Color.White,
+                                    fontSize = 10.sp
+                                )
+                            }
+                        }
+
+                        // Countdown Pill
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = Color(0xFFFEF3C7)
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.Timer,
+                                    contentDescription = null,
+                                    tint = Color(0xFFB45309),
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Text(
+                                    text = "Ends Sunday",
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFFB45309)
+                                )
+                            }
+                        }
+                    }
+
+                    Text(
+                        text = "Save Up to 58% + Lock in Lifetime Grandfathered Rates",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF78350F)
+                    )
+
+                    Text(
+                        text = "⚡ Special offer active this week: Get unlimited staff, automated cloud backup & instant salary slip generation at exclusive introductory prices.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color(0xFF92400E),
+                        fontSize = 11.5.sp,
+                        lineHeight = 15.sp
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // ── Plan 1: YEARLY (Recommended) ──────────────────────────────────
             ModernPlanCard(
                 title = "Yearly Plan (12 Months)",
+                originalPrice = "₹3,599",
                 price = "$yearlyPrice / year",
                 pricePerMonth = "Only ~₹125 / month",
                 subtitle = "Billed annually • Save 58% discount",
-                badge = "MOST POPULAR • SAVE 58%",
-                badgeColor = Color(0xFFF59E0B),
+                limitedOfferTag = "⚡ THIS WEEK ONLY: 12 Months @ price of 5 months! Save ₹2,100",
+                badge = "🔥 BEST VALUE • SAVE 58% THIS WEEK",
+                badgeColor = Color(0xFFDC2626),
                 isSelected = selectedPlan == BusinessPlanSelection.YEARLY,
                 onClick = { selectedPlan = BusinessPlanSelection.YEARLY }
             )
@@ -207,9 +296,11 @@ fun BusinessPlansBottomSheet(
             // ── Plan 2: 6 MONTHS ──────────────────────────────────────────────
             ModernPlanCard(
                 title = "6 Months Plan",
+                originalPrice = "₹1,799",
                 price = "$sixMonthPrice / 6 mo",
                 pricePerMonth = "Only ~₹166 / month",
                 subtitle = "Billed half-yearly • Save 45% discount",
+                limitedOfferTag = "⚡ Limited Offer: Save ₹900 this month",
                 badge = "POPULAR • SAVE 45%",
                 badgeColor = EmeraldGreen,
                 isSelected = selectedPlan == BusinessPlanSelection.SIX_MONTHS,
@@ -221,9 +312,11 @@ fun BusinessPlansBottomSheet(
             // ── Plan 3: MONTHLY ───────────────────────────────────────────────
             ModernPlanCard(
                 title = "1 Month Plan",
+                originalPrice = "₹299",
                 price = "$monthlyPrice / month",
                 pricePerMonth = "Flexible recurring billing",
                 subtitle = "Pay monthly • Cancel anytime on Google Play",
+                limitedOfferTag = null,
                 badge = "STANDARD",
                 badgeColor = RoyalBlue,
                 isSelected = selectedPlan == BusinessPlanSelection.MONTHLY,
@@ -376,8 +469,10 @@ fun BusinessPlansBottomSheet(
 private fun ModernPlanCard(
     title: String,
     price: String,
+    originalPrice: String? = null,
     pricePerMonth: String,
     subtitle: String,
+    limitedOfferTag: String? = null,
     badge: String?,
     badgeColor: Color,
     isSelected: Boolean,
@@ -462,9 +557,27 @@ private fun ModernPlanCard(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    if (limitedOfferTag != null) {
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = limitedOfferTag,
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFDC2626)
+                        )
+                    }
                 }
 
                 Column(horizontalAlignment = Alignment.End) {
+                    if (originalPrice != null) {
+                        Text(
+                            text = originalPrice,
+                            style = MaterialTheme.typography.bodySmall,
+                            textDecoration = TextDecoration.LineThrough,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
                     Text(
                         text = price,
                         style = MaterialTheme.typography.titleLarge,

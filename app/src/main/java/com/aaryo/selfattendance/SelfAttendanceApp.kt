@@ -61,12 +61,20 @@ class SelfAttendanceApp : Application() {
      */
     private fun cleanCorruptedWebViewCache() {
         try {
-            val jsDir = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/js")
-            val wasmDir = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/wasm")
+            val baseCache = cacheDir ?: java.io.File(applicationInfo.dataDir, "cache")
+            val webViewDir = java.io.File(baseCache, "WebView/Default/HTTP Cache/Code Cache")
+            val jsDir = java.io.File(webViewDir, "js")
+            val wasmDir = java.io.File(webViewDir, "wasm")
             if (!jsDir.exists()) jsDir.mkdirs()
             if (!wasmDir.exists()) wasmDir.mkdirs()
-        } catch (_: Exception) {
-            // Non-critical cache cleanup fallback
+
+            val appWebviewCache = java.io.File(baseCache, "app_webview/Default/HTTP Cache/Code Cache")
+            val appJsDir = java.io.File(appWebviewCache, "js")
+            val appWasmDir = java.io.File(appWebviewCache, "wasm")
+            if (!appJsDir.exists()) appJsDir.mkdirs()
+            if (!appWasmDir.exists()) appWasmDir.mkdirs()
+        } catch (e: Exception) {
+            Log.w("AppInit", "WebView cache dir preparation: ${e.message}")
         }
     }
 
