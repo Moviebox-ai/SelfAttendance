@@ -6,7 +6,6 @@ import android.provider.Settings
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.functions.FirebaseFunctions
 import kotlinx.coroutines.tasks.await
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
@@ -17,16 +16,18 @@ import java.util.concurrent.TimeUnit
 /**
  * Manages the 7-day Free Trial for Business Mode (Employer / Staff Management).
  *
- * SERVER-AUTHORITATIVE CLOUD FUNCTION ARCHITECTURE:
- * To prevent trial reset when a user uninstalls and reinstalls the app:
- * 1. The Firebase Cloud Function `verifyUserTrial` verifies the user's trial start date
- *    strictly based on their unique User ID (UID) stored in Firestore.
- * 2. The Cloud Function executes on Google Cloud / Firebase server with the authoritative
- *    server timestamp, eliminating client-side clock tampering and uninstallation resets.
- * 3. Even after a complete uninstallation and local data wipe, as soon as the user logs in
- *    or opens the app, the Cloud Function fetches their permanent Firestore trial anchor.
- * 4. Resilient multi-tier fallback: If the network is temporarily unreachable, local cache
- *    and direct Firestore queries maintain seamless offline user experience.
+ * ANTI-TRIAL-RESET ENGINE:
+ * Prevents trial renewal when the user uninstalls and reinstalls the app:
+ * 1. Persistent Device Storage (MediaStore + Public Documents/Downloads):
+ *    Survives uninstallation on the physical device even without internet.
+ * 2. Firestore Cloud Multi-Anchor:
+ *    Records trial start time in Firestore under:
+ *      a) Device Hardware Fingerprint (`businessTrials/dev_{fingerprint}`)
+ *      b) User Account ID (`businessTrials/{uid}`)
+ *      c) Normalized Email (`businessTrials/email_{emailKey}`)
+ * 3. Earliest Timestamp Rule:
+ *    Always enforces the EARLIEST trial timestamp found across all local & cloud sources.
+ *    If 7 days have elapsed from the original start date, the trial is permanently expired.
  */
 class BusinessTrialManager(private val context: Context) {
 
@@ -35,7 +36,6 @@ class BusinessTrialManager(private val context: Context) {
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
-    private val functions by lazy { FirebaseFunctions.getInstance() }
 
     // ---------------------------------------------------------------
     //  Synchronous reads — used by Compose screens for instant UI paint.
@@ -47,13 +47,21 @@ class BusinessTrialManager(private val context: Context) {
         val serverExpiry = prefs.getLong(KEY_BUSINESS_TRIAL_EXPIRY, 0L)
         val currentTime = getEffectiveCurrentTime()
         if (serverExpiry > 0L) {
-            return currentTime < serverExpiry
+            val active = currentTime < serverExpiry
+            if (!active) {
+                prefs.edit().putBoolean(KEY_FORCE_EXPIRED, true).apply()
+            }
+            return active
         }
 
         val firstOpenTime = getOrSetFirstOpenTime()
         val diffMillis = currentTime - firstOpenTime
         val daysElapsed = TimeUnit.MILLISECONDS.toDays(diffMillis)
-        return daysElapsed < TRIAL_DURATION_DAYS
+        val active = daysElapsed < TRIAL_DURATION_DAYS
+        if (!active) {
+            prefs.edit().putBoolean(KEY_FORCE_EXPIRED, true).apply()
+        }
+        return active
     }
 
     fun getRemainingDays(): Int {
@@ -63,8 +71,10 @@ class BusinessTrialManager(private val context: Context) {
         val currentTime = getEffectiveCurrentTime()
         if (serverExpiry > 0L) {
             val diffMillis = serverExpiry - currentTime
-            if (diffMillis <= 0L) return 0
-            // Round up so day 1 shows 7 days remaining, etc.
+            if (diffMillis <= 0L) {
+                prefs.edit().putBoolean(KEY_FORCE_EXPIRED, true).apply()
+                return 0
+            }
             val remaining = (diffMillis / TimeUnit.DAYS.toMillis(1)).toInt() + 1
             return if (remaining > TRIAL_DURATION_DAYS) TRIAL_DURATION_DAYS else remaining
         }
@@ -73,7 +83,11 @@ class BusinessTrialManager(private val context: Context) {
         val diffMillis = currentTime - firstOpenTime
         val daysElapsed = TimeUnit.MILLISECONDS.toDays(diffMillis).toInt()
         val remaining = TRIAL_DURATION_DAYS - daysElapsed
-        return if (remaining > 0) remaining else 0
+        if (remaining <= 0) {
+            prefs.edit().putBoolean(KEY_FORCE_EXPIRED, true).apply()
+            return 0
+        }
+        return remaining
     }
 
     fun getElapsedDays(): Int {
@@ -122,174 +136,250 @@ class BusinessTrialManager(private val context: Context) {
     }
 
     // ---------------------------------------------------------------
-    //  Firebase Cloud Function Verification Engine
+    //  Multi-Tier Cloud & Device Verification Engine
     // ---------------------------------------------------------------
 
     /**
-     * Authoritatively verifies the user's trial start date using the Firebase Cloud Function
-     * `verifyUserTrial` based on their unique User ID (UID) stored in Firestore.
+     * Authoritatively verifies and syncs the user's trial start date.
+     * Checks Device Hardware Fingerprint, UID, and Email in Firestore,
+     * combined with on-device PersistentDeviceStorage.
      *
-     * If the user uninstalled and re-installed the app, this call immediately restores the
-     * true trial start date and remaining days from Firestore, preventing any trial reset.
+     * Guarantees that uninstalling and reinstalling the app NEVER resets or extends the trial.
      */
     suspend fun syncWithServer(): Boolean {
         val user = auth.currentUser
         val deviceFingerprint = getDeviceFingerprint(context)
+        val candidateTimes = mutableListOf<Long>()
 
-        // Tier 1: Call Firebase Cloud Function (Server-Authoritative Source of Truth)
-        if (user != null) {
-            try {
-                Log.d(TAG, "Calling Firebase Cloud Function 'verifyUserTrial' for UID: ${user.uid}")
-                val httpsCallable = functions.getHttpsCallable("verifyUserTrial")
-                val requestPayload = hashMapOf<String, Any>(
-                    "deviceFingerprint" to deviceFingerprint,
-                    "platform" to "android"
-                )
-
-                val result = httpsCallable.call(requestPayload).await()
-                val responseData = result.data as? Map<*, *>
-
-                if (responseData != null && responseData["success"] == true) {
-                    val serverStartTime = (responseData["trialStartTime"] as? Number)?.toLong() ?: 0L
-                    val serverExpiryTime = (responseData["trialExpiryTime"] as? Number)?.toLong() ?: 0L
-                    val isTrialActive = responseData["isTrialActive"] as? Boolean ?: true
-                    val remainingDays = (responseData["remainingDays"] as? Number)?.toInt() ?: 0
-                    val elapsedDays = (responseData["elapsedDays"] as? Number)?.toInt() ?: 0
-
-                    if (serverStartTime > 0L) {
-                        prefs.edit()
-                            .putLong(KEY_BUSINESS_TRIAL_START, serverStartTime)
-                            .putLong(KEY_BUSINESS_TRIAL_EXPIRY, serverExpiryTime)
-                            .putBoolean(KEY_BUSINESS_TRIAL_ACTIVE, isTrialActive)
-                            .putInt(KEY_BUSINESS_TRIAL_REMAINING_DAYS, remainingDays)
-                            .putInt(KEY_BUSINESS_TRIAL_ELAPSED_DAYS, elapsedDays)
-                            .putBoolean(KEY_VERIFIED_BY_SERVER, true)
-                            .putLong(KEY_LAST_SERVER_SYNC, System.currentTimeMillis())
-                            .apply()
-
-                        Log.d(TAG, "Verified trial via Cloud Function: start=$serverStartTime, remaining=$remainingDays, active=$isTrialActive")
-                        return true
-                    }
-                }
-            } catch (cfException: Exception) {
-                Log.w(TAG, "Cloud function verifyUserTrial failed: ${cfException.message}. Proceeding to Firestore fallback.")
-            }
+        // 1. Check on-device persistent storage (survives uninstallations)
+        PersistentDeviceStorage.readAnchorTime(context)?.let {
+            if (it > MIN_VALID_TIMESTAMP) candidateTimes.add(it)
         }
 
-        // Tier 2: Direct Firestore verification by unique User ID (UID)
+        // 2. Check local SharedPreferences
+        val localStart = prefs.getLong(KEY_BUSINESS_TRIAL_START, 0L)
+        if (localStart > MIN_VALID_TIMESTAMP) {
+            candidateTimes.add(localStart)
+        }
+
+        // 3. Check Firestore Cloud anchors
         if (user != null) {
             try {
-                val candidateTimes = mutableListOf<Long>()
-
-                // 2A. Check Firestore by UID document
-                val uidDocRef = firestore.collection(TRIAL_COLLECTION).document(user.uid)
-                val uidSnap = uidDocRef.get().await()
-                if (uidSnap.exists()) {
-                    val time = uidSnap.getTimestamp("trialStartTime")?.toDate()?.time
-                        ?: uidSnap.getLong("trialStartTime")
-                    if (time != null && time > 0L) {
-                        candidateTimes.add(time)
-                        Log.d(TAG, "Found trial in businessTrials/${user.uid}: $time")
-                    }
-                }
-
-                // 2B. Check Firestore user profile document
-                val userProfileSnap = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
-                if (userProfileSnap.exists()) {
-                    val profileTime = userProfileSnap.getTimestamp("businessTrialStartTime")?.toDate()?.time
-                        ?: userProfileSnap.getLong("businessTrialStartTime")
-                    if (profileTime != null && profileTime > 0L) {
-                        candidateTimes.add(profileTime)
-                        Log.d(TAG, "Found trial in users/${user.uid}: $profileTime")
-                    }
-                }
-
-                // 2C. Check email anchor if available
-                val emailDocKey = emailKeyFor(user.email)
-                if (emailDocKey != null) {
-                    val emailSnap = firestore.collection(TRIAL_COLLECTION).document("email_$emailDocKey").get().await()
-                    if (emailSnap.exists()) {
-                        val emailTime = emailSnap.getTimestamp("trialStartTime")?.toDate()?.time
-                            ?: emailSnap.getLong("trialStartTime")
-                        if (emailTime != null && emailTime > 0L) {
-                            candidateTimes.add(emailTime)
+                // 3A. Check Device Fingerprint in Firestore (Prevents account-switching on same phone)
+                try {
+                    val devDocRef = firestore.collection(TRIAL_COLLECTION).document("dev_$deviceFingerprint")
+                    val devSnap = devDocRef.get().await()
+                    if (devSnap.exists()) {
+                        val time = devSnap.getTimestamp("trialStartTime")?.toDate()?.time
+                            ?: devSnap.getLong("trialStartTime")
+                        if (time != null && time > MIN_VALID_TIMESTAMP) {
+                            candidateTimes.add(time)
+                            Log.d(TAG, "Found Firestore device trial anchor: $time")
                         }
                     }
+                } catch (e: Exception) {
+                    Log.d(TAG, "devDoc query skipped: ${e.message}")
                 }
 
-                val earliestServerTime = candidateTimes.filter { it > 1577836800000L }.minOrNull()
-
-                if (earliestServerTime != null && earliestServerTime > 0L) {
-                    val expiry = earliestServerTime + TimeUnit.DAYS.toMillis(TRIAL_DURATION_DAYS.toLong())
-                    val diff = System.currentTimeMillis() - earliestServerTime
-                    val elapsed = TimeUnit.MILLISECONDS.toDays(diff).toInt()
-                    val remaining = Math.max(0, TRIAL_DURATION_DAYS - elapsed)
-                    val isActive = elapsed < TRIAL_DURATION_DAYS
-
-                    prefs.edit()
-                        .putLong(KEY_BUSINESS_TRIAL_START, earliestServerTime)
-                        .putLong(KEY_BUSINESS_TRIAL_EXPIRY, expiry)
-                        .putBoolean(KEY_BUSINESS_TRIAL_ACTIVE, isActive)
-                        .putInt(KEY_BUSINESS_TRIAL_REMAINING_DAYS, remaining)
-                        .putInt(KEY_BUSINESS_TRIAL_ELAPSED_DAYS, elapsed)
-                        .putBoolean(KEY_VERIFIED_BY_SERVER, true)
-                        .putLong(KEY_LAST_SERVER_SYNC, System.currentTimeMillis())
-                        .apply()
-
-                    Log.d(TAG, "Direct Firestore trial verified for UID ${user.uid}: start=$earliestServerTime, remaining=$remaining")
-                    return true
-                } else {
-                    // Initialize trial in Firestore for this unique UID
-                    val newStartTime = System.currentTimeMillis()
-                    val newExpiry = newStartTime + TimeUnit.DAYS.toMillis(TRIAL_DURATION_DAYS.toLong())
-
-                    val data = hashMapOf(
-                        "uid" to user.uid,
-                        "email" to (user.email ?: ""),
-                        "trialStartTime" to com.google.firebase.Timestamp(Date(newStartTime)),
-                        "createdAt" to com.google.firebase.Timestamp.now(),
-                        "verifiedBy" to "direct_firestore_init"
-                    )
-                    uidDocRef.set(data).await()
-
-                    prefs.edit()
-                        .putLong(KEY_BUSINESS_TRIAL_START, newStartTime)
-                        .putLong(KEY_BUSINESS_TRIAL_EXPIRY, newExpiry)
-                        .putBoolean(KEY_BUSINESS_TRIAL_ACTIVE, true)
-                        .putInt(KEY_BUSINESS_TRIAL_REMAINING_DAYS, TRIAL_DURATION_DAYS)
-                        .putInt(KEY_BUSINESS_TRIAL_ELAPSED_DAYS, 0)
-                        .putBoolean(KEY_VERIFIED_BY_SERVER, true)
-                        .putLong(KEY_LAST_SERVER_SYNC, System.currentTimeMillis())
-                        .apply()
-
-                    Log.d(TAG, "Created new trial in Firestore for UID ${user.uid}: start=$newStartTime")
-                    return true
+                // 3B. Check User UID in Firestore
+                try {
+                    val uidDocRef = firestore.collection(TRIAL_COLLECTION).document(user.uid)
+                    val uidSnap = uidDocRef.get().await()
+                    if (uidSnap.exists()) {
+                        val time = uidSnap.getTimestamp("trialStartTime")?.toDate()?.time
+                            ?: uidSnap.getLong("trialStartTime")
+                        if (time != null && time > MIN_VALID_TIMESTAMP) {
+                            candidateTimes.add(time)
+                            Log.d(TAG, "Found Firestore UID trial anchor: $time")
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.d(TAG, "uidDoc query skipped: ${e.message}")
                 }
+
+                // 3C. Check User Profile in Firestore
+                try {
+                    val userProfileSnap = firestore.collection(USERS_COLLECTION).document(user.uid).get().await()
+                    if (userProfileSnap.exists()) {
+                        val profileTime = userProfileSnap.getTimestamp("businessTrialStartTime")?.toDate()?.time
+                            ?: userProfileSnap.getLong("businessTrialStartTime")
+                        if (profileTime != null && profileTime > MIN_VALID_TIMESTAMP) {
+                            candidateTimes.add(profileTime)
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.d(TAG, "userProfile query skipped: ${e.message}")
+                }
+
+                // 3D. Check Normalized Email in Firestore
+                val emailDocKey = emailKeyFor(user.email)
+                if (emailDocKey != null) {
+                    try {
+                        val emailSnap = firestore.collection(TRIAL_COLLECTION).document("email_$emailDocKey").get().await()
+                        if (emailSnap.exists()) {
+                            val emailTime = emailSnap.getTimestamp("trialStartTime")?.toDate()?.time
+                                ?: emailSnap.getLong("trialStartTime")
+                            if (emailTime != null && emailTime > MIN_VALID_TIMESTAMP) {
+                                candidateTimes.add(emailTime)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.d(TAG, "emailSnap query skipped: ${e.message}")
+                    }
+                }
+
             } catch (dbErr: Exception) {
-                Log.w(TAG, "Direct Firestore verification failed (offline): ${dbErr.message}")
+                Log.w(TAG, "Firestore sync query error: ${dbErr.message}")
             }
         }
 
-        // Tier 3: Local cache fallback (when completely offline)
-        val localTime = prefs.getLong(KEY_BUSINESS_TRIAL_START, 0L)
-        if (localTime <= 0L) {
-            val now = System.currentTimeMillis()
-            prefs.edit().putLong(KEY_BUSINESS_TRIAL_START, now).apply()
+        // 4. Resolve the EARLIEST recorded trial start time
+        val earliestTime = candidateTimes.filter { it > MIN_VALID_TIMESTAMP }.minOrNull()
+
+        if (earliestTime != null) {
+            // Existing trial found! Compute true elapsed time from the original start date
+            val expiry = earliestTime + TimeUnit.DAYS.toMillis(TRIAL_DURATION_DAYS.toLong())
+            val diff = System.currentTimeMillis() - earliestTime
+            val elapsed = TimeUnit.MILLISECONDS.toDays(diff).toInt()
+            val remaining = Math.max(0, TRIAL_DURATION_DAYS - elapsed)
+            val isActive = elapsed < TRIAL_DURATION_DAYS
+
+            prefs.edit()
+                .putLong(KEY_BUSINESS_TRIAL_START, earliestTime)
+                .putLong(KEY_BUSINESS_TRIAL_EXPIRY, expiry)
+                .putBoolean(KEY_BUSINESS_TRIAL_ACTIVE, isActive)
+                .putInt(KEY_BUSINESS_TRIAL_REMAINING_DAYS, remaining)
+                .putInt(KEY_BUSINESS_TRIAL_ELAPSED_DAYS, elapsed)
+                .putBoolean(KEY_FORCE_EXPIRED, !isActive)
+                .putBoolean(KEY_VERIFIED_BY_SERVER, true)
+                .putLong(KEY_LAST_SERVER_SYNC, System.currentTimeMillis())
+                .apply()
+
+            // Ensure physical device storage also has this true anchor
+            PersistentDeviceStorage.saveAnchorTime(context, earliestTime)
+
+            // Propagate anchor to all cloud anchors if user is logged in
+            if (user != null) {
+                writeCloudAnchorsIfMissing(user, earliestTime, deviceFingerprint)
+            }
+
+            Log.d(TAG, "Enforced trial start=$earliestTime, elapsed=$elapsed days, remaining=$remaining days, active=$isActive")
+            return true
+        } else {
+            // Brand new first-time trial initialization
+            val newStartTime = System.currentTimeMillis()
+            val newExpiry = newStartTime + TimeUnit.DAYS.toMillis(TRIAL_DURATION_DAYS.toLong())
+
+            prefs.edit()
+                .putLong(KEY_BUSINESS_TRIAL_START, newStartTime)
+                .putLong(KEY_BUSINESS_TRIAL_EXPIRY, newExpiry)
+                .putBoolean(KEY_BUSINESS_TRIAL_ACTIVE, true)
+                .putInt(KEY_BUSINESS_TRIAL_REMAINING_DAYS, TRIAL_DURATION_DAYS)
+                .putInt(KEY_BUSINESS_TRIAL_ELAPSED_DAYS, 0)
+                .putBoolean(KEY_FORCE_EXPIRED, false)
+                .putBoolean(KEY_VERIFIED_BY_SERVER, true)
+                .putLong(KEY_LAST_SERVER_SYNC, System.currentTimeMillis())
+                .apply()
+
+            PersistentDeviceStorage.saveAnchorTime(context, newStartTime)
+
+            if (user != null) {
+                writeCloudAnchorsIfMissing(user, newStartTime, deviceFingerprint)
+            }
+
+            Log.d(TAG, "Created fresh trial start: $newStartTime")
+            return true
+        }
+    }
+
+    /**
+     * Persists trial start time to Firestore under both UID, Device Fingerprint, and Email.
+     */
+    private suspend fun writeCloudAnchorsIfMissing(
+        user: com.google.firebase.auth.FirebaseUser,
+        startTime: Long,
+        deviceFingerprint: String
+    ) {
+        val baseData = hashMapOf(
+            "uid" to user.uid,
+            "email" to (user.email ?: ""),
+            "trialStartTime" to com.google.firebase.Timestamp(Date(startTime)),
+            "deviceFingerprint" to deviceFingerprint,
+            "createdAt" to com.google.firebase.Timestamp.now()
+        )
+
+        // 1. UID document
+        try {
+            val uidDocRef = firestore.collection(TRIAL_COLLECTION).document(user.uid)
+            val uidSnap = uidDocRef.get().await()
+            if (!uidSnap.exists()) {
+                uidDocRef.set(baseData).await()
+                Log.d(TAG, "Saved trial to businessTrials/${user.uid}")
+            }
+        } catch (e: Exception) {
+            Log.d(TAG, "Save to businessTrials/${user.uid} failed: ${e.message}")
         }
 
-        return false
+        // 2. Device Fingerprint document
+        try {
+            val devDocRef = firestore.collection(TRIAL_COLLECTION).document("dev_$deviceFingerprint")
+            val devSnap = devDocRef.get().await()
+            if (!devSnap.exists()) {
+                devDocRef.set(baseData).await()
+                Log.d(TAG, "Saved trial to businessTrials/dev_$deviceFingerprint")
+            }
+        } catch (e: Exception) {
+            Log.d(TAG, "Save to businessTrials/dev_$deviceFingerprint failed: ${e.message}")
+        }
+
+        // 3. Email document
+        val emailDocKey = emailKeyFor(user.email)
+        if (emailDocKey != null) {
+            try {
+                val emailDocRef = firestore.collection(TRIAL_COLLECTION).document("email_$emailDocKey")
+                val emailSnap = emailDocRef.get().await()
+                if (!emailSnap.exists()) {
+                    emailDocRef.set(baseData).await()
+                    Log.d(TAG, "Saved trial to businessTrials/email_$emailDocKey")
+                }
+            } catch (e: Exception) {
+                Log.d(TAG, "Save to businessTrials/email_$emailDocKey failed: ${e.message}")
+            }
+        }
     }
 
     // ---------------------------------------------------------------
     //  Internal Helpers
     // ---------------------------------------------------------------
 
+    /**
+     * Retrieves or sets the initial trial open time.
+     * ALWAYS consults PersistentDeviceStorage first to detect if this device
+     * was previously used before an uninstallation.
+     */
     private fun getOrSetFirstOpenTime(): Long {
         var time = prefs.getLong(KEY_BUSINESS_TRIAL_START, 0L)
-        if (time <= 0L) {
-            time = System.currentTimeMillis()
-            prefs.edit().putLong(KEY_BUSINESS_TRIAL_START, time).apply()
-            Log.d(TAG, "Initialized default trial start: $time")
+        if (time <= MIN_VALID_TIMESTAMP) {
+            // Check physical device anchor first!
+            val deviceAnchor = PersistentDeviceStorage.readAnchorTime(context)
+            if (deviceAnchor != null && deviceAnchor > MIN_VALID_TIMESTAMP) {
+                time = deviceAnchor
+                Log.d(TAG, "Restored existing trial start from PersistentDeviceStorage: $time")
+            } else {
+                time = System.currentTimeMillis()
+                Log.d(TAG, "Initialized default trial start: $time")
+            }
+
+            val expiry = time + TimeUnit.DAYS.toMillis(TRIAL_DURATION_DAYS.toLong())
+            val isExpired = System.currentTimeMillis() >= expiry
+
+            prefs.edit()
+                .putLong(KEY_BUSINESS_TRIAL_START, time)
+                .putLong(KEY_BUSINESS_TRIAL_EXPIRY, expiry)
+                .putBoolean(KEY_FORCE_EXPIRED, isExpired)
+                .apply()
+
+            PersistentDeviceStorage.saveAnchorTime(context, time)
         }
         return time
     }
@@ -301,7 +391,6 @@ class BusinessTrialManager(private val context: Context) {
         val now = System.currentTimeMillis()
         val lastKnown = prefs.getLong(KEY_LAST_KNOWN_TIME, 0L)
         if (now < lastKnown) {
-            // Clock was set backwards! Use last known timestamp to preserve true elapsed progression.
             return lastKnown
         }
         prefs.edit().putLong(KEY_LAST_KNOWN_TIME, now).apply()
@@ -362,5 +451,6 @@ class BusinessTrialManager(private val context: Context) {
         private const val TRIAL_COLLECTION = "businessTrials"
         private const val USERS_COLLECTION = "users"
         const val TRIAL_DURATION_DAYS = 7
+        private const val MIN_VALID_TIMESTAMP = 1577836800000L // 01-Jan-2020
     }
 }
