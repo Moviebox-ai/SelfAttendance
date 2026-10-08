@@ -244,8 +244,11 @@ object StaffReportGenerator {
             pdfDocument.finishPage(page)
 
             // Save PDF
-            val fileName = "SalarySlip_${employee.name.replace(" ", "_")}_$monthYear.pdf"
-            val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName)
+            val docsDir = getStorageDir(context)
+            val safeEmpName = employee.name.replace(Regex("[^a-zA-Z0-9_-]"), "_").ifBlank { "Staff" }
+            val safeMonth = monthYear.replace(Regex("[^a-zA-Z0-9_-]"), "_")
+            val fileName = "SalarySlip_${safeEmpName}_${safeMonth}.pdf"
+            val file = File(docsDir, fileName)
             val outputStream = FileOutputStream(file)
             pdfDocument.writeTo(outputStream)
             outputStream.flush()
@@ -253,11 +256,7 @@ object StaffReportGenerator {
             pdfDocument.close()
 
             // Open Share Intent
-            val uri: Uri = FileProvider.getUriForFile(
-                context,
-                "${context.packageName}.fileprovider",
-                file
-            )
+            val uri: Uri = getFileUri(context, file)
 
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "application/pdf"
@@ -267,13 +266,15 @@ object StaffReportGenerator {
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-            context.startActivity(Intent.createChooser(shareIntent, "Share Salary Slip PDF").apply {
+            val chooser = Intent.createChooser(shareIntent, "Share Salary Slip PDF").apply {
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            })
+            }
+            context.startActivity(chooser)
 
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(context, "Error generating PDF: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Error generating PDF: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -402,19 +403,17 @@ object StaffReportGenerator {
 
             pdfDocument.finishPage(page)
 
-            val fileName = "Master_Payroll_${monthYear}.pdf"
-            val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName)
+            val docsDir = getStorageDir(context)
+            val safeMonth = monthYear.replace(Regex("[^a-zA-Z0-9_-]"), "_")
+            val fileName = "Master_Payroll_${safeMonth}.pdf"
+            val file = File(docsDir, fileName)
             val outputStream = FileOutputStream(file)
             pdfDocument.writeTo(outputStream)
             outputStream.flush()
             outputStream.close()
             pdfDocument.close()
 
-            val uri: Uri = FileProvider.getUriForFile(
-                context,
-                "${context.packageName}.fileprovider",
-                file
-            )
+            val uri: Uri = getFileUri(context, file)
 
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "application/pdf"
@@ -423,12 +422,14 @@ object StaffReportGenerator {
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-            context.startActivity(Intent.createChooser(shareIntent, "Share Master Payroll PDF").apply {
+            val chooser = Intent.createChooser(shareIntent, "Share Master Payroll PDF").apply {
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            })
+            }
+            context.startActivity(chooser)
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(context, "Error generating Master Payroll PDF: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Error generating Master Payroll PDF: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -513,15 +514,13 @@ object StaffReportGenerator {
             // Totals Row
             csvBuilder.append("\nTOTALS,,,,,,,,,,,,${totalOtHours},${totalOtPay},${totalAllowance},${totalBonus},${totalAdvances},${totalDeductions},${totalGross},${totalNet},${totalPaid},,\n")
 
-            val fileName = "Payroll_Report_${monthYear}.csv"
-            val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName)
+            val docsDir = getStorageDir(context)
+            val safeMonth = monthYear.replace(Regex("[^a-zA-Z0-9_-]"), "_")
+            val fileName = "Payroll_Report_${safeMonth}.csv"
+            val file = File(docsDir, fileName)
             file.writeText(csvBuilder.toString())
 
-            val uri: Uri = FileProvider.getUriForFile(
-                context,
-                "${context.packageName}.fileprovider",
-                file
-            )
+            val uri: Uri = getFileUri(context, file)
 
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/csv"
@@ -530,12 +529,29 @@ object StaffReportGenerator {
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-            context.startActivity(Intent.createChooser(shareIntent, "Export Payroll Excel/CSV").apply {
+            val chooser = Intent.createChooser(shareIntent, "Export Payroll Excel/CSV").apply {
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            })
+            }
+            context.startActivity(chooser)
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(context, "Error exporting CSV: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Error exporting CSV: ${e.message}", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun getStorageDir(context: Context): File {
+        val dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+            ?: File(context.filesDir, "Documents")
+        if (!dir.exists()) dir.mkdirs()
+        return dir
+    }
+
+    private fun getFileUri(context: Context, file: File): Uri {
+        return try {
+            FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
+        } catch (_: Exception) {
+            FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
         }
     }
 }
