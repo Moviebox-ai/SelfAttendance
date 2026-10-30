@@ -43,6 +43,8 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.PictureAsPdf
 import androidx.compose.material.icons.filled.Receipt
+import androidx.compose.material.icons.filled.Security
+import com.aaryo.selfattendance.ui.navigation.Routes
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -839,6 +841,18 @@ fun SettingsScreen(navController: NavController) {
                             )
                         }
                     }
+
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))
+
+                    GeneralSettingsRow(
+                        icon        = Icons.Default.Security,
+                        iconColor   = Color(0xFF059669),
+                        title       = "Privacy & Security Center",
+                        subtitle    = "App lock, screen protection & data privacy",
+                        showDivider = false
+                    ) {
+                        navController.navigate(Routes.PRIVACY_SETTINGS)
+                    }
                 }
             }
 
@@ -1020,9 +1034,9 @@ fun SettingsScreen(navController: NavController) {
                         icon       = Icons.Default.GppGood,
                         iconColor  = MaterialTheme.colorScheme.primary,
                         title      = stringResource(R.string.settings_privacy),
-                        subtitle   = "Read our privacy policy",
+                        subtitle   = "Privacy controls, local data & policy",
                         showDivider = true
-                    ) { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/view/self-attendance-privacy-policy/home"))) }
+                    ) { navController.navigate(Routes.PRIVACY_SETTINGS) }
 
                     GeneralSettingsRow(
                         icon       = Icons.Default.Description,

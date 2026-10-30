@@ -123,4 +123,48 @@ object ConsentManager {
     fun requestConsent(activity: Activity, onFinished: () -> Unit) {
         requestConsentAndInitAds(activity, onFinished)
     }
+
+    /**
+     * Show Google UMP Privacy Options form so users can review or change ad choices.
+     */
+    fun showPrivacyOptionsForm(activity: Activity, onDismissed: (Boolean) -> Unit) {
+        try {
+            UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
+                if (formError != null) {
+                    Log.w(TAG, "Privacy options form error: ${formError.message}")
+                    onDismissed(false)
+                } else {
+                    onDismissed(true)
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to show privacy options form", e)
+            onDismissed(false)
+        }
+    }
+
+    /**
+     * Returns true if user's location/regulations require showing a privacy options button.
+     */
+    fun isPrivacyOptionsRequired(activity: Activity): Boolean {
+        return try {
+            val consentInfo = UserMessagingPlatform.getConsentInformation(activity)
+            consentInfo.privacyOptionsRequirementStatus ==
+                ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    /**
+     * Reset consent state so user can re-trigger consent choices.
+     */
+    fun resetConsent(activity: Activity) {
+        try {
+            UserMessagingPlatform.getConsentInformation(activity).reset()
+            Log.d(TAG, "Consent reset successfully")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error resetting consent", e)
+        }
+    }
 }

@@ -112,6 +112,7 @@ fun MainScreen(
 
             composable(Routes.REFER_AND_EARN) { ReferAndEarnScreen(navController) }
             composable(Routes.LEADERBOARD)    { LeaderboardScreen(navController) }
+            composable(Routes.PRIVACY_SETTINGS) { com.aaryo.selfattendance.ui.settings.PrivacySettingsScreen(navController) }
         }
     }
 }

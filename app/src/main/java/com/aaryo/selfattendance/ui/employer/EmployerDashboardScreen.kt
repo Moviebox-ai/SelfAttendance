@@ -535,7 +535,7 @@ fun EmployerDashboardScreen(
                         )
                         ModernKpiCard(
                             title = "Advance Khata",
-                            value = "₹${totalAdvances.toInt()}",
+                            value = if (prefs.isMaskSensitiveDataEnabled) "₹••••" else "₹${totalAdvances.toInt()}",
                             subtitle = "Pending recovery",
                             icon = Icons.Default.AccountBalanceWallet,
                             accentColor = AmberGold,
@@ -760,6 +760,7 @@ fun EmployerDashboardScreen(
                     ModernStaffAttendanceCard(
                         employee = employee,
                         attendance = currentAttendance,
+                        isMasked = prefs.isMaskSensitiveDataEnabled,
                         onMarkPresent = { viewModel.markAttendance(employee.id, StaffAttendance.STATUS_PRESENT) },
                         onMarkHalfDay = { viewModel.markAttendance(employee.id, StaffAttendance.STATUS_HALF_DAY) },
                         onMarkAbsent = { viewModel.markAttendance(employee.id, StaffAttendance.STATUS_ABSENT) },
@@ -1073,6 +1074,7 @@ private fun AttendanceFilterChip(
 fun ModernStaffAttendanceCard(
     employee: Employee,
     attendance: StaffAttendance?,
+    isMasked: Boolean = false,
     onMarkPresent: () -> Unit,
     onMarkHalfDay: () -> Unit,
     onMarkAbsent: () -> Unit,
@@ -1140,7 +1142,7 @@ fun ModernStaffAttendanceCard(
                                 color = MaterialTheme.colorScheme.outline
                             )
                             Text(
-                                text = "₹${employee.baseSalary.toInt()}/${if (employee.salaryType == Employee.SALARY_TYPE_MONTHLY) "mo" else if (employee.salaryType == Employee.SALARY_TYPE_DAILY) "day" else "hr"}",
+                                text = if (isMasked) "₹••••" else "₹${employee.baseSalary.toInt()}/${if (employee.salaryType == Employee.SALARY_TYPE_MONTHLY) "mo" else if (employee.salaryType == Employee.SALARY_TYPE_DAILY) "day" else "hr"}",
                                 style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colorScheme.primary

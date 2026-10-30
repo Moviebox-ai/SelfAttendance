@@ -57,5 +57,9 @@ fun AppNavGraph(
         composable(Routes.LEADERBOARD) {
             LeaderboardScreen(navController)
         }
+
+        composable(Routes.PRIVACY_SETTINGS) {
+            com.aaryo.selfattendance.ui.settings.PrivacySettingsScreen(navController)
+        }
     }
 }

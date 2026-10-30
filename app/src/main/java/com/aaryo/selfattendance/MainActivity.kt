@@ -19,7 +19,9 @@ package com.aaryo.selfattendance
   import androidx.core.content.ContextCompat
   import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
   import androidx.fragment.app.FragmentActivity
+  import androidx.lifecycle.compose.collectAsStateWithLifecycle
   import androidx.lifecycle.lifecycleScope
+  import kotlinx.coroutines.flow.MutableStateFlow
   import com.aaryo.selfattendance.ads.AdsController
   import com.aaryo.selfattendance.ads.ConsentManager
   import com.aaryo.selfattendance.data.local.PreferencesManager
@@ -70,6 +72,8 @@ import com.aaryo.selfattendance.security.BiometricGate
       private val snackbarHostState = SnackbarHostState()
 
       private val _notificationScreen = mutableStateOf<String?>(null)
+      private var lastBackgroundTimeMs: Long = 0L
+      private val _isAppLocked = MutableStateFlow(false)
 
       private val notificationPermissionLauncher =
           registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ -> }
@@ -109,16 +113,11 @@ import com.aaryo.selfattendance.security.BiometricGate
               }
           }
 
-          try {
-              if (!remoteConfig.allowScreenshot()) {
-                  window.setFlags(
-                      WindowManager.LayoutParams.FLAG_SECURE,
-                      WindowManager.LayoutParams.FLAG_SECURE
-                  )
-              } else {
-                  window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-              }
-          } catch (e: Exception) { FirebaseCrashlytics.getInstance().recordException(e) }
+          val initialPrefs = PreferencesManager(this)
+          if (biometricRequired()) {
+              _isAppLocked.value = true
+          }
+          updateScreenSecurity(false)
 
           requestNotificationPermission()
           handleSecurityChecks()
@@ -132,7 +131,7 @@ import com.aaryo.selfattendance.security.BiometricGate
               val billingManager = remember { BillingManager.getInstance(this@MainActivity) }
               var darkMode  by remember { mutableStateOf(prefManager.isDarkMode) }
               var appTheme  by remember { mutableStateOf(AppTheme.fromKey(prefManager.selectedTheme)) }
-              var biometricPassed by remember { mutableStateOf(false) }
+              val isAppLocked by _isAppLocked.collectAsStateWithLifecycle()
               var celebrationSku by remember { mutableStateOf<String?>(null) }
 
               LaunchedEffect(billingManager) {
@@ -150,8 +149,8 @@ import com.aaryo.selfattendance.security.BiometricGate
                       ForceUpdateScreen(
                           onRetryCheck = { checkAndTriggerAutoUpdate() }
                       )
-                  } else if (biometricRequired() && !biometricPassed) {
-                      BiometricGate { biometricPassed = true }
+                  } else if (biometricRequired() && isAppLocked) {
+                      BiometricGate { _isAppLocked.value = false }
                   } else {
                       AppNavGraph(notificationStartScreen = notifScreen)
                   }
@@ -342,9 +341,33 @@ import com.aaryo.selfattendance.security.BiometricGate
           }
       }
 
-      // ── Biometric ─────────────────────────────────────────────────────────
+      // ── Biometric & Privacy ───────────────────────────────────────────────
 
       private fun biometricRequired() = PreferencesManager(this).isBiometricEnabled
+
+      override fun onStop() {
+          super.onStop()
+          lastBackgroundTimeMs = System.currentTimeMillis()
+      }
+
+      override fun onStart() {
+          super.onStart()
+          val prefs = PreferencesManager(this)
+          if (prefs.isBiometricEnabled && prefs.isAutoLockOnResumeEnabled) {
+              if (lastBackgroundTimeMs > 0 && (System.currentTimeMillis() - lastBackgroundTimeMs) >= 1500L) {
+                  _isAppLocked.value = true
+              }
+          }
+      }
+
+      fun updateScreenSecurity(isSecure: Boolean = false) {
+          try {
+              // Unconditionally clear FLAG_SECURE to permit screenshots and screen recordings for app promotion & marketing
+              window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+          } catch (e: Exception) {
+              FirebaseCrashlytics.getInstance().recordException(e)
+          }
+      }
 
       // ── Work ─────────────────────────────────────────────────────────────
 

@@ -16,6 +16,8 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Work
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.rounded.Celebration
 import androidx.compose.material3.*
@@ -82,6 +84,7 @@ fun DashboardScreen(navController: NavController) {
     val currencySymbol = remember(prefs.selectedCurrency) { CurrencyManager.getSymbol(prefs.selectedCurrency) }
     var dailyCoinsEarned by remember { mutableIntStateOf(0) }
     var showDailyLoginDialog by remember { mutableStateOf(false) }
+    var isSalaryMasked by remember { mutableStateOf(prefs.isMaskSensitiveDataEnabled) }
 
     LaunchedEffect(Unit) {
         // syncFromFirebase() ko PEHLE await karo coins award karne se pehle.
@@ -291,17 +294,37 @@ fun DashboardScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column {
-                        Text(
-                            text = stringResource(R.string.dashboard_estimated_salary),
-                            fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
-                        )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.dashboard_estimated_salary),
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+                            )
+                            IconButton(
+                                onClick = {
+                                    val next = !isSalaryMasked
+                                    isSalaryMasked = next
+                                    prefs.isMaskSensitiveDataEnabled = next
+                                },
+                                modifier = Modifier.size(24.dp)
+                            ) {
+                                Icon(
+                                    imageVector = if (isSalaryMasked) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                                    contentDescription = if (isSalaryMasked) "Show salary" else "Hide salary",
+                                    tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        }
 
                         Spacer(Modifier.height(8.dp))
 
                         Text(
-                            text = "$currencySymbol ${animatedSalary.formatMoney()}",
+                            text = if (isSalaryMasked) "••••••••" else "$currencySymbol ${animatedSalary.formatMoney()}",
                             style = MaterialTheme.typography.headlineLarge,
                             fontWeight = FontWeight.Bold
                         )

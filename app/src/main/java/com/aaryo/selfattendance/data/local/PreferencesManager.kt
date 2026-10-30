@@ -26,6 +26,9 @@ class PreferencesManager(val context: Context) {
         const val KEY_BUSINESS_ADDRESS   = "business_address"
         const val KEY_BUSINESS_GSTIN     = "business_gstin"
         const val KEY_BUSINESS_CURRENCY  = "business_currency"
+        const val KEY_SCREEN_PRIVACY     = "screen_privacy"
+        const val KEY_AUTO_LOCK_RESUME   = "auto_lock_resume"
+        const val KEY_MASK_SENSITIVE_DATA = "mask_sensitive_data"
 
         const val MODE_SELF              = "SELF"
         const val MODE_EMPLOYER          = "EMPLOYER"
@@ -77,11 +80,23 @@ class PreferencesManager(val context: Context) {
         get() = prefs.getBoolean(KEY_DARK_MODE, false)
         set(value) = prefs.edit().putBoolean(KEY_DARK_MODE, value).apply()
 
-    // ── Biometric ────────────────────────────────────────────────────
+    // ── Biometric & Privacy ─────────────────────────────────────────
 
     var isBiometricEnabled: Boolean
         get() = prefs.getBoolean(KEY_BIOMETRIC, false)
         set(value) = prefs.edit().putBoolean(KEY_BIOMETRIC, value).apply()
+
+    var isScreenPrivacyEnabled: Boolean
+        get() = prefs.getBoolean(KEY_SCREEN_PRIVACY, false)
+        set(value) = prefs.edit().putBoolean(KEY_SCREEN_PRIVACY, value).apply()
+
+    var isAutoLockOnResumeEnabled: Boolean
+        get() = prefs.getBoolean(KEY_AUTO_LOCK_RESUME, true)
+        set(value) = prefs.edit().putBoolean(KEY_AUTO_LOCK_RESUME, value).apply()
+
+    var isMaskSensitiveDataEnabled: Boolean
+        get() = prefs.getBoolean(KEY_MASK_SENSITIVE_DATA, false)
+        set(value) = prefs.edit().putBoolean(KEY_MASK_SENSITIVE_DATA, value).apply()
 
     // ── Reminder ─────────────────────────────────────────────────────
 

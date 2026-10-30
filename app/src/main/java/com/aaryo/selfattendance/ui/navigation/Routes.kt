@@ -9,6 +9,7 @@ object Routes {
     const val DASHBOARD    = "dashboard"
     const val CALENDAR     = "calendar"
     const val SETTINGS     = "settings"
+    const val PRIVACY_SETTINGS = "privacy_settings"
     const val MANAGE_SUBSCRIPTION = "manage_subscription"
     const val ABOUT        = "about"
 
